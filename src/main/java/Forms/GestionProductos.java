@@ -65,8 +65,8 @@ public class GestionProductos extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1440, 930));
-        setPreferredSize(new java.awt.Dimension(1440, 930));
+        setMinimumSize(new java.awt.Dimension(1445, 930));
+        setPreferredSize(new java.awt.Dimension(1445, 930));
         getContentPane().setLayout(null);
 
         PanelNavegacion.setBackground(new java.awt.Color(0, 118, 168));
