@@ -470,14 +470,14 @@ public class GestionProductos extends javax.swing.JFrame {
         jScrollPane3.setViewportView(TablaProductosGestion);
 
         jPanel3.add(jScrollPane3);
-        jScrollPane3.setBounds(20, 10, 1060, 480);
+        jScrollPane3.setBounds(20, 20, 1060, 470);
 
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel3.add(jTextField2);
         jTextField2.setBounds(909, 395, 171, 0);
 
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(340, 391, 1100, 510);
+        jPanel3.setBounds(340, 381, 1100, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
