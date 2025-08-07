@@ -59,7 +59,7 @@ public class GestionProductos extends javax.swing.JFrame {
         PanImageGestion = new javax.swing.JPanel();
         ImagenProducto = new javax.swing.JLabel();
         BtnSubirImagen = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        PanelProductos = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaProductosGestion = new javax.swing.JTable();
         jTextField2 = new javax.swing.JTextField();
@@ -452,9 +452,9 @@ public class GestionProductos extends javax.swing.JFrame {
         getContentPane().add(PanImageGestion);
         PanImageGestion.setBounds(1040, 0, 400, 390);
 
-        jPanel3.setBackground(new java.awt.Color(255, 239, 232));
-        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel3.setLayout(null);
+        PanelProductos.setBackground(new java.awt.Color(255, 239, 232));
+        PanelProductos.setForeground(new java.awt.Color(0, 0, 0));
+        PanelProductos.setLayout(null);
 
         TablaProductosGestion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -469,15 +469,15 @@ public class GestionProductos extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(TablaProductosGestion);
 
-        jPanel3.add(jScrollPane3);
+        PanelProductos.add(jScrollPane3);
         jScrollPane3.setBounds(20, 20, 1060, 470);
 
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(jTextField2);
+        PanelProductos.add(jTextField2);
         jTextField2.setBounds(909, 395, 171, 0);
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(340, 381, 1100, 520);
+        getContentPane().add(PanelProductos);
+        PanelProductos.setBounds(340, 381, 1100, 520);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -576,6 +576,7 @@ public class GestionProductos extends javax.swing.JFrame {
     private javax.swing.JLabel ImagenProducto;
     private javax.swing.JPanel PanImageGestion;
     private javax.swing.JPanel PanelNavegacion;
+    private javax.swing.JPanel PanelProductos;
     private javax.swing.JPanel PanelProductosCRUD;
     private javax.swing.JTextField PrecioProductoGestion;
     private javax.swing.JButton ReportesButton;
@@ -592,7 +593,6 @@ public class GestionProductos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

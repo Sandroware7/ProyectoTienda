@@ -28,7 +28,7 @@ public class Reportes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelProductosCRUD = new javax.swing.JPanel();
+        PanelBuscarFactura = new javax.swing.JPanel();
         TotalReportes = new javax.swing.JTextField();
         NumFacturaReporte = new javax.swing.JTextField();
         igvReportes = new javax.swing.JTextField();
@@ -49,7 +49,7 @@ public class Reportes extends javax.swing.JFrame {
         jLabApellidoCliente = new javax.swing.JLabel();
         jLabFechaVenta = new javax.swing.JLabel();
         jLabNombreCliente = new javax.swing.JLabel();
-        PanImageGestion = new javax.swing.JPanel();
+        PanelReportes2 = new javax.swing.JPanel();
         BtStockMinimo = new javax.swing.JButton();
         BtVentasDia = new javax.swing.JButton();
         BtProductosBest = new javax.swing.JButton();
@@ -68,7 +68,7 @@ public class Reportes extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1445, 930));
         getContentPane().setLayout(null);
 
-        PanelProductosCRUD.setBackground(new java.awt.Color(255, 239, 232));
+        PanelBuscarFactura.setBackground(new java.awt.Color(255, 239, 232));
 
         TotalReportes.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
         TotalReportes.setForeground(new java.awt.Color(0, 0, 0));
@@ -217,28 +217,28 @@ public class Reportes extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        javax.swing.GroupLayout PanelProductosCRUDLayout = new javax.swing.GroupLayout(PanelProductosCRUD);
-        PanelProductosCRUD.setLayout(PanelProductosCRUDLayout);
-        PanelProductosCRUDLayout.setHorizontalGroup(
-            PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelProductosCRUDLayout.createSequentialGroup()
-                .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelProductosCRUDLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelBuscarFacturaLayout = new javax.swing.GroupLayout(PanelBuscarFactura);
+        PanelBuscarFactura.setLayout(PanelBuscarFacturaLayout);
+        PanelBuscarFacturaLayout.setHorizontalGroup(
+            PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarFacturaLayout.createSequentialGroup()
+                .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBuscarFacturaLayout.createSequentialGroup()
                         .addGap(166, 166, 166)
                         .addComponent(BtnBuscarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelProductosCRUDLayout.createSequentialGroup()
+                    .addGroup(PanelBuscarFacturaLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelProductosCRUDLayout.createSequentialGroup()
-                                .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelBuscarFacturaLayout.createSequentialGroup()
+                                .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel17))
                                 .addGap(18, 18, 18)
-                                .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TotalReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(igvReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(PanelProductosCRUDLayout.createSequentialGroup()
+                            .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(PanelBuscarFacturaLayout.createSequentialGroup()
                                     .addComponent(jLabel13)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(NumFacturaReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -247,13 +247,13 @@ public class Reportes extends javax.swing.JFrame {
                                 .addComponent(jLabel15)))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
-        PanelProductosCRUDLayout.setVerticalGroup(
-            PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelProductosCRUDLayout.createSequentialGroup()
+        PanelBuscarFacturaLayout.setVerticalGroup(
+            PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarFacturaLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NumFacturaReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -263,20 +263,20 @@ public class Reportes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(igvReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelProductosCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelBuscarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TotalReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60))
         );
 
-        getContentPane().add(PanelProductosCRUD);
-        PanelProductosCRUD.setBounds(340, 0, 520, 900);
+        getContentPane().add(PanelBuscarFactura);
+        PanelBuscarFactura.setBounds(340, 0, 520, 900);
 
-        PanImageGestion.setBackground(new java.awt.Color(255, 239, 232));
+        PanelReportes2.setBackground(new java.awt.Color(255, 239, 232));
 
         BtStockMinimo.setBackground(new java.awt.Color(204, 0, 0));
         BtStockMinimo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -331,38 +331,38 @@ public class Reportes extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(Tabla2Reportes);
 
-        javax.swing.GroupLayout PanImageGestionLayout = new javax.swing.GroupLayout(PanImageGestion);
-        PanImageGestion.setLayout(PanImageGestionLayout);
-        PanImageGestionLayout.setHorizontalGroup(
-            PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanImageGestionLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelReportes2Layout = new javax.swing.GroupLayout(PanelReportes2);
+        PanelReportes2.setLayout(PanelReportes2Layout);
+        PanelReportes2Layout.setHorizontalGroup(
+            PanelReportes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelReportes2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
                 .addGap(21, 21, 21))
-            .addGroup(PanImageGestionLayout.createSequentialGroup()
+            .addGroup(PanelReportes2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(PanelReportes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(BtVentasDia, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtStockMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanImageGestionLayout.createSequentialGroup()
+                .addGroup(PanelReportes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelReportes2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BtProductosBest)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PanImageGestionLayout.createSequentialGroup()
+                    .addGroup(PanelReportes2Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(BtVentasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        PanImageGestionLayout.setVerticalGroup(
-            PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanImageGestionLayout.createSequentialGroup()
+        PanelReportes2Layout.setVerticalGroup(
+            PanelReportes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelReportes2Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelReportes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtVentasDia, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtVentasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelReportes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtStockMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtProductosBest, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -370,8 +370,8 @@ public class Reportes extends javax.swing.JFrame {
                 .addContainerGap(138, Short.MAX_VALUE))
         );
 
-        getContentPane().add(PanImageGestion);
-        PanImageGestion.setBounds(860, 0, 580, 900);
+        getContentPane().add(PanelReportes2);
+        PanelReportes2.setBounds(860, 0, 580, 900);
 
         PanelNavegacion.setBackground(new java.awt.Color(0, 118, 168));
         PanelNavegacion.setPreferredSize(new java.awt.Dimension(339, 900));
@@ -562,9 +562,9 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton ClientesButton;
     private javax.swing.JButton GestionProductosButton;
     private javax.swing.JTextField NumFacturaReporte;
-    private javax.swing.JPanel PanImageGestion;
+    private javax.swing.JPanel PanelBuscarFactura;
     private javax.swing.JPanel PanelNavegacion;
-    private javax.swing.JPanel PanelProductosCRUD;
+    private javax.swing.JPanel PanelReportes2;
     private javax.swing.JButton ReportesButton;
     private javax.swing.JButton SalirButton;
     private javax.swing.JTable Tabla2Reportes;

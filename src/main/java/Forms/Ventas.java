@@ -72,7 +72,7 @@ public class Ventas extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         AgregarProducto = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelFacturacion = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaFacturaVenta = new javax.swing.JTable();
@@ -587,15 +587,15 @@ public class Ventas extends javax.swing.JFrame {
         getContentPane().add(PanelProductoVenta);
         PanelProductoVenta.setBounds(886, 0, 554, 420);
 
-        jPanel3.setBackground(new java.awt.Color(255, 239, 232));
-        jPanel3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel3.setLayout(null);
+        jPanelFacturacion.setBackground(new java.awt.Color(255, 239, 232));
+        jPanelFacturacion.setForeground(new java.awt.Color(0, 0, 0));
+        jPanelFacturacion.setLayout(null);
 
         jLabel20.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Resumen de venta");
         jLabel20.setPreferredSize(new java.awt.Dimension(143, 20));
-        jPanel3.add(jLabel20);
+        jPanelFacturacion.add(jLabel20);
         jLabel20.setBounds(31, 6, 180, 20);
 
         TablaFacturaVenta.setModel(new javax.swing.table.DefaultTableModel(
@@ -611,13 +611,13 @@ public class Ventas extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(TablaFacturaVenta);
 
-        jPanel3.add(jScrollPane3);
+        jPanelFacturacion.add(jScrollPane3);
         jScrollPane3.setBounds(15, 33, 1050, 320);
 
         jLabel21.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Seleccionar para:");
-        jPanel3.add(jLabel21);
+        jPanelFacturacion.add(jLabel21);
         jLabel21.setBounds(20, 360, 93, 15);
 
         EliminarProductoVenta.setBackground(new java.awt.Color(255, 0, 0));
@@ -629,33 +629,33 @@ public class Ventas extends javax.swing.JFrame {
                 EliminarProductoVentaActionPerformed(evt);
             }
         });
-        jPanel3.add(EliminarProductoVenta);
+        jPanelFacturacion.add(EliminarProductoVenta);
         EliminarProductoVenta.setBounds(20, 380, 191, 28);
 
         jLabel22.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("IGV (18%):");
-        jPanel3.add(jLabel22);
+        jPanelFacturacion.add(jLabel22);
         jLabel22.setBounds(810, 360, 73, 27);
 
         jLabel23.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(0, 0, 0));
         jLabel23.setText("TOTAL:");
-        jPanel3.add(jLabel23);
+        jPanelFacturacion.add(jLabel23);
         jLabel23.setBounds(830, 390, 53, 21);
 
         IgvVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         IgvVenta.setPreferredSize(new java.awt.Dimension(64, 21));
-        jPanel3.add(IgvVenta);
+        jPanelFacturacion.add(IgvVenta);
         IgvVenta.setBounds(890, 360, 171, 21);
 
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(jTextField2);
+        jPanelFacturacion.add(jTextField2);
         jTextField2.setBounds(909, 395, 171, 0);
 
         TotalVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         TotalVenta.setPreferredSize(new java.awt.Dimension(64, 21));
-        jPanel3.add(TotalVenta);
+        jPanelFacturacion.add(TotalVenta);
         TotalVenta.setBounds(890, 390, 171, 21);
 
         HacerFacturaVenta.setBackground(new java.awt.Color(0, 118, 168));
@@ -667,23 +667,23 @@ public class Ventas extends javax.swing.JFrame {
                 HacerFacturaVentaActionPerformed(evt);
             }
         });
-        jPanel3.add(HacerFacturaVenta);
+        jPanelFacturacion.add(HacerFacturaVenta);
         HacerFacturaVenta.setBounds(300, 410, 442, 34);
 
         jLabel24.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("Fecha de Venta");
-        jPanel3.add(jLabel24);
+        jPanelFacturacion.add(jLabel24);
         jLabel24.setBounds(449, 7, 109, 20);
 
         jLabel25.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("Nº de Factura:");
-        jPanel3.add(jLabel25);
+        jPanelFacturacion.add(jLabel25);
         jLabel25.setBounds(820, 10, 102, 20);
 
         FechaVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        jPanel3.add(FechaVenta);
+        jPanelFacturacion.add(FechaVenta);
         FechaVenta.setBounds(570, 10, 147, 20);
 
         NumFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -692,11 +692,11 @@ public class Ventas extends javax.swing.JFrame {
                 NumFacturaActionPerformed(evt);
             }
         });
-        jPanel3.add(NumFactura);
+        jPanelFacturacion.add(NumFactura);
         NumFactura.setBounds(933, 8, 130, 20);
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(340, 420, 1100, 480);
+        getContentPane().add(jPanelFacturacion);
+        jPanelFacturacion.setBounds(340, 420, 1100, 480);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -838,7 +838,7 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelFacturacion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

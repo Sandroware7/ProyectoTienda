@@ -222,7 +222,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="PanelClientesDisponibles">
+    <Container class="javax.swing.JPanel" name="PanelClientesCRUD">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e8" green="ef" red="ff" type="rgb"/>
@@ -705,7 +705,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="PanImageGestion">
+    <Container class="javax.swing.JPanel" name="PanelClientesFrecuentes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e8" green="ef" red="ff" type="rgb"/>
@@ -781,7 +781,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="PanImageGestion2">
+    <Container class="javax.swing.JPanel" name="PanelHistorial">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e8" green="ef" red="ff" type="rgb"/>

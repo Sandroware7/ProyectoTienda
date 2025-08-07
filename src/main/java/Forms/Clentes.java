@@ -37,7 +37,7 @@ public class Clentes extends javax.swing.JFrame {
         ClientesButton = new javax.swing.JButton();
         SalirButton = new javax.swing.JButton();
         VentasButton = new javax.swing.JButton();
-        PanelClientesDisponibles = new javax.swing.JPanel();
+        PanelClientesCRUD = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -59,11 +59,11 @@ public class Clentes extends javax.swing.JFrame {
         BuscarCliente = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaClientes = new javax.swing.JTable();
-        PanImageGestion = new javax.swing.JPanel();
+        PanelClientesFrecuentes = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaClientesFrecuentes = new javax.swing.JTable();
-        PanImageGestion2 = new javax.swing.JPanel();
+        PanelHistorial = new javax.swing.JPanel();
         BtHistorialCompras = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         TablaHistorial = new javax.swing.JTable();
@@ -194,7 +194,7 @@ public class Clentes extends javax.swing.JFrame {
         getContentPane().add(PanelNavegacion);
         PanelNavegacion.setBounds(0, 0, 340, 900);
 
-        PanelClientesDisponibles.setBackground(new java.awt.Color(255, 239, 232));
+        PanelClientesCRUD.setBackground(new java.awt.Color(255, 239, 232));
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -327,106 +327,106 @@ public class Clentes extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(TablaClientes);
 
-        javax.swing.GroupLayout PanelClientesDisponiblesLayout = new javax.swing.GroupLayout(PanelClientesDisponibles);
-        PanelClientesDisponibles.setLayout(PanelClientesDisponiblesLayout);
-        PanelClientesDisponiblesLayout.setHorizontalGroup(
-            PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelClientesCRUDLayout = new javax.swing.GroupLayout(PanelClientesCRUD);
+        PanelClientesCRUD.setLayout(PanelClientesCRUDLayout);
+        PanelClientesCRUDLayout.setHorizontalGroup(
+            PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 641, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+                    .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(NombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(CodCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
-                                        .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
+                                        .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                                                 .addGap(88, 88, 88)
-                                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addComponent(jLabel9)
                                                     .addComponent(jLabel12)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelClientesDisponiblesLayout.createSequentialGroup()
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelClientesCRUDLayout.createSequentialGroup()
                                                 .addGap(83, 83, 83)
                                                 .addComponent(jLabel10)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(DireccionCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(TelefonoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(CorreoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+                                    .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(GuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(31, 31, 31)
                                         .addComponent(BuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(31, 31, 31)
-                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ActualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
-            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        PanelClientesDisponiblesLayout.setVerticalGroup(
-            PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
-                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
+        PanelClientesCRUDLayout.setVerticalGroup(
+            PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
+                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
                         .addGap(64, 64, 64)
                         .addComponent(EliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(ActualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelClientesDisponiblesLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelClientesCRUDLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(CodCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(NombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(PanelClientesDisponiblesLayout.createSequentialGroup()
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(DireccionCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TelefonoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(CorreoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(dniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(GuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(BuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
@@ -434,10 +434,10 @@ public class Clentes extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(PanelClientesDisponibles);
-        PanelClientesDisponibles.setBounds(340, 0, 1100, 550);
+        getContentPane().add(PanelClientesCRUD);
+        PanelClientesCRUD.setBounds(340, 0, 1100, 550);
 
-        PanImageGestion.setBackground(new java.awt.Color(255, 239, 232));
+        PanelClientesFrecuentes.setBackground(new java.awt.Color(255, 239, 232));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -456,33 +456,33 @@ public class Clentes extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(TablaClientesFrecuentes);
 
-        javax.swing.GroupLayout PanImageGestionLayout = new javax.swing.GroupLayout(PanImageGestion);
-        PanImageGestion.setLayout(PanImageGestionLayout);
-        PanImageGestionLayout.setHorizontalGroup(
-            PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanImageGestionLayout.createSequentialGroup()
-                .addGroup(PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanImageGestionLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelClientesFrecuentesLayout = new javax.swing.GroupLayout(PanelClientesFrecuentes);
+        PanelClientesFrecuentes.setLayout(PanelClientesFrecuentesLayout);
+        PanelClientesFrecuentesLayout.setHorizontalGroup(
+            PanelClientesFrecuentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelClientesFrecuentesLayout.createSequentialGroup()
+                .addGroup(PanelClientesFrecuentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelClientesFrecuentesLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel3))
-                    .addGroup(PanImageGestionLayout.createSequentialGroup()
+                    .addGroup(PanelClientesFrecuentesLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-        PanImageGestionLayout.setVerticalGroup(
-            PanImageGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanImageGestionLayout.createSequentialGroup()
+        PanelClientesFrecuentesLayout.setVerticalGroup(
+            PanelClientesFrecuentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelClientesFrecuentesLayout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        getContentPane().add(PanImageGestion);
-        PanImageGestion.setBounds(340, 550, 520, 330);
+        getContentPane().add(PanelClientesFrecuentes);
+        PanelClientesFrecuentes.setBounds(340, 550, 520, 330);
 
-        PanImageGestion2.setBackground(new java.awt.Color(255, 239, 232));
+        PanelHistorial.setBackground(new java.awt.Color(255, 239, 232));
 
         BtHistorialCompras.setBackground(new java.awt.Color(0, 118, 168));
         BtHistorialCompras.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -507,20 +507,20 @@ public class Clentes extends javax.swing.JFrame {
         ));
         jScrollPane5.setViewportView(TablaHistorial);
 
-        javax.swing.GroupLayout PanImageGestion2Layout = new javax.swing.GroupLayout(PanImageGestion2);
-        PanImageGestion2.setLayout(PanImageGestion2Layout);
-        PanImageGestion2Layout.setHorizontalGroup(
-            PanImageGestion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanImageGestion2Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelHistorialLayout = new javax.swing.GroupLayout(PanelHistorial);
+        PanelHistorial.setLayout(PanelHistorialLayout);
+        PanelHistorialLayout.setHorizontalGroup(
+            PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelHistorialLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanImageGestion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
-        PanImageGestion2Layout.setVerticalGroup(
-            PanImageGestion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanImageGestion2Layout.createSequentialGroup()
+        PanelHistorialLayout.setVerticalGroup(
+            PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelHistorialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BtHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -528,8 +528,8 @@ public class Clentes extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        getContentPane().add(PanImageGestion2);
-        PanImageGestion2.setBounds(860, 550, 580, 330);
+        getContentPane().add(PanelHistorial);
+        PanelHistorial.setBounds(860, 550, 580, 330);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -620,9 +620,9 @@ public class Clentes extends javax.swing.JFrame {
     private javax.swing.JButton GestionProductosButton;
     private javax.swing.JButton GuardarCliente;
     private javax.swing.JTextField NombreCliente;
-    private javax.swing.JPanel PanImageGestion;
-    private javax.swing.JPanel PanImageGestion2;
-    private javax.swing.JPanel PanelClientesDisponibles;
+    private javax.swing.JPanel PanelClientesCRUD;
+    private javax.swing.JPanel PanelClientesFrecuentes;
+    private javax.swing.JPanel PanelHistorial;
     private javax.swing.JPanel PanelNavegacion;
     private javax.swing.JButton ReportesButton;
     private javax.swing.JButton SalirButton;

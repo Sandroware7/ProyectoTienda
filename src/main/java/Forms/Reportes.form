@@ -28,7 +28,7 @@
     <Property name="useNullLayout" type="boolean" value="true"/>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="PanelProductosCRUD">
+    <Container class="javax.swing.JPanel" name="PanelBuscarFactura">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e8" green="ef" red="ff" type="rgb"/>
@@ -437,7 +437,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="PanImageGestion">
+    <Container class="javax.swing.JPanel" name="PanelReportes2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="e8" green="ef" red="ff" type="rgb"/>
