@@ -29,12 +29,11 @@ public class GestionProductos extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelNavegacion = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        GestionProductosButton = new javax.swing.JButton();
         ReportesButton = new javax.swing.JButton();
         ClientesButton = new javax.swing.JButton();
         SalirButton = new javax.swing.JButton();
         VentasButton = new javax.swing.JButton();
+        GestionProductosButton = new javax.swing.JButton();
         PanelProductosCRUD = new javax.swing.JPanel();
         PrecioProductoGestion = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -65,26 +64,11 @@ public class GestionProductos extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1445, 930));
-        setPreferredSize(new java.awt.Dimension(1445, 930));
+        setPreferredSize(new java.awt.Dimension(1440, 900));
         getContentPane().setLayout(null);
 
         PanelNavegacion.setBackground(new java.awt.Color(0, 118, 168));
         PanelNavegacion.setPreferredSize(new java.awt.Dimension(339, 900));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Logo secciones.png"))); // NOI18N
-
-        GestionProductosButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        GestionProductosButton.setForeground(new java.awt.Color(255, 255, 255));
-        GestionProductosButton.setText("Gestion de Productos");
-        GestionProductosButton.setBorder(null);
-        GestionProductosButton.setBorderPainted(false);
-        GestionProductosButton.setContentAreaFilled(false);
-        GestionProductosButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GestionProductosButtonActionPerformed(evt);
-            }
-        });
 
         ReportesButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         ReportesButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,6 +76,7 @@ public class GestionProductos extends javax.swing.JFrame {
         ReportesButton.setBorder(null);
         ReportesButton.setBorderPainted(false);
         ReportesButton.setContentAreaFilled(false);
+        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ReportesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportesButtonActionPerformed(evt);
@@ -104,6 +89,7 @@ public class GestionProductos extends javax.swing.JFrame {
         ClientesButton.setBorder(null);
         ClientesButton.setBorderPainted(false);
         ClientesButton.setContentAreaFilled(false);
+        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ClientesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClientesButtonActionPerformed(evt);
@@ -116,6 +102,7 @@ public class GestionProductos extends javax.swing.JFrame {
         SalirButton.setBorder(null);
         SalirButton.setBorderPainted(false);
         SalirButton.setContentAreaFilled(false);
+        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirButtonActionPerformed(evt);
@@ -128,9 +115,22 @@ public class GestionProductos extends javax.swing.JFrame {
         VentasButton.setBorder(null);
         VentasButton.setBorderPainted(false);
         VentasButton.setContentAreaFilled(false);
+        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VentasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VentasButtonActionPerformed(evt);
+            }
+        });
+
+        GestionProductosButton.setBackground(new java.awt.Color(0, 67, 96));
+        GestionProductosButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        GestionProductosButton.setForeground(new java.awt.Color(255, 255, 255));
+        GestionProductosButton.setText("Gestion de Productos");
+        GestionProductosButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GestionProductosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GestionProductosButtonActionPerformed(evt);
             }
         });
 
@@ -139,32 +139,25 @@ public class GestionProductos extends javax.swing.JFrame {
         PanelNavegacionLayout.setHorizontalGroup(
             PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(GestionProductosButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(VentasButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(ReportesButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(ClientesButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(SalirButton))
+                .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelNavegacionLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(VentasButton)
+                            .addComponent(ReportesButton)
+                            .addComponent(ClientesButton)
+                            .addComponent(SalirButton)))
+                    .addGroup(PanelNavegacionLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(GestionProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18))
         );
         PanelNavegacionLayout.setVerticalGroup(
             PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addGap(52, 52, 52)
-                .addComponent(GestionProductosButton)
-                .addGap(49, 49, 49)
+                .addGap(353, 353, 353)
+                .addComponent(GestionProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(VentasButton)
                 .addGap(47, 47, 47)
                 .addComponent(ReportesButton)
@@ -470,7 +463,7 @@ public class GestionProductos extends javax.swing.JFrame {
         jScrollPane3.setViewportView(TablaProductosGestion);
 
         PanelProductos.add(jScrollPane3);
-        jScrollPane3.setBounds(20, 20, 1060, 470);
+        jScrollPane3.setBounds(20, 20, 1050, 450);
 
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         PanelProductos.add(jTextField2);
@@ -482,24 +475,28 @@ public class GestionProductos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void GestionProductosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionProductosButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GestionProductosButtonActionPerformed
-
     private void ReportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesButtonActionPerformed
-        // TODO add your handling code here:
+        Reportes reportes = new Reportes();  // Crear instancia del formulario
+        reportes.setVisible(true);                           // Mostrar el formulario
+        this.dispose();                                // Cerrar el formulario actual
     }//GEN-LAST:event_ReportesButtonActionPerformed
 
     private void ClientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesButtonActionPerformed
-        // TODO add your handling code here:
+        Clientes clientes = new Clientes();  // Crear instancia del formulario
+        clientes.setVisible(true);                           // Mostrar el formulario
+        this.dispose();                                // Cerrar el formulario actual
     }//GEN-LAST:event_ClientesButtonActionPerformed
 
     private void SalirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirButtonActionPerformed
-        // TODO add your handling code here:
+        Login login = new Login();this.dispose();
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_SalirButtonActionPerformed
 
     private void VentasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasButtonActionPerformed
-        // TODO add your handling code here:
+        Ventas ventas= new Ventas();
+        ventas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VentasButtonActionPerformed
 
     private void FechaCreadoGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FechaCreadoGestionActionPerformed
@@ -533,6 +530,10 @@ public class GestionProductos extends javax.swing.JFrame {
     private void BtnSubirImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSubirImagenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnSubirImagenActionPerformed
+
+    private void GestionProductosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionProductosButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GestionProductosButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -584,7 +585,6 @@ public class GestionProductos extends javax.swing.JFrame {
     private javax.swing.JTextField StockProductoGestion;
     private javax.swing.JTable TablaProductosGestion;
     private javax.swing.JButton VentasButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

@@ -8,14 +8,14 @@ package Forms;
  *
  * @author bob_s
  */
-public class Clentes extends javax.swing.JFrame {
+public class Clientes extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Clentes.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Clientes.class.getName());
 
     /**
      * Creates new form Dash
      */
-    public Clentes() {
+    public Clientes() {
         initComponents();
     }
 
@@ -31,12 +31,11 @@ public class Clentes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         PanelNavegacion = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         GestionProductosButton = new javax.swing.JButton();
         ReportesButton = new javax.swing.JButton();
-        ClientesButton = new javax.swing.JButton();
         SalirButton = new javax.swing.JButton();
         VentasButton = new javax.swing.JButton();
+        ClientesButton = new javax.swing.JButton();
         PanelClientesCRUD = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -82,14 +81,11 @@ public class Clentes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1440, 930));
-        setPreferredSize(new java.awt.Dimension(1450, 930));
+        setPreferredSize(new java.awt.Dimension(1440, 900));
         getContentPane().setLayout(null);
 
         PanelNavegacion.setBackground(new java.awt.Color(0, 118, 168));
         PanelNavegacion.setPreferredSize(new java.awt.Dimension(339, 900));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Logo secciones.png"))); // NOI18N
 
         GestionProductosButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         GestionProductosButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -97,6 +93,7 @@ public class Clentes extends javax.swing.JFrame {
         GestionProductosButton.setBorder(null);
         GestionProductosButton.setBorderPainted(false);
         GestionProductosButton.setContentAreaFilled(false);
+        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         GestionProductosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GestionProductosButtonActionPerformed(evt);
@@ -109,21 +106,10 @@ public class Clentes extends javax.swing.JFrame {
         ReportesButton.setBorder(null);
         ReportesButton.setBorderPainted(false);
         ReportesButton.setContentAreaFilled(false);
+        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ReportesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportesButtonActionPerformed(evt);
-            }
-        });
-
-        ClientesButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        ClientesButton.setForeground(new java.awt.Color(255, 255, 255));
-        ClientesButton.setText("Clientes");
-        ClientesButton.setBorder(null);
-        ClientesButton.setBorderPainted(false);
-        ClientesButton.setContentAreaFilled(false);
-        ClientesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClientesButtonActionPerformed(evt);
             }
         });
 
@@ -133,6 +119,7 @@ public class Clentes extends javax.swing.JFrame {
         SalirButton.setBorder(null);
         SalirButton.setBorderPainted(false);
         SalirButton.setContentAreaFilled(false);
+        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirButtonActionPerformed(evt);
@@ -145,9 +132,22 @@ public class Clentes extends javax.swing.JFrame {
         VentasButton.setBorder(null);
         VentasButton.setBorderPainted(false);
         VentasButton.setContentAreaFilled(false);
+        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         VentasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VentasButtonActionPerformed(evt);
+            }
+        });
+
+        ClientesButton.setBackground(new java.awt.Color(0, 67, 96));
+        ClientesButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        ClientesButton.setForeground(new java.awt.Color(255, 255, 255));
+        ClientesButton.setText("Cientes                            ");
+        ClientesButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ClientesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClientesButtonActionPerformed(evt);
             }
         });
 
@@ -156,38 +156,29 @@ public class Clentes extends javax.swing.JFrame {
         PanelNavegacionLayout.setHorizontalGroup(
             PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(GestionProductosButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(VentasButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(ReportesButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(ClientesButton))
-            .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(SalirButton))
+                .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GestionProductosButton)
+                    .addComponent(VentasButton)
+                    .addComponent(ReportesButton)
+                    .addComponent(SalirButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNavegacionLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(ClientesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         PanelNavegacionLayout.setVerticalGroup(
             PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
-                .addGap(52, 52, 52)
+                .addGap(358, 358, 358)
                 .addComponent(GestionProductosButton)
                 .addGap(49, 49, 49)
                 .addComponent(VentasButton)
                 .addGap(47, 47, 47)
                 .addComponent(ReportesButton)
-                .addGap(47, 47, 47)
-                .addComponent(ClientesButton)
-                .addGap(117, 117, 117)
+                .addGap(42, 42, 42)
+                .addComponent(ClientesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
                 .addComponent(SalirButton))
         );
 
@@ -331,7 +322,7 @@ public class Clentes extends javax.swing.JFrame {
         PanelClientesCRUD.setLayout(PanelClientesCRUDLayout);
         PanelClientesCRUDLayout.setHorizontalGroup(
             PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelClientesCRUDLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
@@ -379,9 +370,9 @@ public class Clentes extends javax.swing.JFrame {
                     .addComponent(EliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35))
             .addGroup(PanelClientesCRUDLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1068, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelClientesCRUDLayout.setVerticalGroup(
             PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,9 +417,8 @@ public class Clentes extends javax.swing.JFrame {
                             .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(dniCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelClientesCRUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(GuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(BuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(GuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -475,12 +465,12 @@ public class Clentes extends javax.swing.JFrame {
             .addGroup(PanelClientesFrecuentesLayout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelClientesFrecuentes);
-        PanelClientesFrecuentes.setBounds(340, 550, 520, 330);
+        PanelClientesFrecuentes.setBounds(340, 550, 520, 350);
 
         PanelHistorial.setBackground(new java.awt.Color(255, 239, 232));
 
@@ -515,8 +505,8 @@ public class Clentes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BtHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         PanelHistorialLayout.setVerticalGroup(
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,34 +514,38 @@ public class Clentes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(BtHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelHistorial);
-        PanelHistorial.setBounds(860, 550, 580, 330);
+        PanelHistorial.setBounds(860, 550, 580, 350);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void GestionProductosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GestionProductosButtonActionPerformed
-        // TODO add your handling code here:
+        GestionProductos gp = new GestionProductos();  // Crear instancia del formulario
+        gp.setVisible(true);                           // Mostrar el formulario
+        this.dispose();                                // Cerrar el formulario actual
     }//GEN-LAST:event_GestionProductosButtonActionPerformed
 
     private void ReportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesButtonActionPerformed
-        // TODO add your handling code here:
+        Reportes reportes = new Reportes();  // Crear instancia del formulario
+        reportes.setVisible(true);                           // Mostrar el formulario
+        this.dispose();                                // Cerrar el formulario actual
     }//GEN-LAST:event_ReportesButtonActionPerformed
 
-    private void ClientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ClientesButtonActionPerformed
-
     private void SalirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirButtonActionPerformed
-        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_SalirButtonActionPerformed
 
     private void VentasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasButtonActionPerformed
-        // TODO add your handling code here:
+        Ventas ventas= new Ventas();
+        ventas.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_VentasButtonActionPerformed
 
     private void CodClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodClienteActionPerformed
@@ -582,6 +576,10 @@ public class Clentes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtHistorialComprasActionPerformed
 
+    private void ClientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClientesButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -604,7 +602,7 @@ public class Clentes extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Clentes().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Clientes().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -632,7 +630,6 @@ public class Clentes extends javax.swing.JFrame {
     private javax.swing.JTextField TelefonoCliente;
     private javax.swing.JButton VentasButton;
     private javax.swing.JTextField dniCliente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

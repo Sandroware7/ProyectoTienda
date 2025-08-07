@@ -4,13 +4,14 @@
 
 package com.mycompany.proyectofinal;
 
-/**
- *
- * @author bob_s
- */
+import Forms.Ventas;
+
 public class ProyectoFinal {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        // Asegura que la GUI se ejecute en el hilo de eventos
+        java.awt.EventQueue.invokeLater(() -> {
+            new Ventas().setVisible(true); // O GestionProductos, según tu flujo
+        });
     }
 }
