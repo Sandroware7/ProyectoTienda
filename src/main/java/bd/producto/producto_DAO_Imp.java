@@ -3,6 +3,8 @@ package bd.producto;
 import bd.Conexion;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class producto_DAO_Imp implements producto_DAO{
 
@@ -44,7 +46,8 @@ public class producto_DAO_Imp implements producto_DAO{
     };
 
     // Funciona
-    public void ver_productos(){
+    public List<producto_DTO> ver_productos(){
+        List<producto_DTO> lista = new ArrayList<>();
         String sql = "SELECT * FROM producto";
 
         try {
@@ -52,16 +55,19 @@ public class producto_DAO_Imp implements producto_DAO{
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                System.out.println("Código: " + rs.getString("cod_prod"));
-                System.out.println("Descripción: " + rs.getString("descripcion"));
-                System.out.println("Precio: " + rs.getBigDecimal("precio_unit"));
-                System.out.println("Stock: " + rs.getInt("stock_actual"));
-                System.out.println("Ruta Imagen: " + rs.getString("ruta_imagen"));
-                System.out.println("Cod Usuario: " + rs.getObject("cod_usuario"));
-                System.out.println("Fecha Creación: " + rs.getTimestamp("fecha_crea"));
-                System.out.println("Fecha Modificación: " + rs.getTimestamp("fecha_modif"));
-                System.out.println("-------------------------------");
+                producto_DTO prod = new producto_DTO(
+                        rs.getString("cod_prod"),
+                        rs.getString("descripcion"),
+                        rs.getString("ruta_imagen"),
+                        rs.getBigDecimal("precio_unit"),
+                        rs.getInt("stock_actual"),
+                        (Integer) rs.getObject("cod_usuario"),
+                        rs.getTimestamp("fecha_crea"),
+                        rs.getTimestamp("fecha_modif")
 
+                );
+                lista.add(prod);
+                return lista;
             }
 
             ps.close();
@@ -69,6 +75,7 @@ public class producto_DAO_Imp implements producto_DAO{
         } catch (SQLException e) {
             System.out.println("Error al ver productos: " + e.getMessage());
         }
+        return null;
     };
 
     // Funciona

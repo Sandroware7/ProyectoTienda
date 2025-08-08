@@ -1,9 +1,11 @@
 package bd.producto;
 
+import java.util.List;
+
 public interface producto_DAO {
 
     void agregar_producto(producto_DTO producto);
-    void ver_productos();
+    List<producto_DTO> ver_productos();
     void sp_buscar_productos(String p_termino);
     void sp_contar_productos_stock_menor_a(int p_stock);
     void sp_contar_total_productos();

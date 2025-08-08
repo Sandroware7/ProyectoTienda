@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Forms;
-
+import bd.producto.*;
+import java.math.BigDecimal;
 /**
  *
  * @author bob_s
@@ -277,6 +278,7 @@ public class GestionProductos extends javax.swing.JFrame {
         GuardarProductoGestion.setText("Guardar");
         GuardarProductoGestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+
                 GuardarProductoGestionActionPerformed(evt);
             }
         });
@@ -449,17 +451,23 @@ public class GestionProductos extends javax.swing.JFrame {
         PanelProductos.setForeground(new java.awt.Color(0, 0, 0));
         PanelProductos.setLayout(null);
 
-        TablaProductosGestion.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        producto_DAO_Imp dao = new producto_DAO_Imp();
 
-            }
-        ));
+        TablaProductosGestion.setModel(new javax.swing.table.DefaultTableModel( dao.ver_productos()
+                // Seccion por corregir, aparece solo 1 registro. El metodo .ver_datos debe los datos de la bd, la bd se agrega automaticamente, ver como integrarlo en el dto y traerlo directo desde la bd
+                .stream()
+                .map(p -> new Object[]{
+                        p.getCodProd(),
+                        p.getDescripcion(),
+                        p.getPrecioUnit(),
+                        p.getStockActual(),
+                })
+                .toArray(Object[][]::new),
+            new String [] {"CodProducto", "Descripción", "Precio", "Stock", "FechaCreación", "FechaActualizado"})
+
+        );
+
+
         jScrollPane3.setViewportView(TablaProductosGestion);
 
         PanelProductos.add(jScrollPane3);
@@ -516,7 +524,27 @@ public class GestionProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_ActualizarProductoGestionActionPerformed
 
     private void GuardarProductoGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarProductoGestionActionPerformed
-        // TODO add your handling code here:
+        // 1) Leer textos de los campos
+        String cod = CodProductoGestion.getText().trim();
+        String descripcion = DescripcionProductoGestion.getText().trim();
+        String precioStr = PrecioProductoGestion.getText().trim();
+        BigDecimal precio = new BigDecimal(precioStr);
+        String stockStr  = StockProductoGestion.getText().trim();
+        Integer stock = Integer.parseInt(stockStr);
+        String ruta_imagen = "- prueba -"; // Prueba
+
+        producto_DAO p = new producto_DAO_Imp();
+        producto_DTO pdto = new producto_DTO(cod, descripcion, ruta_imagen, precio, stock);
+
+        p.agregar_producto(pdto);
+
+        // Limpiamos campos
+        CodProductoGestion.setText("");
+        DescripcionProductoGestion.setText("");
+        PrecioProductoGestion.setText("");
+        StockProductoGestion.setText("");
+//----
+
     }//GEN-LAST:event_GuardarProductoGestionActionPerformed
 
     private void AgregarProducto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarProducto3ActionPerformed

@@ -9,8 +9,9 @@ public class producto_DTO {
     private BigDecimal precioUnit;
     private int stockActual;
     private Integer codUsuario; // puede ser null
+    private Timestamp fechaCrea, fechaModif;
 
-    public producto_DTO(String codProd, String descripcion, String rutaImagen, BigDecimal precioUnit, int stockActual, Integer codUsuario) {
+    public producto_DTO(String codProd, String descripcion, String rutaImagen, BigDecimal precioUnit, int stockActual, Integer codUsuario, Timestamp fechaCrea, Timestamp fechaModif) {
         this.codProd = codProd;
         this.descripcion = descripcion;
         this.rutaImagen = rutaImagen;
