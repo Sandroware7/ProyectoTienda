@@ -20,6 +20,15 @@ public class factura_DTO {
         this.codUsuario = codUsuario;
     }
 
+    public factura_DTO(String codFact, String codCli, BigDecimal subtotal, BigDecimal igv, BigDecimal total, Timestamp fechaEmision) {
+        this.codFact = codFact;
+        this.codCli = codCli;
+        this.subtotal = subtotal;
+        this.igv = igv;
+        this.total = total;
+        this.fechaEmision = fechaEmision;
+    }
+
     public String getCodFact() {
         return codFact;
     }

@@ -93,10 +93,46 @@ public class cliente_DAO_Imp implements cliente_DAO {
         }
     };
 
+    // Funciona
+    public void sp_historial_compras_cliente(String p_cod_cli){
 
-    // Falta terminar factura y producto
-    public void sp_historial_compras_cliente(String p_cod_cli){};
+        try {
+            CallableStatement cs = con.prepareCall("{CALL sp_historial_compras_cliente(?)}");
+            cs.setString(1, p_cod_cli);
+            ResultSet rs = cs.executeQuery();
 
-    // Falta agregar factura
-    public void sp_obtener_top_clientes_frecuentes(int p_limit){};
+            System.out.println("===== HISTORIAL DE COMPRAS DE " + p_cod_cli + " =====");
+            while (rs.next()) {
+                System.out.println("Código producto  : " + rs.getString("cod_producto"));
+                System.out.println("Descripción      : " + rs.getString("descripcion"));
+                System.out.println("Fecha compra     : " + rs.getDate("fecha_compra"));
+                System.out.println("Cantidad         : " + rs.getInt("cantidad"));
+                System.out.println("-----------------------------------");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener historial de compras: " + e.getMessage());
+        }
+    };
+
+    // Funciona
+    public void sp_obtener_top_clientes_frecuentes(int p_limit){
+
+        try {
+            CallableStatement cs = con.prepareCall("{CALL sp_obtener_top_clientes_frecuentes(?)}");
+            cs.setInt(1, p_limit);
+            ResultSet rs = cs.executeQuery();
+
+            System.out.println("===== TOP " + p_limit + " CLIENTES FRECUENTES =====");
+            while (rs.next()) {
+                System.out.println("Posición    : " + rs.getInt("posicion"));
+                System.out.println("Código cli  : " + rs.getString("codcliente"));
+                System.out.println("Nombre      : " + rs.getString("nombre"));
+                System.out.println("Apellido    : " + rs.getString("apellido"));
+                System.out.println("----------------------------------");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener top clientes frecuentes: " + e.getMessage());
+        }
+    };
 }

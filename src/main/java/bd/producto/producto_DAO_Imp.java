@@ -151,11 +151,94 @@ public class producto_DAO_Imp implements producto_DAO{
 
     };
 
-    // Agregar FACTURA y DETALLE MOVIMIENTO
-    public void sp_obtener_n_productos_menor_stock(int p_limit){};
-    public void sp_obtener_top_n_productos_mas_vendidos(int p_limit){};
-    public void sp_obtener_top_n_productos_vendidos_hoy(int p_limit){};
-    public void sp_obtener_top_n_productos_vendidos_mes_actual(int p_limit){};
+    // Funciona
+    public void sp_obtener_n_productos_menor_stock(int p_limit){
+
+        try {
+            CallableStatement cs = con.prepareCall("{CALL sp_obtener_n_productos_menor_stock(?)}");
+            cs.setInt(1, p_limit);
+            ResultSet rs = cs.executeQuery();
+
+            System.out.println("===== PRODUCTOS CON MENOR STOCK =====");
+            while (rs.next()) {
+                System.out.println("Código producto   : " + rs.getString("codigo_producto"));
+                System.out.println("Descripción       : " + rs.getString("descripcion_producto"));
+                System.out.println("Stock actual      : " + rs.getInt("stock_actual"));
+                System.out.println("Total cantidad vendida: " + rs.getInt("total_cantidad_vendida"));
+                System.out.println("Total vendido     : " + rs.getBigDecimal("total_vendido"));
+                System.out.println("--------------------------------------");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos con menor stock: " + e.getMessage());
+        }
+    };
+
+    // Funciona
+    public void sp_obtener_top_n_productos_mas_vendidos(int p_limit){
+        try {
+            CallableStatement cs = con.prepareCall("{CALL sp_obtener_top_n_productos_mas_vendidos(?)}");
+            cs.setInt(1, p_limit);
+            ResultSet rs = cs.executeQuery();
+
+            System.out.println("===== PRODUCTOS MAS VENDIDOS =====");
+            while (rs.next()) {
+                System.out.println("Código producto   : " + rs.getString("codigo_producto"));
+                System.out.println("Descripción       : " + rs.getString("descripcion_producto"));
+                System.out.println("Stock actual      : " + rs.getInt("stock_actual"));
+                System.out.println("Total cantidad vendida: " + rs.getInt("total_cantidad_vendida"));
+                System.out.println("Total vendido     : " + rs.getBigDecimal("total_vendido"));
+                System.out.println("--------------------------------------");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos mas vendidos: " + e.getMessage());
+        }
+    };
+
+    // Funciona
+    public void sp_obtener_top_n_productos_vendidos_hoy(int p_limit){
+        try {
+            CallableStatement cs = con.prepareCall("{CALL sp_obtener_top_n_productos_vendidos_hoy(?)}");
+            cs.setInt(1, p_limit);
+            ResultSet rs = cs.executeQuery();
+
+            System.out.println("===== PRODUCTOS VENDIDOS HOY =====");
+            while (rs.next()) {
+                System.out.println("Código producto   : " + rs.getString("codigo_producto"));
+                System.out.println("Descripción       : " + rs.getString("descripcion_producto"));
+                System.out.println("Stock actual      : " + rs.getInt("stock_actual"));
+                System.out.println("Total cantidad vendida: " + rs.getInt("total_cantidad_vendida"));
+                System.out.println("Total vendido     : " + rs.getBigDecimal("total_vendido"));
+                System.out.println("--------------------------------------");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos vendidos hoy: " + e.getMessage());
+        }
+    };
+
+    // Funciona
+    public void sp_obtener_top_n_productos_vendidos_mes_actual(int p_limit){
+        try {
+            CallableStatement cs = con.prepareCall("{CALL sp_obtener_top_n_productos_vendidos_mes_actual(?)}");
+            cs.setInt(1, p_limit);
+            ResultSet rs = cs.executeQuery();
+
+            System.out.println("===== PRODUCTOS VENDIDOS DURANTE EL MES ACTUAL =====");
+            while (rs.next()) {
+                System.out.println("Código producto   : " + rs.getString("codigo_producto"));
+                System.out.println("Descripción       : " + rs.getString("descripcion_producto"));
+                System.out.println("Stock actual      : " + rs.getInt("stock_actual"));
+                System.out.println("Total cantidad vendida: " + rs.getInt("total_cantidad_vendida"));
+                System.out.println("Total vendido     : " + rs.getBigDecimal("total_vendido"));
+                System.out.println("--------------------------------------");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos vendidos durante el mes actual: " + e.getMessage());
+        }
+    };
 
 
 }

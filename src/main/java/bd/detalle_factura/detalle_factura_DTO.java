@@ -7,15 +7,12 @@ public class detalle_factura_DTO {
         private String codFact,codProd;
         private int cantidad;
         private Integer codUsuario; // Nullable
-        private Timestamp fechaCrea, fechaModif;
 
-        public detalle_factura_DTO(String codFact, String codProd, int cantidad, Integer codUsuario, Timestamp fechaCrea, Timestamp fechaModif) {
+        public detalle_factura_DTO(String codFact, String codProd, int cantidad, Integer codUsuario) {
             this.codFact = codFact;
             this.codProd = codProd;
             this.cantidad = cantidad;
             this.codUsuario = codUsuario;
-            this.fechaCrea = fechaCrea;
-            this.fechaModif = fechaModif;
         }
 
         public String getCodFact() {
@@ -50,21 +47,6 @@ public class detalle_factura_DTO {
             this.codUsuario = codUsuario;
         }
 
-        public Timestamp getFechaCrea() {
-            return fechaCrea;
-        }
-
-        public void setFechaCrea(Timestamp fechaCrea) {
-            this.fechaCrea = fechaCrea;
-        }
-
-        public Timestamp getFechaModif() {
-            return fechaModif;
-        }
-
-        public void setFechaModif(Timestamp fechaModif) {
-            this.fechaModif = fechaModif;
-        }
     }
 
 
