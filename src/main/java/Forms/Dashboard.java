@@ -154,7 +154,7 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
                 .addGap(127, 127, 127)
                 .addComponent(jLabel2)
-                .addGap(231, 231, 231)
+                .addGap(233, 233, 233)
                 .addComponent(GestionProductosButton)
                 .addGap(49, 49, 49)
                 .addComponent(VentasButton)
@@ -297,7 +297,7 @@ public class Dashboard extends javax.swing.JFrame {
         bgDashboard.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 370, 60));
 
         jButton5.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jButton5.setText("   backup base de datos");
+        jButton5.setText("       backup base de datos");
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         bgDashboard.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 630, 370, 50));
