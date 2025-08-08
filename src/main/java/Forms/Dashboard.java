@@ -38,12 +38,10 @@ public class Dashboard extends javax.swing.JFrame {
         bgDashboard = new javax.swing.JPanel();
         bienvenidoUser = new javax.swing.JLabel();
         jpanelStock = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jpanelStockCritico = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -120,11 +118,12 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        ReportesButton.setBackground(new java.awt.Color(0, 67, 96));
         ReportesButton.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         ReportesButton.setForeground(new java.awt.Color(255, 255, 255));
-        ReportesButton.setText("Reportes                        ");
-        ReportesButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        ReportesButton.setText("Reportes");
+        ReportesButton.setBorder(null);
+        ReportesButton.setBorderPainted(false);
+        ReportesButton.setContentAreaFilled(false);
         ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ReportesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,48 +131,43 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/LogoSecciones.png"))); // NOI18N
-
         javax.swing.GroupLayout PanelNavegacionLayout = new javax.swing.GroupLayout(PanelNavegacion);
         PanelNavegacion.setLayout(PanelNavegacionLayout);
         PanelNavegacionLayout.setHorizontalGroup(
             PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(ReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ClientesButton)
-                            .addComponent(SalirButton)
-                            .addComponent(GestionProductosButton)
-                            .addComponent(VentasButton)))
-                    .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(142, 142, 142)
+                .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNavegacionLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ClientesButton)
+                    .addComponent(SalirButton)
+                    .addComponent(GestionProductosButton)
+                    .addComponent(VentasButton)
+                    .addComponent(ReportesButton))
+                .addGap(39, 39, 39))
         );
         PanelNavegacionLayout.setVerticalGroup(
             PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNavegacionLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(127, 127, 127)
+                .addComponent(jLabel2)
+                .addGap(233, 233, 233)
                 .addComponent(GestionProductosButton)
                 .addGap(49, 49, 49)
                 .addComponent(VentasButton)
-                .addGap(40, 40, 40)
-                .addComponent(ReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(47, 47, 47)
+                .addComponent(ReportesButton)
+                .addGap(47, 47, 47)
                 .addComponent(ClientesButton)
                 .addGap(117, 117, 117)
                 .addComponent(SalirButton)
-                .addGap(137, 137, 137))
+                .addGap(133, 133, 133))
         );
 
-        getContentPane().add(PanelNavegacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(PanelNavegacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, -1));
 
         bgDashboard.setBackground(new java.awt.Color(255, 239, 232));
         bgDashboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -185,9 +179,6 @@ public class Dashboard extends javax.swing.JFrame {
         jpanelStock.setBackground(new java.awt.Color(255, 255, 255));
         jpanelStock.setPreferredSize(new java.awt.Dimension(234, 209));
         jpanelStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/icon5.png"))); // NOI18N
-        jpanelStock.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 60));
 
         jTextField1.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
         jTextField1.setText("70");
@@ -212,9 +203,6 @@ public class Dashboard extends javax.swing.JFrame {
         jpanelStockCritico.setBackground(new java.awt.Color(255, 255, 255));
         jpanelStockCritico.setPreferredSize(new java.awt.Dimension(234, 209));
         jpanelStockCritico.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/icon6.png"))); // NOI18N
-        jpanelStockCritico.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 60));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel7.setText("Repuestos con ");
@@ -292,14 +280,12 @@ public class Dashboard extends javax.swing.JFrame {
         bgDashboard.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 610, 410));
 
         jButton1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/icon4.png"))); // NOI18N
         jButton1.setText("      Exportar Reporte Diario");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         bgDashboard.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 740, 370, 50));
 
         jButton2.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/icon1.png"))); // NOI18N
         jButton2.setText("      Ver Repuestos Criticos");
         jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -308,17 +294,15 @@ public class Dashboard extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        bgDashboard.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 370, 60));
+        bgDashboard.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 370, 60));
 
         jButton5.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/icon3.png"))); // NOI18N
-        jButton5.setText("   backup base de datos");
+        jButton5.setText("       backup base de datos");
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         bgDashboard.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 630, 370, 50));
 
         jButton6.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/icon2.png"))); // NOI18N
         jButton6.setText("     Hay productos sin precio");
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -352,10 +336,6 @@ public class Dashboard extends javax.swing.JFrame {
         ventas.setVisible(true);
     }//GEN-LAST:event_VentasButtonActionPerformed
 
-    private void ReportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ReportesButtonActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -367,6 +347,12 @@ public class Dashboard extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void ReportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesButtonActionPerformed
+        Reportes reportes = new Reportes();  // Crear instancia del formulario
+        reportes.setVisible(true);                           // Mostrar el formulario
+        this.dispose();                                // Cerrar el formulario actual
+    }//GEN-LAST:event_ReportesButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,8 +396,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
