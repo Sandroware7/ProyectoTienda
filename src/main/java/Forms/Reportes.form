@@ -57,7 +57,7 @@
                                       <Component id="jLabel75" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel78" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="TotalReportes7" min="-2" pref="166" max="-2" attributes="0"/>
                                       <Component id="igvReportes7" min="-2" pref="166" max="-2" attributes="0"/>
