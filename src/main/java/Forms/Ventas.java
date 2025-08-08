@@ -174,7 +174,7 @@ public class Ventas extends javax.swing.JFrame {
                     .addComponent(ReportesButton)
                     .addComponent(ClientesButton)
                     .addComponent(SalirButton))
-                .addGap(39, 39, 39))
+                .addContainerGap())
             .addGroup(PanelNavegacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PanelNavegacionLayout.createSequentialGroup()
                     .addGap(17, 17, 17)
