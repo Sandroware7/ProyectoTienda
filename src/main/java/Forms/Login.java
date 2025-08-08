@@ -28,17 +28,68 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgLogin = new javax.swing.JPanel();
+        jlblIniciarSesion = new javax.swing.JLabel();
+        jlblUsuario = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jlblContraseña = new javax.swing.JLabel();
+        jpfContraseña = new javax.swing.JPasswordField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jlblLogo = new javax.swing.JLabel();
+        jbtnEntrar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLocationByPlatform(true);
+        setPreferredSize(new java.awt.Dimension(1440, 900));
+
+        bgLogin.setBackground(new java.awt.Color(255, 255, 255));
+        bgLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlblIniciarSesion.setFont(new java.awt.Font("Roboto", 1, 40)); // NOI18N
+        jlblIniciarSesion.setText("INICIAR SESIÓN");
+        bgLogin.add(jlblIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 380, 80));
+
+        jlblUsuario.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jlblUsuario.setText("USUARIO");
+        bgLogin.add(jlblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, -1, -1));
+
+        txtUsuario.setBorder(null);
+        bgLogin.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 770, 20));
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        bgLogin.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 540, 770, 20));
+
+        jlblContraseña.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jlblContraseña.setText("CONTRASEÑA");
+        bgLogin.add(jlblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 460, -1, -1));
+
+        jpfContraseña.setBorder(null);
+        bgLogin.add(jpfContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 520, 770, -1));
+
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        bgLogin.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 770, 20));
+
+        jlblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Logo_TecnoRepue.png"))); // NOI18N
+        bgLogin.add(jlblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 230, -1, -1));
+
+        jbtnEntrar.setBackground(new java.awt.Color(0, 134, 190));
+        jbtnEntrar.setFont(new java.awt.Font("Roboto Condensed", 1, 27)); // NOI18N
+        jbtnEntrar.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnEntrar.setText("ENTRAR");
+        jbtnEntrar.setPreferredSize(new java.awt.Dimension(251, 64));
+        bgLogin.add(jbtnEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 610, 180, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 932, Short.MAX_VALUE)
+            .addComponent(bgLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 681, Short.MAX_VALUE)
+            .addComponent(bgLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
 
         pack();
@@ -70,5 +121,15 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bgLogin;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jbtnEntrar;
+    private javax.swing.JLabel jlblContraseña;
+    private javax.swing.JLabel jlblIniciarSesion;
+    private javax.swing.JLabel jlblLogo;
+    private javax.swing.JLabel jlblUsuario;
+    private javax.swing.JPasswordField jpfContraseña;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

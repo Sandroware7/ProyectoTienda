@@ -70,12 +70,10 @@ public class Reportes extends javax.swing.JFrame {
         PanelBuscarFactura7.setBackground(new java.awt.Color(255, 239, 232));
 
         TotalReportes7.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        TotalReportes7.setForeground(new java.awt.Color(0, 0, 0));
         TotalReportes7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         TotalReportes7.setPreferredSize(new java.awt.Dimension(74, 25));
 
         NumFacturaReporte7.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        NumFacturaReporte7.setForeground(new java.awt.Color(0, 0, 0));
         NumFacturaReporte7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         NumFacturaReporte7.setMinimumSize(new java.awt.Dimension(64, 25));
         NumFacturaReporte7.setPreferredSize(new java.awt.Dimension(74, 25));
@@ -86,24 +84,19 @@ public class Reportes extends javax.swing.JFrame {
         });
 
         igvReportes7.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        igvReportes7.setForeground(new java.awt.Color(0, 0, 0));
         igvReportes7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         igvReportes7.setPreferredSize(new java.awt.Dimension(74, 25));
 
         jLabel75.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(0, 0, 0));
         jLabel75.setText("IGV (18%):");
 
         jLabel76.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel76.setForeground(new java.awt.Color(0, 0, 0));
         jLabel76.setText("Ingresar Número de Factura");
 
         jLabel77.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jLabel77.setForeground(new java.awt.Color(0, 0, 0));
         jLabel77.setText("Facturas");
 
         jLabel78.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(0, 0, 0));
         jLabel78.setText("TOTAL:");
 
         BtnBuscarFactura7.setBackground(new java.awt.Color(0, 118, 168));
@@ -133,39 +126,30 @@ public class Reportes extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         jLabel79.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel79.setForeground(new java.awt.Color(0, 0, 0));
         jLabel79.setText("Fecha de Venta:");
 
         jLabel80.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(0, 0, 0));
         jLabel80.setText("Cliente");
 
         jLabel81.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(0, 0, 0));
         jLabel81.setText("Factura Nº: ");
 
         jLabel82.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(0, 0, 0));
         jLabel82.setText("Apellido:");
 
         jLabel83.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel83.setForeground(new java.awt.Color(0, 0, 0));
         jLabel83.setText("Nombre:");
 
         jlabNumFactura7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jlabNumFactura7.setForeground(new java.awt.Color(0, 0, 0));
         jlabNumFactura7.setText("_ _ _ _");
 
         jLabApellidoCliente7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabApellidoCliente7.setForeground(new java.awt.Color(0, 0, 0));
         jLabApellidoCliente7.setText("_ _ _ _");
 
         jLabFechaVenta7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabFechaVenta7.setForeground(new java.awt.Color(0, 0, 0));
         jLabFechaVenta7.setText("_ _ _ _");
 
         jLabNombreCliente7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabNombreCliente7.setForeground(new java.awt.Color(0, 0, 0));
         jLabNombreCliente7.setText("_ _ _ _");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -559,149 +543,23 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton BtStockMinimo;
     private javax.swing.JButton BtVentasDia;
     private javax.swing.JButton BtVentasMes;
-    private javax.swing.JButton BtnBuscarFactura;
-    private javax.swing.JButton BtnBuscarFactura1;
-    private javax.swing.JButton BtnBuscarFactura2;
-    private javax.swing.JButton BtnBuscarFactura3;
-    private javax.swing.JButton BtnBuscarFactura4;
-    private javax.swing.JButton BtnBuscarFactura5;
-    private javax.swing.JButton BtnBuscarFactura6;
     private javax.swing.JButton BtnBuscarFactura7;
     private javax.swing.JButton ClientesButton;
     private javax.swing.JButton GestionProductosButton;
-    private javax.swing.JTextField NumFacturaReporte;
-    private javax.swing.JTextField NumFacturaReporte1;
-    private javax.swing.JTextField NumFacturaReporte2;
-    private javax.swing.JTextField NumFacturaReporte3;
-    private javax.swing.JTextField NumFacturaReporte4;
-    private javax.swing.JTextField NumFacturaReporte5;
-    private javax.swing.JTextField NumFacturaReporte6;
     private javax.swing.JTextField NumFacturaReporte7;
-    private javax.swing.JPanel PanelBuscarFactura;
-    private javax.swing.JPanel PanelBuscarFactura1;
-    private javax.swing.JPanel PanelBuscarFactura2;
-    private javax.swing.JPanel PanelBuscarFactura3;
-    private javax.swing.JPanel PanelBuscarFactura4;
-    private javax.swing.JPanel PanelBuscarFactura5;
-    private javax.swing.JPanel PanelBuscarFactura6;
     private javax.swing.JPanel PanelBuscarFactura7;
     private javax.swing.JPanel PanelNavegacion;
     private javax.swing.JPanel PanelReportes2;
     private javax.swing.JButton ReportesButton;
     private javax.swing.JButton SalirButton;
     private javax.swing.JTable Tabla2Reportes;
-    private javax.swing.JTable TablaFacturaReportes;
-    private javax.swing.JTable TablaFacturaReportes1;
-    private javax.swing.JTable TablaFacturaReportes2;
-    private javax.swing.JTable TablaFacturaReportes3;
-    private javax.swing.JTable TablaFacturaReportes4;
-    private javax.swing.JTable TablaFacturaReportes5;
-    private javax.swing.JTable TablaFacturaReportes6;
     private javax.swing.JTable TablaFacturaReportes7;
-    private javax.swing.JTextField TotalReportes;
-    private javax.swing.JTextField TotalReportes1;
-    private javax.swing.JTextField TotalReportes2;
-    private javax.swing.JTextField TotalReportes3;
-    private javax.swing.JTextField TotalReportes4;
-    private javax.swing.JTextField TotalReportes5;
-    private javax.swing.JTextField TotalReportes6;
     private javax.swing.JTextField TotalReportes7;
     private javax.swing.JButton VentasButton;
-    private javax.swing.JTextField igvReportes;
-    private javax.swing.JTextField igvReportes1;
-    private javax.swing.JTextField igvReportes2;
-    private javax.swing.JTextField igvReportes3;
-    private javax.swing.JTextField igvReportes4;
-    private javax.swing.JTextField igvReportes5;
-    private javax.swing.JTextField igvReportes6;
     private javax.swing.JTextField igvReportes7;
-    private javax.swing.JLabel jLabApellidoCliente;
-    private javax.swing.JLabel jLabApellidoCliente1;
-    private javax.swing.JLabel jLabApellidoCliente2;
-    private javax.swing.JLabel jLabApellidoCliente3;
-    private javax.swing.JLabel jLabApellidoCliente4;
-    private javax.swing.JLabel jLabApellidoCliente5;
-    private javax.swing.JLabel jLabApellidoCliente6;
     private javax.swing.JLabel jLabApellidoCliente7;
-    private javax.swing.JLabel jLabFechaVenta;
-    private javax.swing.JLabel jLabFechaVenta1;
-    private javax.swing.JLabel jLabFechaVenta2;
-    private javax.swing.JLabel jLabFechaVenta3;
-    private javax.swing.JLabel jLabFechaVenta4;
-    private javax.swing.JLabel jLabFechaVenta5;
-    private javax.swing.JLabel jLabFechaVenta6;
     private javax.swing.JLabel jLabFechaVenta7;
-    private javax.swing.JLabel jLabNombreCliente;
-    private javax.swing.JLabel jLabNombreCliente1;
-    private javax.swing.JLabel jLabNombreCliente2;
-    private javax.swing.JLabel jLabNombreCliente3;
-    private javax.swing.JLabel jLabNombreCliente4;
-    private javax.swing.JLabel jLabNombreCliente5;
-    private javax.swing.JLabel jLabNombreCliente6;
     private javax.swing.JLabel jLabNombreCliente7;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
-    private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
-    private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
@@ -711,30 +569,9 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel81;
     private javax.swing.JLabel jLabel82;
     private javax.swing.JLabel jLabel83;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JLabel jlabNumFactura;
-    private javax.swing.JLabel jlabNumFactura1;
-    private javax.swing.JLabel jlabNumFactura2;
-    private javax.swing.JLabel jlabNumFactura3;
-    private javax.swing.JLabel jlabNumFactura4;
-    private javax.swing.JLabel jlabNumFactura5;
-    private javax.swing.JLabel jlabNumFactura6;
     private javax.swing.JLabel jlabNumFactura7;
     // End of variables declaration//GEN-END:variables
 }
