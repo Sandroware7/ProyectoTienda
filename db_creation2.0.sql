@@ -640,5 +640,3 @@ BEGIN
     WHERE f.cod_cli = p_cod_cli
     ORDER BY f.fecha_emision DESC;
 END$$
-
-DELIMITER ;
