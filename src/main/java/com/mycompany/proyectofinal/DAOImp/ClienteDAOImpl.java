@@ -2,7 +2,7 @@ package com.mycompany.proyectofinal.DAOImp;
 
 import java.sql.*;
 import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.Cliente;
+import com.mycompany.proyectofinal.DTO.ClienteDTO;
 import com.mycompany.proyectofinal.DAO.ClienteDAO;
 
 public class ClienteDAOImpl implements ClienteDAO {
@@ -20,7 +20,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     // Funciona
     @Override
-    public void agregar_cliente(Cliente cliente) {
+    public void agregar_cliente(ClienteDTO cliente) {
         String sql = "CALL {sp_insertar_cliente (?, ?, ?, ?, ?, ?, ?, ?)}";
         try (CallableStatement cs = con.prepareCall(sql)) {
 

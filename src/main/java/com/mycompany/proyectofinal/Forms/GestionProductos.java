@@ -4,7 +4,7 @@
  */
 package com.mycompany.proyectofinal.Forms;
 import com.mycompany.proyectofinal.DAOImp.ProductoDAOImpl;
-import com.mycompany.proyectofinal.DTO.Producto;
+import com.mycompany.proyectofinal.DTO.ProductoDTO;
 import com.mycompany.proyectofinal.util.SesionActual;
 
 import java.math.BigDecimal;
@@ -500,8 +500,8 @@ public class GestionProductos extends javax.swing.JFrame {
         
         // Inserción de dato, fechaCrea, fechaModif no se llenan.
         ProductoDAO p = new ProductoDAOImpl();
-        Producto pdto = new Producto(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
-        p.agregar_producto(pdto);
+        ProductoDTO pdto = new ProductoDTO(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
+        p.guardar(pdto);
 
         // Limpiamos campos
         CodProductoGestion.setText("");

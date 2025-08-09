@@ -1,7 +1,7 @@
 package com.mycompany.proyectofinal.DAOImp;
 
 import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.Factura;
+import com.mycompany.proyectofinal.DTO.FacturaDTO;
 
 import java.sql.*;
 import com.mycompany.proyectofinal.DAO.FacturaDAO;
@@ -18,7 +18,7 @@ public class FacturaDAOImpl implements FacturaDAO {
     };
 
     // Funciona, pero falta agregar la logica para determinar el total
-    public void agregar_factura(Factura factura){
+    public void agregar_factura(FacturaDTO factura){
 
         String sql = "INSERT INTO factura (cod_fact, cod_cli, subtotal, igv, total, fecha_emision, cod_usuario) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

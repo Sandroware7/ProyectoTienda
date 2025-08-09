@@ -1,6 +1,6 @@
 package com.mycompany.proyectofinal.DTO;
 
-public record FacturaDetallada(
+public record DetalleFacturaDTO(
         String codFact,
         String codProd,
         int cantidad,

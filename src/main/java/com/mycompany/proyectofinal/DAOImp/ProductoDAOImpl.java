@@ -1,7 +1,7 @@
 package com.mycompany.proyectofinal.DAOImp;
 
 import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.Producto;
+import com.mycompany.proyectofinal.DTO.ProductoDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class ProductoDAOImpl implements ProductoDAO {
     public ProductoDAOImpl() {obtener_conexion();}
 
     // Funciona
-    public void agregar_producto(Producto producto){
+    public void agregar_producto(ProductoDTO producto){
         String sql = "INSERT INTO producto (cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
@@ -48,8 +48,8 @@ public class ProductoDAOImpl implements ProductoDAO {
     };
 
     // Funciona
-    public List<Producto> ver_productos(){
-        List<Producto> lista = new ArrayList<>();
+    public List<ProductoDTO> ver_productos(){
+        List<ProductoDTO> lista = new ArrayList<>();
         String sql = "SELECT * FROM producto";
 
         try {
@@ -57,7 +57,7 @@ public class ProductoDAOImpl implements ProductoDAO {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                Producto prod = new Producto(
+                ProductoDTO prod = new ProductoDTO(
                         rs.getString("cod_prod"),
                         rs.getString("descripcion"),
                         rs.getString("ruta_imagen"),

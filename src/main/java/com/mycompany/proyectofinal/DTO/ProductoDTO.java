@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-public record Producto(
+public record ProductoDTO(
         String codProd,
         String descripcion,
         BigDecimal precioUnit,

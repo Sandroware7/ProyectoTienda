@@ -2,7 +2,7 @@ package com.mycompany.proyectofinal.DTO;
 
 import java.sql.*;
 
-public record Cliente(
+public record ClienteDTO(
         String codCli,
         String nombre,
         String apellido,

@@ -1,7 +1,7 @@
 package com.mycompany.proyectofinal.DAOImp;
 
 import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.Usuario;
+import com.mycompany.proyectofinal.DTO.UsuarioDTO;
 
 import java.sql.*;
 import com.mycompany.proyectofinal.DAO.UsuarioDAO;
@@ -18,7 +18,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     };
 
     // Funciona
-    public void agregar_usuario(Usuario usuario){
+    public void agregar_usuario(UsuarioDTO usuario){
         String sql = "INSERT INTO usuario (nombre_usuario, clave, correo) VALUES (?, ?, ?)";
 
         try {

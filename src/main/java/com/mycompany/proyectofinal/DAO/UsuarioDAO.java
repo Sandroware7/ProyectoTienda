@@ -1,10 +1,9 @@
 package com.mycompany.proyectofinal.DAO;
 
-import com.mycompany.proyectofinal.DTO.Usuario;
+import com.mycompany.proyectofinal.DTO.UsuarioDTO;
 
 public interface UsuarioDAO {
 
-    void agregar_usuario(Usuario usuario);
-    void ver_usuarios();
+    UsuarioDTO buscarPorNombreUsuario(String nombreUsuario);
 
 }

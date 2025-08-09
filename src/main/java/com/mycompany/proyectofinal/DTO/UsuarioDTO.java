@@ -1,6 +1,6 @@
 package com.mycompany.proyectofinal.DTO;
 
-public record Usuario(
+public record UsuarioDTO(
         String nombreUsuario,
         String clave,
         String correo) {
