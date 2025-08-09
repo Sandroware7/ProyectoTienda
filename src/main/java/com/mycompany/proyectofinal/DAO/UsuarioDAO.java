@@ -4,6 +4,6 @@ import com.mycompany.proyectofinal.DTO.UsuarioDTO;
 
 public interface UsuarioDAO {
 
-    UsuarioDTO buscarPorNombreUsuario(String nombreUsuario);
+    UsuarioDTO buscarPorNombreUsuario(String nombreUsuario) throws DAOException;
 
 }

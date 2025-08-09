@@ -4,6 +4,6 @@ import com.mycompany.proyectofinal.DTO.FacturaDTO;
 
 public interface FacturaDAO {
 
-    FacturaDTO obtenerFacturaDetallada(String codigoFactura);
+    FacturaDTO obtenerFacturaDetallada(String codigoFactura) throws DAOException;
 
 }

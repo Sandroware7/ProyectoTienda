@@ -25,28 +25,28 @@ public interface ReporteDAO {
      * @param stockMinimo El umbral de stock para la alerta.
      * @return La cantidad de productos cuyo stock es menor al umbral.
      */
-    long contarProductosBajoStock(int stockMinimo);
+    long contarProductosBajoStock(int stockMinimo) throws DAOException;
 
     /**
      * Llama a sp_contar_total_productos.
      *
      * @return El número total de productos distintos registrados.
      */
-    long contarTotalProductos();
+    long contarTotalProductos() throws DAOException;
 
     /**
      * Llama a sp_total_ventas_dia.
      *
      * @return La suma total de las ventas realizadas en el día actual.
      */
-    double calcularTotalVentasHoy();
+    double calcularTotalVentasHoy() throws DAOException;
 
     /**
      * Llama a sp_total_ventas_mes_actual.
      *
      * @return La suma total de las ventas realizadas en el mes actual.
      */
-    double calcularTotalVentasMesActual();
+    double calcularTotalVentasMesActual() throws DAOException;
 
     /**
      * Llama a sp_obtener_ultimas_n_ventas.
@@ -54,7 +54,7 @@ public interface ReporteDAO {
      * @param limite El número máximo de ventas a devolver.
      * @return Una lista con las últimas ventas.
      */
-    List<VentaRecienteDTO> obtenerUltimasVentas(int limite);
+    List<VentaRecienteDTO> obtenerUltimasVentas(int limite) throws DAOException;
 
     /**
      * Llama a sp_listar_n_prod.
@@ -62,7 +62,7 @@ public interface ReporteDAO {
      * @param limite El número máximo de productos a devolver.
      * @return Una lista con los productos más recientemente creados.
      */
-    List<ProductoRecienteDTO> listarProductosRecientes(int limite);
+    List<ProductoRecienteDTO> listarProductosRecientes(int limite) throws DAOException;
 
     /**
      * Llama a sp_buscar_clientes.
@@ -70,7 +70,7 @@ public interface ReporteDAO {
      * @param termino El texto a buscar en nombre, apellido o DNI.
      * @return Una lista de clientes que coinciden con el término de búsqueda.
      */
-    List<ClienteDTO> buscarClientesPorTermino(String termino);
+    List<ClienteDTO> buscarClientesPorTermino(String termino) throws DAOException;
 
     /**
      * Llama a sp_buscar_productos.
@@ -78,7 +78,7 @@ public interface ReporteDAO {
      * @param termino El texto a buscar en el código o descripción del producto.
      * @return Una lista de productos que coinciden con el término de búsqueda.
      */
-    List<ProductoDTO> buscarProductosPorTermino(String termino);
+    List<ProductoDTO> buscarProductosPorTermino(String termino) throws DAOException;
 
     /**
      * Llama a sp_obtener_top_n_productos_vendidos_hoy.
@@ -86,7 +86,7 @@ public interface ReporteDAO {
      * @param limite El número de productos a mostrar en el top.
      * @return Una lista de los productos más vendidos del día.
      */
-    List<ProductoVendidoDTO> obtenerTopProductosVendidosHoy(int limite);
+    List<ProductoVendidoDTO> obtenerTopProductosVendidosHoy(int limite) throws DAOException;
 
     /**
      * Llama a sp_obtener_top_n_productos_vendidos_mes_actual.
@@ -94,7 +94,7 @@ public interface ReporteDAO {
      * @param limite El número de productos a mostrar en el top.
      * @return Una lista de los productos más vendidos del mes.
      */
-    List<ProductoVendidoDTO> obtenerTopProductosVendidosMes(int limite);
+    List<ProductoVendidoDTO> obtenerTopProductosVendidosMes(int limite) throws DAOException;
 
     /**
      * Llama a sp_obtener_n_productos_menor_stock.
@@ -102,7 +102,7 @@ public interface ReporteDAO {
      * @param limite El número de productos a listar.
      * @return Una lista de productos ordenados por su bajo stock.
      */
-    List<ProductoVendidoDTO> obtenerProductosConMenorStock(int limite);
+    List<ProductoVendidoDTO> obtenerProductosConMenorStock(int limite) throws DAOException;
 
     /**
      * Llama a sp_obtener_top_n_productos_mas_vendidos.
@@ -110,7 +110,7 @@ public interface ReporteDAO {
      * @param limite El número de productos a mostrar en el top histórico.
      * @return Una lista de los productos más vendidos históricamente.
      */
-    List<ProductoVendidoDTO> obtenerTopProductosMasVendidos(int limite);
+    List<ProductoVendidoDTO> obtenerTopProductosMasVendidos(int limite) throws DAOException;
 
     /**
      * Llama a sp_obtener_top_clientes_frecuentes.
@@ -118,7 +118,7 @@ public interface ReporteDAO {
      * @param limite El número de clientes a mostrar en el top.
      * @return Una lista de los clientes con más compras.
      */
-    List<ClienteFrecuenteDTO> obtenerTopClientesFrecuentes(int limite);
+    List<ClienteFrecuenteDTO> obtenerTopClientesFrecuentes(int limite) throws DAOException;
 
     /**
      * Llama a sp_obtener_historial_compras_cliente.
@@ -126,5 +126,5 @@ public interface ReporteDAO {
      * @param codigoCliente El código del cliente a consultar.
      * @return El historial de todos los productos que ha comprado el cliente.
      */
-    List<HistorialCompraDTO> obtenerHistorialComprasCliente(String codigoCliente);
+    List<HistorialCompraDTO> obtenerHistorialComprasCliente(String codigoCliente) throws DAOException;
 }
