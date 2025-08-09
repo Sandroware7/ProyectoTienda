@@ -1,4 +1,4 @@
-package bd.cliente;
+package bd.DTO;
 import java.sql.*;
 
 public class cliente_DTO {

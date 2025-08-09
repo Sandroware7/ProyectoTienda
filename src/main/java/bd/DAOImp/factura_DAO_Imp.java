@@ -1,6 +1,9 @@
-package bd.factura;
+package bd.DAOImp;
 
 import bd.Conexion;
+import bd.DAO.factura_DAO;
+import bd.DTO.factura_DTO;
+
 import java.sql.*;
 
 public class factura_DAO_Imp implements factura_DAO {

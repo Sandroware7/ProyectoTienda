@@ -1,4 +1,6 @@
-package bd.cliente;
+package bd.DAO;
+
+import bd.DTO.cliente_DTO;
 
 public interface cliente_DAO {
 

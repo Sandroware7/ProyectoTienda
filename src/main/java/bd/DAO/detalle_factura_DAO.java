@@ -1,4 +1,6 @@
-package bd.detalle_factura;
+package bd.DAO;
+
+import bd.DTO.detalle_factura_DTO;
 
 public interface detalle_factura_DAO {
 

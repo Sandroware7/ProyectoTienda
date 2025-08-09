@@ -1,4 +1,4 @@
-package bd.movimiento_stock;
+package bd.DAO;
 
 public interface movimiento_stock_DAO {
 

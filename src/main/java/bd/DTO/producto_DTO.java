@@ -1,4 +1,4 @@
-package bd.producto;
+package bd.DTO;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

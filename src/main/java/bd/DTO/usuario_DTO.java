@@ -1,4 +1,4 @@
-package bd.usuario;
+package bd.DTO;
 
 public class usuario_DTO {
 

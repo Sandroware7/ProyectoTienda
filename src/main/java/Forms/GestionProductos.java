@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Forms;
-import bd.producto.*;
+import bd.DAO.producto_DAO;
+import bd.DAOImp.producto_DAO_Imp;
+import bd.DTO.producto_DTO;
+
 import java.math.BigDecimal;
 /**
  *

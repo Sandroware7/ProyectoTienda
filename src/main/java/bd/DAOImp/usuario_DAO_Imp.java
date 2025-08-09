@@ -1,11 +1,13 @@
-package bd.usuario;
+package bd.DAOImp;
 
 import bd.Conexion;
+import bd.DAO.usuario_DAO;
+import bd.DTO.usuario_DTO;
 
 import java.sql.*;
 
 
-public class usuario_DAO_Imp implements usuario_DAO{
+public class usuario_DAO_Imp implements usuario_DAO {
     Connection con;
 
     public usuario_DAO_Imp(){obtener_conexion();}

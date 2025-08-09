@@ -1,12 +1,14 @@
-package bd.producto;
+package bd.DAOImp;
 
 import bd.Conexion;
+import bd.DAO.producto_DAO;
+import bd.DTO.producto_DTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class producto_DAO_Imp implements producto_DAO{
+public class producto_DAO_Imp implements producto_DAO {
 
     Connection con;
 

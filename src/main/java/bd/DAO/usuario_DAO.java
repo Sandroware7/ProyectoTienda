@@ -1,4 +1,6 @@
-package bd.usuario;
+package bd.DAO;
+
+import bd.DTO.usuario_DTO;
 
 public interface usuario_DAO {
 

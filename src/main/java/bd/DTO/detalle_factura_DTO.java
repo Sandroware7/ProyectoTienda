@@ -1,6 +1,4 @@
-package bd.detalle_factura;
-
-import java.sql.Timestamp;
+package bd.DTO;
 
 public class detalle_factura_DTO {
 

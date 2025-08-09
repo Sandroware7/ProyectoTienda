@@ -1,7 +1,8 @@
-package bd.detalle_factura;
+package bd.DAOImp;
 
 import bd.Conexion;
-import bd.cliente.cliente_DAO;
+import bd.DAO.detalle_factura_DAO;
+import bd.DTO.detalle_factura_DTO;
 
 import java.sql.*;
 

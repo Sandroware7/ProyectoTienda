@@ -1,4 +1,4 @@
-package bd.movimiento_stock;
+package bd.DTO;
 
 import java.sql.Timestamp;
 

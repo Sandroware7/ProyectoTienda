@@ -1,10 +1,11 @@
-package bd.movimiento_stock;
+package bd.DAOImp;
 
 import bd.Conexion;
+import bd.DAO.movimiento_stock_DAO;
 
 import java.sql.*;
 
-public class movimiento_stock_DAO_Imp implements movimiento_stock_DAO{
+public class movimiento_stock_DAO_Imp implements movimiento_stock_DAO {
 
     Connection con;
 

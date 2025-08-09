@@ -3,13 +3,8 @@
  */
 
 package com.mycompany.proyectofinal;
-import bd.factura.*;
-import bd.detalle_factura.*;
-import bd.movimiento_stock.*;
-import bd.cliente.*;
-import bd.producto.*;
-import java.math.BigDecimal;
-import java.sql.*;
+import bd.DAO.cliente_DAO;
+import bd.DAOImp.cliente_DAO_Imp;
 
 /**
  *

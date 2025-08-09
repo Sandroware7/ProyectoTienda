@@ -1,4 +1,6 @@
-package bd.producto;
+package bd.DAO;
+
+import bd.DTO.producto_DTO;
 
 import java.util.List;
 
