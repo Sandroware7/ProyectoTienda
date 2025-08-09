@@ -3,16 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.tecsup.proyectofinal.view;
-import com.tecsup.proyectofinal.model.DAO.DAOImpl.ProductoDAOImpl;
-import com.tecsup.proyectofinal.model.DTO.ProductoDTO;
+import com.tecsup.proyectofinal.model.dao.daoimpl.ProductoDAOImpl;
+import com.tecsup.proyectofinal.model.dto.ProductoDTO;
 import com.tecsup.proyectofinal.util.SesionActual;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import com.tecsup.proyectofinal.model.DAO.ProductoDAO;
+import com.tecsup.proyectofinal.model.dao.ProductoDAO;
 import com.tecsup.proyectofinal.util.DAOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author bob_s
