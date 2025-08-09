@@ -1,8 +1,12 @@
--- Creación de Base de Datos --
+-- ================================================================= --
+-- BASE DE DATOS --
+-- ================================================================= --
 CREATE SCHEMA IF NOT EXISTS `BD_Proyecto_Final_G5_2.0`;
 USE `BD_Proyecto_Final_G5_2.0`;
 
--- Creación de Tablas --
+-- ================================================================= --
+-- TABLAS --
+-- ================================================================= --
 CREATE TABLE IF NOT EXISTS `usuario`
 (
     `cod_usuario`    INT AUTO_INCREMENT NOT NULL UNIQUE,
@@ -79,194 +83,153 @@ CREATE TABLE IF NOT EXISTS `movimiento_stock`
     PRIMARY KEY (`cod_mov`)
 );
 
--- Creación de Relaciones --
-
--- Factura (N) -> Cliente (1)
+-- ================================================================= --
+-- RELACIONES --
+-- ================================================================= --
 ALTER TABLE `factura`
     ADD CONSTRAINT fk_factura__cliente_cod_cli
-        FOREIGN KEY (cod_cli) REFERENCES cliente (cod_cli)
-            ON UPDATE CASCADE
-            ON DELETE RESTRICT;
-
--- Detalle_factura (N) -> Factura (1)
+        FOREIGN KEY (cod_cli) REFERENCES cliente (cod_cli) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE `detalle_factura`
     ADD CONSTRAINT fk_detalle_factura__factura_cod_fact
-        FOREIGN KEY (cod_fact) REFERENCES factura (cod_fact)
-            ON UPDATE CASCADE
-            ON DELETE CASCADE;
-
--- Detalle_factura (N) -> Producto (1)
+        FOREIGN KEY (cod_fact) REFERENCES factura (cod_fact) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE `detalle_factura`
     ADD CONSTRAINT fk_detalle_factura__producto_cod_prod
-        FOREIGN KEY (cod_prod) REFERENCES producto (cod_prod)
-            ON UPDATE CASCADE
-            ON DELETE RESTRICT;
-
--- Movimiento_stock (N) -> Producto (1)
+        FOREIGN KEY (cod_prod) REFERENCES producto (cod_prod) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE `movimiento_stock`
     ADD CONSTRAINT fk_movimiento_stock__producto
-        FOREIGN KEY (cod_prod) REFERENCES producto (cod_prod)
-            ON UPDATE CASCADE
-            ON DELETE RESTRICT;
-
--- Usuario (1) -> Factura (N)
+        FOREIGN KEY (cod_prod) REFERENCES producto (cod_prod) ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE `factura`
     ADD CONSTRAINT fk_factura_usuario
-        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario)
-            ON UPDATE CASCADE
-            ON DELETE SET NULL;
-
--- Usuario (1) -> Cliente (N)
+        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE `cliente`
     ADD CONSTRAINT fk_cliente_usuario
-        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario)
-            ON UPDATE CASCADE
-            ON DELETE SET NULL;
-
--- Usuario (1) -> Producto (N)
+        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE `producto`
     ADD CONSTRAINT fk_producto_usuario
-        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario)
-            ON UPDATE CASCADE
-            ON DELETE SET NULL;
-
--- Usuario (1) -> Movimiento (N)
+        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE `movimiento_stock`
     ADD CONSTRAINT fk_movimiento_usuario
-        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario)
-            ON UPDATE CASCADE
-            ON DELETE SET NULL;
+        FOREIGN KEY (cod_usuario) REFERENCES usuario (cod_usuario) ON UPDATE CASCADE ON DELETE SET NULL;
 
--- Creación de Índices --
--- Índices para búsqueda en producto --
-CREATE INDEX `idx_producto_desc`
-    ON `producto` (`descripcion`);
-CREATE INDEX `idx_producto_fechacrea`
-    ON `producto` (`fecha_crea`);
-CREATE INDEX `idx_producto_fechamod`
-    ON `producto` (`fecha_modif`);
+-- ================================================================= --
+-- INDEX --
+-- ================================================================= --
+CREATE INDEX `idx_producto_desc` ON `producto` (`descripcion`);
+CREATE INDEX `idx_producto_fechacrea` ON `producto` (`fecha_crea`);
+CREATE INDEX `idx_producto_fechamod` ON `producto` (`fecha_modif`);
+CREATE INDEX `idx_cliente_dni` ON `cliente` (`dni`);
+CREATE INDEX `idx_cliente_nombre_apellido` ON `cliente` (`nombre`, `apellido`);
+CREATE INDEX `idx_factura_codcli` ON `factura` (`cod_cli`);
+CREATE INDEX `idx_detalle_factura_codfact` ON `detalle_factura` (`cod_fact`);
+CREATE INDEX `idx_detalle_factura_codprod` ON `detalle_factura` (`cod_prod`);
 
--- Índices para búsqueda en cliente --
-CREATE INDEX `idx_cliente_dni`
-    ON `cliente` (`dni`);
-CREATE INDEX `idx_cliente_nombre_apellido`
-    ON `cliente` (`nombre`, `apellido`);
-
--- Índices para búsqueda en factura --
-CREATE INDEX `idx_factura_codcli`
-    ON `factura` (`cod_cli`);
-
--- Índices para búsqueda en detalle_fact --
-CREATE INDEX `idx_detalle_factura_codfact`
-    ON `detalle_factura` (`cod_fact`);
-CREATE INDEX `idx_detalle_factura_codprod`
-    ON `detalle_factura` (`cod_prod`);
-
--- Creación de Triggers --
-
--- Validar datos de cliente a la creación--
+-- ================================================================= --
+-- STORED PROCEDURES PARA VALIDACIÓN --
+-- ================================================================= --
 DELIMITER $$
 
-CREATE TRIGGER IF NOT EXISTS validar_datos_al_crear_cliente
-    BEFORE INSERT
-    ON cliente
-    FOR EACH ROW
+CREATE PROCEDURE `sp_priv_validar_cliente`(IN p_dni VARCHAR(10), IN p_telefono VARCHAR(15), IN p_correo VARCHAR(100))
 BEGIN
-    IF NEW.dni IS NOT NULL AND NOT NEW.dni REGEXP '^[0-9]{8,10}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'DNI inválido';
+    IF p_dni IS NOT NULL AND NOT p_dni REGEXP '^[0-9]{8,10}$' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'DNI inválido. Debe tener entre 8 y 10 dígitos.';
     END IF;
-
-    IF NEW.telefono IS NOT NULL AND NOT NEW.telefono REGEXP '^[0-9]{9}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Teléfono inválido';
+    IF p_telefono IS NOT NULL AND NOT p_telefono REGEXP '^[0-9]{9}$' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Teléfono inválido. Debe tener 9 dígitos.';
     END IF;
+    IF p_correo IS NOT NULL AND NOT p_correo REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Correo electrónico no válido.';
+    END IF;
+END$$
 
-    IF NEW.correo IS NOT NULL AND NOT NEW.correo REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Correo no válido';
+CREATE PROCEDURE `sp_priv_validar_factura`(IN p_subtotal DECIMAL(10, 2), IN p_igv DECIMAL(10, 2),
+                                           IN p_total DECIMAL(10, 2))
+BEGIN
+    DECLARE igv_calculado DECIMAL(10, 2);
+    SET igv_calculado = ROUND(p_subtotal * 0.18, 2);
+    IF ROUND(p_igv, 2) <> igv_calculado THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El IGV debe ser el 18% del subtotal.';
+    END IF;
+    IF ROUND(p_subtotal + p_igv, 2) <> ROUND(p_total, 2) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El total debe ser igual a subtotal + IGV.';
+    END IF;
+END$$
+
+CREATE PROCEDURE `sp_priv_validar_motivo_movimiento`(IN p_tipo VARCHAR(20), IN p_motivo VARCHAR(20))
+BEGIN
+    IF p_tipo = 'INGRESO' AND p_motivo NOT IN ('COMPRA', 'DEVOLUCION') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Motivo inválido para un INGRESO. Permitidos: COMPRA, DEVOLUCION.';
+    END IF;
+    IF p_tipo = 'SALIDA' AND p_motivo NOT IN ('VENTA') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Motivo inválido para una SALIDA. Permitido: VENTA.';
     END IF;
 END$$
 
 DELIMITER ;
 
--- Validar datos de cliente a la modificación--
+-- ================================================================= --
+-- TRIGGERS DE VALIDACIÓN--
+-- ================================================================= --
+
+-- Validar datos de cliente --
 DELIMITER $$
+CREATE TRIGGER IF NOT EXISTS validar_datos_al_crear_cliente
+    BEFORE INSERT
+    ON cliente
+    FOR EACH ROW
+BEGIN
+    CALL sp_priv_validar_cliente(NEW.dni, NEW.telefono, NEW.correo);
+END$$
 
 CREATE TRIGGER IF NOT EXISTS validar_datos_al_modificar_cliente
     BEFORE UPDATE
     ON cliente
     FOR EACH ROW
 BEGIN
-    IF NEW.dni IS NOT NULL AND NOT NEW.dni REGEXP '^[0-9]{8,10}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'DNI inválido';
-    END IF;
-
-    IF NEW.telefono IS NOT NULL AND NOT NEW.telefono REGEXP '^[0-9]{9}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Teléfono inválido';
-    END IF;
-
-    IF NEW.correo IS NOT NULL AND NOT NEW.correo REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Correo no válido';
-    END IF;
+    CALL sp_priv_validar_cliente(NEW.dni, NEW.telefono, NEW.correo);
 END$$
 
-DELIMITER ;
-
--- Validar datos de factura al registro--
-DELIMITER $$
-
+-- Validar datos de factura --
 CREATE TRIGGER IF NOT EXISTS validar_campos_al_insertar_factura
     BEFORE INSERT
     ON factura
     FOR EACH ROW
 BEGIN
-    DECLARE igv_calculado DECIMAL(10, 2);
-
-    SET igv_calculado = ROUND(NEW.subtotal * 0.18, 2);
-
-    IF ROUND(NEW.igv, 2) <> igv_calculado THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El IGV debe ser el 18% del subtotal';
-    END IF;
-
-    IF ROUND(NEW.subtotal + NEW.igv, 2) <> ROUND(NEW.total, 2) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El total debe ser igual a subtotal + IGV';
-    END IF;
-
+    CALL sp_priv_validar_factura(NEW.subtotal, NEW.igv, NEW.total);
 END$$
-
-DELIMITER ;
-
--- Validar datos de factura al modificar--
-DELIMITER $$
 
 CREATE TRIGGER IF NOT EXISTS validar_campos_al_actualizar_factura
     BEFORE UPDATE
     ON factura
     FOR EACH ROW
 BEGIN
-    DECLARE igv_calculado DECIMAL(10, 2);
+    CALL sp_priv_validar_factura(NEW.subtotal, NEW.igv, NEW.total);
+END$$
 
-    SET igv_calculado = ROUND(NEW.subtotal * 0.18, 2);
+-- Validar motivo y tipo de movimiento --
+CREATE TRIGGER IF NOT EXISTS validar_motivo_al_registrar_movimiento
+    BEFORE INSERT
+    ON movimiento_stock
+    FOR EACH ROW
+BEGIN
+    CALL sp_priv_validar_motivo_movimiento(NEW.tipo, NEW.motivo);
+END$$
 
-    IF ROUND(NEW.igv, 2) <> igv_calculado THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El IGV debe ser el 18% del subtotal';
-    END IF;
-
-    IF ROUND(NEW.subtotal + NEW.igv, 2) <> ROUND(NEW.total, 2) THEN
-        SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'El total debe ser igual a subtotal + IGV';
-    END IF;
-
+CREATE TRIGGER IF NOT EXISTS validar_motivo_al_actualizar_movimiento
+    BEFORE UPDATE
+    ON movimiento_stock
+    FOR EACH ROW
+BEGIN
+    CALL sp_priv_validar_motivo_movimiento(NEW.tipo, NEW.motivo);
 END$$
 
 DELIMITER ;
 
--- Registro de movimiento al crear un detalle de factura --
-DELIMITER $$
+-- ================================================================= --
+-- TRIGGERS DE LÓGICA DE NEGOCIO--
+-- ================================================================= --
 
+DELIMITER $$
+-- Registro de movimiento al crear un detalle de factura --
 CREATE TRIGGER IF NOT EXISTS registrar_movimiento_al_registrar_detalle
     AFTER INSERT
     ON detalle_factura
@@ -274,22 +237,17 @@ CREATE TRIGGER IF NOT EXISTS registrar_movimiento_al_registrar_detalle
 BEGIN
     INSERT INTO movimiento_stock (cod_prod, tipo, cantidad, motivo, referencia, cod_usuario)
     VALUES (NEW.cod_prod, 'SALIDA', NEW.cantidad, 'VENTA', NEW.cod_fact, NEW.cod_usuario);
-
 END$$
 
-DELIMITER ;
-
 -- Actualizar movimiento por actualización de detalle de factura --
-DELIMITER $$
-
 CREATE TRIGGER IF NOT EXISTS actualizar_movimiento_al_modificar_detalle
-AFTER UPDATE
-ON detalle_factura
-FOR EACH ROW
+    AFTER UPDATE
+    ON detalle_factura
+    FOR EACH ROW
 BEGIN
     UPDATE movimiento_stock
     SET cantidad    = NEW.cantidad,
-        fecha_crea  = CURRENT_TIMESTAMP,
+        fecha_modif = CURRENT_TIMESTAMP,
         cod_usuario = NEW.cod_usuario
     WHERE cod_prod = NEW.cod_prod
       AND referencia = NEW.cod_fact
@@ -298,96 +256,33 @@ BEGIN
     LIMIT 1;
 END$$
 
-DELIMITER ;
-
--- Eliminar movimiento al eliminar un detalle de factura --
-DELIMITER $$
-
+-- Crear movimiento compensatorio al eliminar un detalle de factura --
 CREATE TRIGGER IF NOT EXISTS anular_movimiento_al_eliminar_detalle
     AFTER DELETE
     ON detalle_factura
     FOR EACH ROW
 BEGIN
-    DELETE
-    FROM movimiento_stock
-    WHERE referencia = OLD.cod_fact
-      AND cod_prod = OLD.cod_prod
-      AND tipo = 'SALIDA'
-      AND motivo = 'VENTA';
-
-    UPDATE producto
-    SET stock_actual = stock_actual + OLD.cantidad
-    WHERE cod_prod = OLD.cod_prod;
+    INSERT INTO movimiento_stock(cod_prod, tipo, cantidad, motivo, referencia, cod_usuario)
+    VALUES (OLD.cod_prod, 'INGRESO', OLD.cantidad, 'DEVOLUCION', OLD.cod_fact, OLD.cod_usuario);
 END$$
 
-DELIMITER ;
-
--- Validar motivo y tipo de movimiento al registrar movimiento--
-DELIMITER $$
-
-CREATE TRIGGER IF NOT EXISTS validar_motivo_al_registrar_movimiento
-    BEFORE INSERT
-    ON movimiento_stock
-    FOR EACH ROW
-BEGIN
-    IF NEW.tipo = 'INGRESO' AND NEW.motivo NOT IN ('COMPRA', 'DEVOLUCION') THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Motivo inválido para ingreso';
-    END IF;
-
-    IF NEW.tipo = 'SALIDA' AND NEW.motivo NOT IN ('VENTA') THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Motivo inválido para salida';
-    END IF;
-END$$
-
-DELIMITER ;
-
--- Validar motivo y tipo de movimiento al actualizar movimiento--
-DELIMITER $$
-
-CREATE TRIGGER IF NOT EXISTS validar_motivo_al_actualizar_movimiento
-    BEFORE UPDATE
-    ON movimiento_stock
-    FOR EACH ROW
-BEGIN
-    IF NEW.tipo = 'INGRESO' AND NEW.motivo NOT IN ('COMPRA', 'DEVOLUCION') THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Motivo inválido para ingreso';
-    END IF;
-
-    IF NEW.tipo = 'SALIDA' AND NEW.motivo NOT IN ('VENTA') THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Motivo inválido para salida';
-    END IF;
-END$$
-
-DELIMITER ;
-
--- Actualizar stock por registro de movimiento --
-DELIMITER $$
-
+-- ================================================================= --
+-- TRIGGERS DE ACTUALIZACIÓN DE STOCK --
+-- ================================================================= --
 CREATE TRIGGER IF NOT EXISTS actualizar_stock_al_registrar_movimiento
     AFTER INSERT
     ON movimiento_stock
     FOR EACH ROW
 BEGIN
     IF NEW.tipo = 'INGRESO' THEN
-        UPDATE producto
-        SET stock_actual = stock_actual + NEW.cantidad
-        WHERE cod_prod = NEW.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual + NEW.cantidad WHERE cod_prod = NEW.cod_prod;
     ELSEIF NEW.tipo = 'SALIDA' THEN
         IF (SELECT stock_actual FROM producto WHERE cod_prod = NEW.cod_prod) < NEW.cantidad THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'No hay stock suficiente';
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No hay stock suficiente para completar la operación.';
         END IF;
-
-        UPDATE producto
-        SET stock_actual = stock_actual - NEW.cantidad
-        WHERE cod_prod = NEW.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual - NEW.cantidad WHERE cod_prod = NEW.cod_prod;
     END IF;
 END$$
-
-DELIMITER ;
-
--- Modificar stock para cambios en el movimiento --
-DELIMITER $$
 
 CREATE TRIGGER IF NOT EXISTS actualizar_stock_al_modificar_movimiento
     BEFORE UPDATE
@@ -395,35 +290,20 @@ CREATE TRIGGER IF NOT EXISTS actualizar_stock_al_modificar_movimiento
     FOR EACH ROW
 BEGIN
     IF OLD.tipo = 'INGRESO' THEN
-        UPDATE producto
-        SET stock_actual = stock_actual - OLD.cantidad
-        WHERE cod_prod = OLD.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual - OLD.cantidad WHERE cod_prod = OLD.cod_prod;
     ELSEIF OLD.tipo = 'SALIDA' THEN
-        UPDATE producto
-        SET stock_actual = stock_actual + OLD.cantidad
-        WHERE cod_prod = OLD.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual + OLD.cantidad WHERE cod_prod = OLD.cod_prod;
     END IF;
 
     IF NEW.tipo = 'INGRESO' THEN
-        UPDATE producto
-        SET stock_actual = stock_actual + NEW.cantidad
-        WHERE cod_prod = NEW.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual + NEW.cantidad WHERE cod_prod = NEW.cod_prod;
     ELSEIF NEW.tipo = 'SALIDA' THEN
         IF (SELECT stock_actual FROM producto WHERE cod_prod = NEW.cod_prod) < NEW.cantidad THEN
-            SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = 'Stock insuficiente para actualizar el movimiento';
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Stock insuficiente para actualizar el movimiento.';
         END IF;
-
-        UPDATE producto
-        SET stock_actual = stock_actual - NEW.cantidad
-        WHERE cod_prod = NEW.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual - NEW.cantidad WHERE cod_prod = NEW.cod_prod;
     END IF;
 END$$
-
-DELIMITER ;
-
--- Revertir stock por eliminación de movimiento --
-DELIMITER $$
 
 CREATE TRIGGER IF NOT EXISTS actualizar_stock_al_eliminar_movimiento
     BEFORE DELETE
@@ -431,169 +311,198 @@ CREATE TRIGGER IF NOT EXISTS actualizar_stock_al_eliminar_movimiento
     FOR EACH ROW
 BEGIN
     IF OLD.tipo = 'INGRESO' THEN
-        UPDATE producto
-        SET stock_actual = stock_actual - OLD.cantidad
-        WHERE cod_prod = OLD.cod_prod;
+        IF (SELECT stock_actual FROM producto WHERE cod_prod = OLD.cod_prod) < OLD.cantidad THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                    'No se puede eliminar el ingreso, el stock resultante sería negativo.';
+        END IF;
+        UPDATE producto SET stock_actual = stock_actual - OLD.cantidad WHERE cod_prod = OLD.cod_prod;
     ELSEIF OLD.tipo = 'SALIDA' THEN
-        UPDATE producto
-        SET stock_actual = stock_actual + OLD.cantidad
-        WHERE cod_prod = OLD.cod_prod;
+        UPDATE producto SET stock_actual = stock_actual + OLD.cantidad WHERE cod_prod = OLD.cod_prod;
     END IF;
 END$$
 
 DELIMITER ;
 
--- STORED PROCEDURES --
--- Devuelve datos del usuario
+-- ================================================================= --
+-- STORED PROCEDURES PARA CRUD --
+-- ================================================================= --
 DELIMITER $$
 
+-- CREATE - Insertar nuevo producto --
+CREATE PROCEDURE IF NOT EXISTS sp_insertar_producto(
+    IN p_cod_prod VARCHAR(25), IN p_descripcion VARCHAR(255), IN p_precio_unit DECIMAL(10, 2),
+    IN p_stock_actual INT, IN p_ruta_imagen VARCHAR(255), IN p_cod_usuario INT
+)
+BEGIN
+    INSERT INTO producto (cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario)
+    VALUES (p_cod_prod, p_descripcion, p_precio_unit, p_stock_actual, p_ruta_imagen, p_cod_usuario);
+END$$
+
+-- READ - Obtener producto por código --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_producto_por_codigo(IN p_cod_prod VARCHAR(25))
+BEGIN
+    SELECT cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, fecha_crea, fecha_modif
+    FROM producto
+    WHERE cod_prod = p_cod_prod;
+END$$
+
+-- UPDATE - Actualizar datos de un producto --
+CREATE PROCEDURE IF NOT EXISTS sp_actualizar_producto(
+    IN p_cod_prod VARCHAR(25), IN p_descripcion VARCHAR(255), IN p_precio_unit DECIMAL(10, 2),
+    IN p_stock_actual INT, IN p_ruta_imagen VARCHAR(255), IN p_cod_usuario INT
+)
+BEGIN
+    UPDATE producto
+    SET descripcion  = p_descripcion,
+        precio_unit  = p_precio_unit,
+        stock_actual = p_stock_actual,
+        ruta_imagen  = p_ruta_imagen,
+        cod_usuario  = p_cod_usuario
+    WHERE cod_prod = p_cod_prod;
+END$$
+
+-- DELETE - Eliminar producto --
+CREATE PROCEDURE IF NOT EXISTS sp_eliminar_producto(IN p_cod_prod VARCHAR(25))
+BEGIN
+    IF EXISTS (SELECT 1 FROM detalle_factura WHERE cod_prod = p_cod_prod) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar el producto porque está asociado a facturas.';
+    END IF;
+    IF EXISTS (SELECT 1 FROM movimiento_stock WHERE cod_prod = p_cod_prod) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT =
+                'No se puede eliminar el producto porque tiene movimientos de stock registrados.';
+    END IF;
+    DELETE FROM producto WHERE cod_prod = p_cod_prod;
+END$$
+
+-- CREATE - Insertar nuevo cliente --
+CREATE PROCEDURE IF NOT EXISTS sp_insertar_cliente(
+    IN p_cod_cli VARCHAR(25), IN p_nombre VARCHAR(255), IN p_apellido VARCHAR(255), IN p_dni VARCHAR(10),
+    IN p_direccion_cli VARCHAR(255), IN p_telefono VARCHAR(15), IN p_correo VARCHAR(100), IN p_cod_usuario INT
+)
+BEGIN
+    INSERT INTO cliente (cod_cli, nombre, apellido, dni, direccion_cli, telefono, correo, cod_usuario)
+    VALUES (p_cod_cli, p_nombre, p_apellido, p_dni, p_direccion_cli, p_telefono, p_correo, p_cod_usuario);
+END$$
+
+-- READ - Obtener cliente por código --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_cliente_por_codigo(IN p_cod_cli VARCHAR(25))
+BEGIN
+    SELECT cod_cli,
+           nombre,
+           apellido,
+           dni,
+           direccion_cli,
+           telefono,
+           correo,
+           fecha_crea,
+           fecha_modif
+    FROM cliente
+    WHERE cod_cli = p_cod_cli;
+END$$
+
+-- UPDATE - Actualizar datos de un cliente --
+CREATE PROCEDURE IF NOT EXISTS sp_actualizar_cliente(
+    IN p_cod_cli VARCHAR(25), IN p_nombre VARCHAR(255), IN p_apellido VARCHAR(255), IN p_dni VARCHAR(10),
+    IN p_direccion_cli VARCHAR(255), IN p_telefono VARCHAR(15), IN p_correo VARCHAR(100), IN p_cod_usuario INT
+)
+BEGIN
+    UPDATE cliente
+    SET nombre        = p_nombre,
+        apellido      = p_apellido,
+        dni           = p_dni,
+        direccion_cli = p_direccion_cli,
+        telefono      = p_telefono,
+        correo        = p_correo,
+        cod_usuario   = p_cod_usuario
+    WHERE cod_cli = p_cod_cli;
+END$$
+
+-- DELETE - Eliminar cliente --
+CREATE PROCEDURE IF NOT EXISTS sp_eliminar_cliente(IN p_cod_cli VARCHAR(25))
+BEGIN
+    IF EXISTS (SELECT 1 FROM factura WHERE cod_cli = p_cod_cli) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar el cliente porque tiene facturas registradas.';
+    END IF;
+    DELETE FROM cliente WHERE cod_cli = p_cod_cli;
+END$$
+
+-- ================================================================= --
+-- STORED PROCEDURES PARA REPORTERÍA --
+-- ================================================================= --
+
+-- Devuelve datos del usuario --
 CREATE PROCEDURE sp_obtener_usuario(IN p_usuario VARCHAR(50))
 BEGIN
-    SELECT nombre_usuario, clave, correo
-    FROM usuario
-    WHERE nombre_usuario = p_usuario;
+    SELECT nombre_usuario, clave, correo FROM usuario WHERE nombre_usuario = p_usuario;
 END$$
 
-DELIMITER ;
-
--- Devuelve la cantidad de productos con stock menor a un valor dado (p_stock)
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_contar_productos_stock_menor_a(
-    IN p_stock INT
-)
+-- Devuelve la cantidad de productos con stock menor a un valor dado (p_stock) --
+CREATE PROCEDURE IF NOT EXISTS sp_contar_productos_stock_menor_a(IN p_stock INT)
 BEGIN
-    SELECT COUNT(*) AS cantidad_productos_bajo_stock
-    FROM producto
-    WHERE stock_actual < p_stock;
+    SELECT COUNT(*) AS cantidad_productos_bajo_stock FROM producto WHERE stock_actual < p_stock;
 END$$
 
-DELIMITER ;
-
--- Devuelve el total de productos registrados en la tabla "producto"
-DELIMITER $$
-
+-- Devuelve el total de productos registrados en la tabla "producto" --
 CREATE PROCEDURE IF NOT EXISTS sp_contar_total_productos()
 BEGIN
-    SELECT COUNT(*) AS total_productos
-    FROM producto;
+    SELECT COUNT(*) AS total_productos FROM producto;
 END$$
 
-DELIMITER ;
-
--- Devuelve el monto total de ventas realizadas en el día actual
-DELIMITER $$
--- Devuelve el monto total de ventas realizadas en el día actual
+-- Devuelve el monto total de ventas realizadas en el día actual --
 CREATE PROCEDURE IF NOT EXISTS sp_total_ventas_dia()
 BEGIN
-    SELECT
-        IFNULL(SUM(total), 0) AS total_ventas_dia
-    FROM
-        factura
-    WHERE
-        DATE(fecha_emision) = CURRENT_DATE();
+    SELECT IFNULL(SUM(total), 0) AS total_ventas_dia FROM factura WHERE DATE(fecha_emision) = CURRENT_DATE();
 END$$
 
-DELIMITER ;
-
--- Devuelve el monto total de ventas realizadas en el mes actual
-DELIMITER $$
-
+-- Devuelve el monto total de ventas realizadas en el mes actual --
 CREATE PROCEDURE IF NOT EXISTS sp_total_ventas_mes_actual()
 BEGIN
-    SELECT
-        IFNULL(SUM(total), 0) AS total_ventas_mes
-    FROM
-        factura
-    WHERE
-        YEAR(fecha_emision) = YEAR(CURDATE())
-        AND MONTH(fecha_emision) = MONTH(CURDATE());
+    SELECT IFNULL(SUM(total), 0) AS total_ventas_mes
+    FROM factura
+    WHERE YEAR(fecha_emision) = YEAR(CURDATE())
+      AND MONTH(fecha_emision) = MONTH(CURDATE());
 END$$
 
-DELIMITER ;
-
--- Devuelve las últimas N ventas con la fecha, cliente y total.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_ultimas_n_ventas(
-    IN p_limit INT
-)
+-- Devuelve las últimas N ventas con la fecha, cliente y total --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_ultimas_n_ventas(IN p_limit INT)
 BEGIN
-    SELECT DATE(f.fecha_emision)             AS fecha_emision,
-           CONCAT(c.nombre, ' ', c.apellido) AS cliente,
-           f.total                           AS total
+    SELECT DATE(f.fecha_emision) AS fecha_emision, CONCAT(c.nombre, ' ', c.apellido) AS cliente, f.total AS total
     FROM factura f
              JOIN cliente c ON f.cod_cli = c.cod_cli
     ORDER BY f.fecha_emision DESC
     LIMIT p_limit;
 END$$
 
-DELIMITER ;
-
--- Lista N productos más recientes con datos clave.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_listar_n_prod(
-    IN p_limit INT
-)
+-- Lista N productos más recientes con datos clave --
+CREATE PROCEDURE IF NOT EXISTS sp_listar_n_prod(IN p_limit INT)
 BEGIN
-    SELECT cod_prod,
-           descripcion,
-           stock_actual,
-           fecha_crea,
-           fecha_modif
+    SELECT cod_prod, descripcion, stock_actual, fecha_crea, fecha_modif
     FROM producto
     ORDER BY fecha_crea DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Busca clientes por nombre, apellido o DNI.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_buscar_clientes(
-    IN p_termino VARCHAR(255)
-)
+-- Busca clientes por nombre, apellido o DNI --
+CREATE PROCEDURE IF NOT EXISTS sp_buscar_clientes(IN p_termino VARCHAR(255))
 BEGIN
-    SELECT nombre,
-           apellido,
-           dni,
-           direccion_cli,
-           telefono
+    SELECT nombre, apellido, dni, direccion_cli, telefono
     FROM cliente
     WHERE nombre LIKE CONCAT('%', p_termino, '%')
        OR apellido LIKE CONCAT('%', p_termino, '%')
        OR dni LIKE CONCAT('%', p_termino, '%');
-END $$
+END$$
 
-DELIMITER ;
-
--- Busca productos por código o descripción.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_buscar_productos(
-    IN p_termino VARCHAR(255)
-)
+-- Busca productos por código o descripción --
+CREATE PROCEDURE IF NOT EXISTS sp_buscar_productos(IN p_termino VARCHAR(255))
 BEGIN
-    SELECT cod_prod,
-           descripcion,
-           precio_unit,
-           stock_actual
-
+    SELECT cod_prod, descripcion, precio_unit, stock_actual
     FROM producto
     WHERE cod_prod LIKE CONCAT('%', p_termino, '%')
        OR descripcion LIKE CONCAT('%', p_termino, '%');
-END $$
+END$$
 
-DELIMITER ;
-
--- Devuelve el detalle completo de una factura específica.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_factura_detalle(
-    IN p_cod_fact VARCHAR(25)
-)
+-- Devuelve el detalle completo de una factura específica --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_factura_detalle(IN p_cod_fact VARCHAR(25))
 BEGIN
     SELECT f.cod_fact                    AS codigo_factura,
            DATE(f.fecha_emision)         AS fecha_venta,
@@ -611,16 +520,10 @@ BEGIN
              JOIN detalle_factura df ON df.cod_fact = f.cod_fact
              JOIN producto p ON df.cod_prod = p.cod_prod
     WHERE f.cod_fact = p_cod_fact;
-END $$
+END$$
 
-DELIMITER ;
-
--- Muestra los N productos más vendidos en el día actual.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_n_productos_vendidos_hoy(
-    IN p_limit INT
-)
+-- Muestra los N productos más vendidos en el día actual --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_n_productos_vendidos_hoy(IN p_limit INT)
 BEGIN
     SELECT p.cod_prod                       AS codigo_producto,
            p.descripcion                    AS descripcion_producto,
@@ -634,16 +537,10 @@ BEGIN
     GROUP BY p.cod_prod, p.descripcion, p.stock_actual
     ORDER BY total_cantidad_vendida DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Muestra los N productos más vendidos en el mes actual.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_n_productos_vendidos_mes_actual(
-    IN p_limit INT
-)
+-- Muestra los N productos más vendidos en el mes actual --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_n_productos_vendidos_mes_actual(IN p_limit INT)
 BEGIN
     SELECT p.cod_prod                       AS codigo_producto,
            p.descripcion                    AS descripcion_producto,
@@ -658,16 +555,10 @@ BEGIN
     GROUP BY p.cod_prod, p.descripcion, p.stock_actual
     ORDER BY total_cantidad_vendida DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Lista N productos con menor stock, incluyendo sus ventas totales.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_n_productos_menor_stock(
-    IN p_limit INT
-)
+-- Lista N productos con menor stock, incluyendo sus ventas totales --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_n_productos_menor_stock(IN p_limit INT)
 BEGIN
     SELECT p.cod_prod                                    AS codigo_producto,
            p.descripcion                                 AS descripcion_producto,
@@ -680,16 +571,10 @@ BEGIN
     GROUP BY p.cod_prod, p.descripcion, p.stock_actual
     ORDER BY p.stock_actual, total_cantidad_vendida DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Muestra los N productos más vendidos históricamente.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_n_productos_mas_vendidos(
-    IN p_limit INT
-)
+-- Muestra los N productos más vendidos históricamente --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_n_productos_mas_vendidos(IN p_limit INT)
 BEGIN
     SELECT p.cod_prod                       AS codigo_producto,
            p.descripcion                    AS descripcion_producto,
@@ -702,25 +587,12 @@ BEGIN
     GROUP BY p.cod_prod, p.descripcion, p.stock_actual
     ORDER BY total_cantidad_vendida DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Busca N clientes por cualquier campo, mostrando todos sus datos.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_buscar_n_clientes(
-    IN p_termino VARCHAR(255),
-    IN p_limit INT
-)
+-- Busca N clientes por cualquier campo, mostrando todos sus datos --
+CREATE PROCEDURE IF NOT EXISTS sp_buscar_n_clientes(IN p_termino VARCHAR(255), IN p_limit INT)
 BEGIN
-    SELECT cod_cli,
-           nombre,
-           apellido,
-           dni,
-           direccion_cli,
-           telefono,
-           correo
+    SELECT cod_cli, nombre, apellido, dni, direccion_cli, telefono, correo
     FROM cliente
     WHERE cod_cli LIKE CONCAT('%', p_termino, '%')
        OR nombre LIKE CONCAT('%', p_termino, '%')
@@ -731,16 +603,10 @@ BEGIN
        OR correo LIKE CONCAT('%', p_termino, '%')
     ORDER BY fecha_crea DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Muestra los N clientes más frecuentes por número de facturas.
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_clientes_frecuentes(
-    IN p_limit INT
-)
+-- Muestra los N clientes más frecuentes por número de facturas --
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_top_clientes_frecuentes(IN p_limit INT)
 BEGIN
     SELECT ROW_NUMBER() OVER (ORDER BY COUNT(f.cod_fact) DESC) AS posicion,
            c.cod_cli                                           AS codcliente,
@@ -751,16 +617,10 @@ BEGIN
     GROUP BY c.cod_cli, c.nombre, c.apellido
     ORDER BY COUNT(f.cod_fact) DESC
     LIMIT p_limit;
-END $$
+END$$
 
-DELIMITER ;
-
--- Muestra el historial de compra de un cliente dado su código
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_historial_compras_cliente(
-    IN p_cod_cli VARCHAR(25)
-)
+-- Muestra el historial de compra de un cliente dado su código --
+CREATE PROCEDURE IF NOT EXISTS sp_historial_compras_cliente(IN p_cod_cli VARCHAR(25))
 BEGIN
     SELECT p.cod_prod            AS cod_producto,
            p.descripcion         AS descripcion,
@@ -771,210 +631,6 @@ BEGIN
              JOIN producto p ON df.cod_prod = p.cod_prod
     WHERE f.cod_cli = p_cod_cli
     ORDER BY f.fecha_emision DESC;
-END$$
-
-DELIMITER ;
-
--- =======================================
--- CREATE - Insertar nuevo producto
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_insertar_producto(
-    IN p_cod_prod VARCHAR(25),
-    IN p_descripcion VARCHAR(255),
-    IN p_precio_unit DECIMAL(10,2),
-    IN p_stock_actual INT,
-    IN p_ruta_imagen VARCHAR(255),
-    IN p_cod_usuario INT
-)
-BEGIN
-    IF p_precio_unit <= 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El precio unitario debe ser mayor que 0';
-    END IF;
-
-    IF p_stock_actual < 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El stock inicial no puede ser negativo';
-    END IF;
-
-    INSERT INTO producto (cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario)
-    VALUES (p_cod_prod, p_descripcion, p_precio_unit, p_stock_actual, p_ruta_imagen, p_cod_usuario);
-END$$
-
-DELIMITER ;
-
--- =======================================
--- READ - Obtener producto por código
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_producto_por_codigo(
-    IN p_cod_prod VARCHAR(25)
-)
-BEGIN
-    SELECT cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, fecha_crea, fecha_modif
-    FROM producto
-    WHERE cod_prod = p_cod_prod;
-END$$
-
-DELIMITER ;
-
--- =======================================
--- UPDATE - Actualizar datos de un producto
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_actualizar_producto(
-    IN p_cod_prod VARCHAR(25),
-    IN p_descripcion VARCHAR(255),
-    IN p_precio_unit DECIMAL(10,2),
-    IN p_stock_actual INT,
-    IN p_ruta_imagen VARCHAR(255),
-    IN p_cod_usuario INT
-)
-BEGIN
-    IF p_precio_unit <= 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El precio unitario debe ser mayor que 0';
-    END IF;
-
-    IF p_stock_actual < 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El stock no puede ser negativo';
-    END IF;
-
-    UPDATE producto
-    SET descripcion = p_descripcion,
-        precio_unit = p_precio_unit,
-        stock_actual = p_stock_actual,
-        ruta_imagen = p_ruta_imagen,
-        cod_usuario = p_cod_usuario
-    WHERE cod_prod = p_cod_prod;
-END$$
-
-DELIMITER ;
-
--- =======================================
--- DELETE - Eliminar producto
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_eliminar_producto(
-    IN p_cod_prod VARCHAR(25)
-)
-BEGIN
-    IF EXISTS (SELECT 1 FROM detalle_factura WHERE cod_prod = p_cod_prod) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar el producto porque está en facturas';
-    END IF;
-
-    DELETE FROM producto WHERE cod_prod = p_cod_prod;
-END$$
-
-DELIMITER ;
-
--- =======================================
--- CREATE - Insertar nuevo cliente
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_insertar_cliente(
-    IN p_cod_cli VARCHAR(25),
-    IN p_nombre VARCHAR(255),
-    IN p_apellido VARCHAR(255),
-    IN p_dni VARCHAR(10),
-    IN p_direccion_cli VARCHAR(255),
-    IN p_telefono VARCHAR(15),
-    IN p_correo VARCHAR(100),
-    IN p_cod_usuario INT
-)
-BEGIN
-    IF p_dni NOT REGEXP '^[0-9]{8,10}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'DNI inválido';
-    END IF;
-
-    IF p_telefono NOT REGEXP '^[0-9]{9}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Teléfono inválido';
-    END IF;
-
-    IF p_correo NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Correo no válido';
-    END IF;
-
-    INSERT INTO cliente (cod_cli, nombre, apellido, dni, direccion_cli, telefono, correo, cod_usuario)
-    VALUES (p_cod_cli, p_nombre, p_apellido, p_dni, p_direccion_cli, p_telefono, p_correo, p_cod_usuario);
-END$$
-
-DELIMITER ;
-
--- =======================================
--- READ - Obtener cliente por código
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_cliente_por_codigo(
-    IN p_cod_cli VARCHAR(25)
-)
-BEGIN
-    SELECT cod_cli, nombre, apellido, dni, direccion_cli, telefono, correo, fecha_crea, fecha_modif
-    FROM cliente
-    WHERE cod_cli = p_cod_cli;
-END$$
-
-DELIMITER ;
-
--- =======================================
--- UPDATE - Actualizar datos de un cliente
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_actualizar_cliente(
-    IN p_cod_cli VARCHAR(25),
-    IN p_nombre VARCHAR(255),
-    IN p_apellido VARCHAR(255),
-    IN p_dni VARCHAR(10),
-    IN p_direccion_cli VARCHAR(255),
-    IN p_telefono VARCHAR(15),
-    IN p_correo VARCHAR(100),
-    IN p_cod_usuario INT
-)
-BEGIN
-    IF p_dni NOT REGEXP '^[0-9]{8,10}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'DNI inválido';
-    END IF;
-
-    IF p_telefono NOT REGEXP '^[0-9]{9}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Teléfono inválido';
-    END IF;
-
-    IF p_correo NOT REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Correo no válido';
-    END IF;
-
-    UPDATE cliente
-    SET nombre = p_nombre,
-        apellido = p_apellido,
-        dni = p_dni,
-        direccion_cli = p_direccion_cli,
-        telefono = p_telefono,
-        correo = p_correo,
-        cod_usuario = p_cod_usuario
-    WHERE cod_cli = p_cod_cli;
-END$$
-
-DELIMITER ;
-
--- =======================================
--- DELETE - Eliminar cliente
--- =======================================
-DELIMITER $$
-
-CREATE PROCEDURE IF NOT EXISTS sp_eliminar_cliente(
-    IN p_cod_cli VARCHAR(25)
-)
-BEGIN
-    IF EXISTS (SELECT 1 FROM factura WHERE cod_cli = p_cod_cli) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar el cliente porque tiene facturas registradas';
-    END IF;
-
-    DELETE FROM cliente WHERE cod_cli = p_cod_cli;
 END$$
 
 DELIMITER ;
