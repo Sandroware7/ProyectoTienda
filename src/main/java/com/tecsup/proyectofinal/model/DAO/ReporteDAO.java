@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.tecsup.proyectofinal.DAO;
+package com.tecsup.proyectofinal.model.DAO;
 
-import com.tecsup.proyectofinal.DTO.ClienteDTO;
-import com.tecsup.proyectofinal.DTO.ClienteFrecuenteDTO;
-import com.tecsup.proyectofinal.DTO.HistorialCompraDTO;
-import com.tecsup.proyectofinal.DTO.ProductoDTO;
-import com.tecsup.proyectofinal.DTO.ProductoRecienteDTO;
-import com.tecsup.proyectofinal.DTO.ProductoVendidoDTO;
-import com.tecsup.proyectofinal.DTO.VentaRecienteDTO;
+import com.tecsup.proyectofinal.model.DTO.ClienteDTO;
+import com.tecsup.proyectofinal.model.DTO.ClienteFrecuenteDTO;
+import com.tecsup.proyectofinal.model.DTO.HistorialCompraDTO;
+import com.tecsup.proyectofinal.model.DTO.ProductoDTO;
+import com.tecsup.proyectofinal.model.DTO.ProductoRecienteDTO;
+import com.tecsup.proyectofinal.model.DTO.ProductoVendidoDTO;
+import com.tecsup.proyectofinal.model.DTO.VentaRecienteDTO;
 import com.tecsup.proyectofinal.util.DAOException;
 import java.util.List;
 import java.util.Optional;

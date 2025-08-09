@@ -1,6 +1,6 @@
-package com.tecsup.proyectofinal.DAO;
+package com.tecsup.proyectofinal.model.DAO;
 
-import com.tecsup.proyectofinal.DTO.ClienteDTO;
+import com.tecsup.proyectofinal.model.DTO.ClienteDTO;
 import com.tecsup.proyectofinal.util.DAOException;
 import java.util.Optional;
 

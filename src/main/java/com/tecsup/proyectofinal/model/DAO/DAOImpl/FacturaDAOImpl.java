@@ -1,7 +1,7 @@
-package com.tecsup.proyectofinal.DAOImpl;
+package com.tecsup.proyectofinal.model.DAO.DAOImpl;
 
-import com.tecsup.proyectofinal.DAO.FacturaDAO;
-import com.tecsup.proyectofinal.DTO.FacturaDTO;
+import com.tecsup.proyectofinal.model.DAO.FacturaDAO;
+import com.tecsup.proyectofinal.model.DTO.FacturaDTO;
 import com.tecsup.proyectofinal.util.DAOException;
 import java.util.Optional;
 

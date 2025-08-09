@@ -1,4 +1,4 @@
-package com.tecsup.proyectofinal.DTO;
+package com.tecsup.proyectofinal.model.DTO;
 
 import java.sql.*;
 

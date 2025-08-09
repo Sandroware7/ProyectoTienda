@@ -1,7 +1,7 @@
-package com.tecsup.proyectofinal.DAOImpl;
+package com.tecsup.proyectofinal.model.DAO.DAOImpl;
 
-import com.tecsup.proyectofinal.DAO.UsuarioDAO;
-import com.tecsup.proyectofinal.DTO.UsuarioDTO;
+import com.tecsup.proyectofinal.model.DAO.UsuarioDAO;
+import com.tecsup.proyectofinal.model.DTO.UsuarioDTO;
 import com.tecsup.proyectofinal.util.DAOException;
 
 public class UsuarioDAOImpl implements UsuarioDAO {

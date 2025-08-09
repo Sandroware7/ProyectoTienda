@@ -1,9 +1,9 @@
-package com.tecsup.proyectofinal.DAOImpl;
+package com.tecsup.proyectofinal.model.DAO.DAOImpl;
 
 import java.sql.*;
 import com.tecsup.proyectofinal.util.Conexion;
-import com.tecsup.proyectofinal.DTO.ClienteDTO;
-import com.tecsup.proyectofinal.DAO.ClienteDAO;
+import com.tecsup.proyectofinal.model.DTO.ClienteDTO;
+import com.tecsup.proyectofinal.model.DAO.ClienteDAO;
 import com.tecsup.proyectofinal.util.DAOException;
 import com.tecsup.proyectofinal.util.SesionActual;
 import java.util.Optional;

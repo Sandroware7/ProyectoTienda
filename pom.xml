@@ -26,6 +26,41 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>24</maven.compiler.release>
-        <exec.mainClass>com.mycompany.proyectofinal.Main.ProyectoFinal</exec.mainClass>
+        <exec.mainClass>com.mycompany.proyectofinal.aplication.ProyectoFinal</exec.mainClass>
     </properties>
+    
+    <build>
+    <!-- ✅ Fuerza el directorio correcto de resources -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+
+    <plugins>
+      <!-- Compilador (explícito por claridad) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+
+      <!-- ✅ Exec plugin con workingDirectory y mainClass -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <workingDirectory>${project.basedir}</workingDirectory>
+          <mainClass>${exec.mainClass}</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+    
+    
 </project>

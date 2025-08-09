@@ -1,8 +1,7 @@
-package com.tecsup.proyectofinal.DAOImpl;
+package com.tecsup.proyectofinal.model.DAO.DAOImpl;
 
-import com.tecsup.proyectofinal.DTO.ProductoDTO;
-
-import com.tecsup.proyectofinal.DAO.ProductoDAO;
+import com.tecsup.proyectofinal.model.DTO.ProductoDTO;
+import com.tecsup.proyectofinal.model.DAO.ProductoDAO;
 import com.tecsup.proyectofinal.util.DAOException;
 import java.util.Optional;
 
