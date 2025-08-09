@@ -10,13 +10,13 @@ package com.mycompany.proyectofinal.util;
  */
 public class SesionActual {
 
-    public static String usuarioActual;
+    public static int usuarioActual;
 
-    public static String getUsuarioActual() {
+    public static int getUsuarioActual() {
         return usuarioActual;
     }
 
-    public static void setUsuarioActual(String usuarioActual) {
+    public static void setUsuarioActual(int usuarioActual) {
         SesionActual.usuarioActual = usuarioActual;
     }
 }
