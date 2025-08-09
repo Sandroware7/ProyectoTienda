@@ -1,12 +1,12 @@
-package com.mycompany.proyectofinal.DAOImp;
+package com.tecsup.proyectofinal.DAOImpl;
 
-import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.ProductoDTO;
+import com.tecsup.proyectofinal.util.Conexion;
+import com.tecsup.proyectofinal.DTO.ProductoDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import com.mycompany.proyectofinal.DAO.ProductoDAO;
+import com.tecsup.proyectofinal.DAO.ProductoDAO;
 
 public class ProductoDAOImpl implements ProductoDAO {
 

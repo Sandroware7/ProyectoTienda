@@ -1,12 +1,14 @@
-package com.mycompany.proyectofinal.DAO;
+package com.tecsup.proyectofinal.DAO;
 
-import com.mycompany.proyectofinal.DTO.ClienteDTO;
+import com.tecsup.proyectofinal.DTO.ClienteDTO;
+import com.tecsup.proyectofinal.util.DAOException;
+import java.util.Optional;
 
 public interface ClienteDAO {
 
     void guardar(ClienteDTO cliente) throws DAOException;
 
-    ClienteDTO buscarPorCodigo(String codigo) throws DAOException;
+    Optional<ClienteDTO> buscarPorCodigo(String codigo) throws DAOException;
 
     void actualizar(ClienteDTO cliente) throws DAOException;
 

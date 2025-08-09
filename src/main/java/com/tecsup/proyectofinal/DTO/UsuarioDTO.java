@@ -1,4 +1,4 @@
-package com.mycompany.proyectofinal.DTO;
+package com.tecsup.proyectofinal.DTO;
 
 public record UsuarioDTO(
         String nombreUsuario,

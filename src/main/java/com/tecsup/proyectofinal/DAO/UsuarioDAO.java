@@ -1,6 +1,7 @@
-package com.mycompany.proyectofinal.DAO;
+package com.tecsup.proyectofinal.DAO;
 
-import com.mycompany.proyectofinal.DTO.UsuarioDTO;
+import com.tecsup.proyectofinal.DTO.UsuarioDTO;
+import com.tecsup.proyectofinal.util.DAOException;
 
 public interface UsuarioDAO {
 

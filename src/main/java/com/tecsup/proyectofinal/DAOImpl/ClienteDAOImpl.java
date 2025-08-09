@@ -1,39 +1,35 @@
-package com.mycompany.proyectofinal.DAOImp;
+package com.tecsup.proyectofinal.DAOImpl;
 
 import java.sql.*;
-import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.ClienteDTO;
-import com.mycompany.proyectofinal.DAO.ClienteDAO;
+import com.tecsup.proyectofinal.util.Conexion;
+import com.tecsup.proyectofinal.DTO.ClienteDTO;
+import com.tecsup.proyectofinal.DAO.ClienteDAO;
+import com.tecsup.proyectofinal.util.DAOException;
+import com.tecsup.proyectofinal.util.SesionActual;
+import java.util.Optional;
 
 public class ClienteDAOImpl implements ClienteDAO {
 
-    Connection con;
-
     public ClienteDAOImpl() {
-        establecer_conexion();
-    }
 
-    public final void establecer_conexion() {
-        var connection = Conexion.obtener_conexion();
-        this.con = connection;
     }
 
     // Funciona
     @Override
-    public void agregar_cliente(ClienteDTO cliente) {
+    public void guardar(ClienteDTO cliente) {
         String sql = "CALL {sp_insertar_cliente (?, ?, ?, ?, ?, ?, ?, ?)}";
-        try (CallableStatement cs = con.prepareCall(sql)) {
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
 
-            cs.setString(1, cliente.codCli());
-            cs.setString(2, cliente.nombre());
-            cs.setString(3, cliente.apellido());
-            cs.setString(4, cliente.dni());
-            cs.setString(5, cliente.direccionCli());
-            cs.setString(6, cliente.telefono());
-            cs.setString(7, cliente.correo());
-            cs.setInt(8, cliente.codUsuario());
+            cstmt.setString(1, cliente.codCli());
+            cstmt.setString(2, cliente.nombre());
+            cstmt.setString(3, cliente.apellido());
+            cstmt.setString(4, cliente.dni());
+            cstmt.setString(5, cliente.direccionCli());
+            cstmt.setString(6, cliente.telefono());
+            cstmt.setString(7, cliente.correo());
+            cstmt.setInt(8, SesionActual.getUsuarioActual());
 
-            int filasAfectadas = cs.executeUpdate();
+            int filasAfectadas = cstmt.executeUpdate();
 
             if (filasAfectadas > 1) {
                 System.out.println("Cliente insertado correctamente.");
@@ -44,94 +40,49 @@ public class ClienteDAOImpl implements ClienteDAO {
         }
     }
 
-    // Funciona
     @Override
-    public void sp_buscar_clientes(String p_termino) {
-        String sql = "{call sp_buscar_clientes (?)}";
-        try (CallableStatement cs = con.prepareCall(sql)) {
-            cs.setString(1, p_termino);
-            ResultSet rs = cs.executeQuery();
-            //TODO
-            while (rs.next()) {
-                System.out.println("Cliente: " + rs.getString("nombre") + " " + rs.getString("apellido"));
-                System.out.println("DNI: " + rs.getString("dni"));
-                System.out.println("Dirección: " + rs.getString("direccion_cli"));
-                System.out.println("Teléfono: " + rs.getString("telefono"));
+    public Optional<ClienteDTO> buscarPorCodigo(String codigoCli) throws DAOException {
+        String sql = "{CALL sp_obtener_cliente_por_codigo(?)}";
 
-                System.out.println("---------------------------------------------------");
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, codigoCli);
+
+            try (ResultSet rs = cstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    ClienteDTO cliente = new ClienteDTO(
+                            rs.getString("cod_cli"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido"),
+                            rs.getString("dni"),
+                            rs.getString("telefono"),
+                            rs.getString("correo"),
+                            rs.getString("direccion_cli"),
+                            rs.getInt("cod_usuario"),
+                            rs.getTimestamp("fecha_crea"),
+                            rs.getTimestamp("fecha_modif")
+                    );
+
+                    return Optional.of(cliente);
+                }
             }
 
         } catch (SQLException ex) {
-            System.out.println("Error al ejecutar sp_buscar_clientes " + ex);
+            throw new DAOException("Error al buscar cliente por código: " + codigoCli, ex);
         }
+
+        return Optional.empty();
     }
 
-    // Funciona
     @Override
-    public void sp_buscar_n_clientes(String p_termino, int p_limit) {
-        String sql = "{call sp_buscar_n_clientes (?, ?)}";
-        try (CallableStatement cs = con.prepareCall(sql)) {
-            cs.setString(1, p_termino);
-            cs.setInt(2, p_limit);
-            ResultSet rs = cs.executeQuery();
-            //TODO
-            while (rs.next()) {
-                System.out.println("Cliente: " + rs.getString("nombre") + " " + rs.getString("apellido"));
-                System.out.println("Codigo: " + rs.getString("cod_cli"));
-                System.out.println("DNI: " + rs.getString("dni"));
-                System.out.println("Dirección: " + rs.getString("direccion_cli"));
-                System.out.println("Teléfono: " + rs.getString("telefono"));
-                System.out.println("Correo: " + rs.getString("correo"));
-
-                System.out.println("---------------------------------------------------");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al ejecutar sp_buscar_clientes " + e.getMessage());
-        }
+    public void actualizar(ClienteDTO cliente) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    // Funciona
     @Override
-    public void sp_historial_compras_cliente(String p_cod_cli) {
-        String sql = "{CALL sp_historial_compras_cliente(?)}";
-        try (CallableStatement cs = con.prepareCall(sql)) {
-            cs.setString(1, p_cod_cli);
-
-            ResultSet rs = cs.executeQuery();
-            //TODO
-            System.out.println("===== HISTORIAL DE COMPRAS DE " + p_cod_cli + " =====");
-            while (rs.next()) {
-                System.out.println("Código producto  : " + rs.getString("cod_producto"));
-                System.out.println("Descripción      : " + rs.getString("descripcion"));
-                System.out.println("Fecha compra     : " + rs.getDate("fecha_compra"));
-                System.out.println("Cantidad         : " + rs.getInt("cantidad"));
-                System.out.println("-----------------------------------");
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener historial de compras: " + e.getMessage());
-        }
+    public void eliminar(String codigo) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    // Funciona
-    @Override
-    public void sp_obtener_top_clientes_frecuentes(int p_limit) {
-        String sql = "{CALL sp_obtener_top_clientes_frecuentes(?)}";
-        try (CallableStatement cs = con.prepareCall(sql)) {
-            cs.setInt(1, p_limit);
-            ResultSet rs = cs.executeQuery();
-            //TODO
-            System.out.println("===== TOP " + p_limit + " CLIENTES FRECUENTES =====");
-            while (rs.next()) {
-                System.out.println("Posición    : " + rs.getInt("posicion"));
-                System.out.println("Código cli  : " + rs.getString("codcliente"));
-                System.out.println("Nombre      : " + rs.getString("nombre"));
-                System.out.println("Apellido    : " + rs.getString("apellido"));
-                System.out.println("----------------------------------");
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al obtener top clientes frecuentes: " + e.getMessage());
-        }
-    }
 }

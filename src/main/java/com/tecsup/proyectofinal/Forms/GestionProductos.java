@@ -2,14 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.proyectofinal.Forms;
-import com.mycompany.proyectofinal.DAOImp.ProductoDAOImpl;
-import com.mycompany.proyectofinal.DTO.ProductoDTO;
-import com.mycompany.proyectofinal.util.SesionActual;
+package com.tecsup.proyectofinal.Forms;
+import com.tecsup.proyectofinal.DAOImpl.ProductoDAOImpl;
+import com.tecsup.proyectofinal.DTO.ProductoDTO;
+import com.tecsup.proyectofinal.util.SesionActual;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import com.mycompany.proyectofinal.DAO.ProductoDAO;
+import com.tecsup.proyectofinal.DAO.ProductoDAO;
+import com.tecsup.proyectofinal.util.DAOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author bob_s
@@ -501,7 +504,11 @@ public class GestionProductos extends javax.swing.JFrame {
         // Inserción de dato, fechaCrea, fechaModif no se llenan.
         ProductoDAO p = new ProductoDAOImpl();
         ProductoDTO pdto = new ProductoDTO(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
-        p.guardar(pdto);
+        try {
+            p.guardar(pdto);
+        } catch (DAOException ex) {
+            System.out.println("");
+        }
 
         // Limpiamos campos
         CodProductoGestion.setText("");

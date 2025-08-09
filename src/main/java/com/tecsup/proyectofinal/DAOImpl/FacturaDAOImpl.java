@@ -1,10 +1,10 @@
-package com.mycompany.proyectofinal.DAOImp;
+package com.tecsup.proyectofinal.DAOImpl;
 
-import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.FacturaDTO;
+import com.tecsup.proyectofinal.util.Conexion;
+import com.tecsup.proyectofinal.DTO.FacturaDTO;
 
 import java.sql.*;
-import com.mycompany.proyectofinal.DAO.FacturaDAO;
+import com.tecsup.proyectofinal.DAO.FacturaDAO;
 
 public class FacturaDAOImpl implements FacturaDAO {
 

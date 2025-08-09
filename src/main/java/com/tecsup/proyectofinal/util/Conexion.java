@@ -1,10 +1,10 @@
-package com.mycompany.proyectofinal.util;
+package com.tecsup.proyectofinal.util;
 
 import java.sql.*;
 
 public class Conexion {
 
-    public static Connection obtener_conexion () {
+    public static Connection obtenerConexion () {
         String url = "jdbc:mysql://localhost:3306/bd_proyecto_final_g5";
         String user = "root";
         String pass = "musicme";

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.proyectofinal.Forms;
+package com.tecsup.proyectofinal.Forms;
 
 /**
  *
@@ -365,7 +365,7 @@ public class Reportes extends javax.swing.JFrame {
         GestionProductosButton.setBorder(null);
         GestionProductosButton.setBorderPainted(false);
         GestionProductosButton.setContentAreaFilled(false);
-        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         GestionProductosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GestionProductosButtonActionPerformed(evt);
@@ -378,7 +378,7 @@ public class Reportes extends javax.swing.JFrame {
         ClientesButton.setBorder(null);
         ClientesButton.setBorderPainted(false);
         ClientesButton.setContentAreaFilled(false);
-        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ClientesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClientesButtonActionPerformed(evt);
@@ -391,7 +391,7 @@ public class Reportes extends javax.swing.JFrame {
         SalirButton.setBorder(null);
         SalirButton.setBorderPainted(false);
         SalirButton.setContentAreaFilled(false);
-        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirButtonActionPerformed(evt);
@@ -404,7 +404,7 @@ public class Reportes extends javax.swing.JFrame {
         VentasButton.setBorder(null);
         VentasButton.setBorderPainted(false);
         VentasButton.setContentAreaFilled(false);
-        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         VentasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VentasButtonActionPerformed(evt);
@@ -416,7 +416,7 @@ public class Reportes extends javax.swing.JFrame {
         ReportesButton.setForeground(new java.awt.Color(255, 255, 255));
         ReportesButton.setText("Reportes                        ");
         ReportesButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ReportesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportesButtonActionPerformed(evt);

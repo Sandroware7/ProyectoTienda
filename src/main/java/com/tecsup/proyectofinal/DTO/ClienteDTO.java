@@ -1,4 +1,4 @@
-package com.mycompany.proyectofinal.DTO;
+package com.tecsup.proyectofinal.DTO;
 
 import java.sql.*;
 
@@ -13,7 +13,7 @@ public record ClienteDTO(
         int codUsuario,
         Timestamp fechaCrea,
         Timestamp fechaModif) {
-
+    
     @Override
     public String toString() {
         return "cliente_DTO{"
@@ -24,7 +24,6 @@ public record ClienteDTO(
                 + ", direccionCli=" + direccionCli
                 + ", telefono=" + telefono
                 + ", correo=" + correo
-                + ", codUsuario=" + codUsuario
                 + ", fechaCrea=" + fechaCrea
                 + ", fechaModif=" + fechaModif + '}';
     }

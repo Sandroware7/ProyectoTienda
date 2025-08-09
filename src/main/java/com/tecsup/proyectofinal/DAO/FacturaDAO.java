@@ -1,9 +1,11 @@
-package com.mycompany.proyectofinal.DAO;
+package com.tecsup.proyectofinal.DAO;
 
-import com.mycompany.proyectofinal.DTO.FacturaDTO;
+import com.tecsup.proyectofinal.DTO.FacturaDTO;
+import com.tecsup.proyectofinal.util.DAOException;
+import java.util.Optional;
 
 public interface FacturaDAO {
 
-    FacturaDTO obtenerFacturaDetallada(String codigoFactura) throws DAOException;
+    Optional<FacturaDTO> obtenerFacturaDetallada(String codigoFactura) throws DAOException;
 
 }

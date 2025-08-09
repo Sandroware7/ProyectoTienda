@@ -1,4 +1,4 @@
-package com.mycompany.proyectofinal.DTO;
+package com.tecsup.proyectofinal.DTO;
 
 import java.time.LocalDateTime;
 import java.util.List;

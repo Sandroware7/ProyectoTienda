@@ -1,10 +1,10 @@
-package com.mycompany.proyectofinal.DAOImp;
+package com.tecsup.proyectofinal.DAOImpl;
 
-import com.mycompany.proyectofinal.util.Conexion;
-import com.mycompany.proyectofinal.DTO.UsuarioDTO;
+import com.tecsup.proyectofinal.util.Conexion;
+import com.tecsup.proyectofinal.DTO.UsuarioDTO;
 
 import java.sql.*;
-import com.mycompany.proyectofinal.DAO.UsuarioDAO;
+import com.tecsup.proyectofinal.DAO.UsuarioDAO;
 
 
 public class UsuarioDAOImpl implements UsuarioDAO {

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.proyectofinal.Forms;
+package com.tecsup.proyectofinal.Forms;
 
 /**
  *
@@ -93,7 +93,7 @@ public class Clientes extends javax.swing.JFrame {
         GestionProductosButton.setBorder(null);
         GestionProductosButton.setBorderPainted(false);
         GestionProductosButton.setContentAreaFilled(false);
-        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         GestionProductosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GestionProductosButtonActionPerformed(evt);
@@ -106,7 +106,7 @@ public class Clientes extends javax.swing.JFrame {
         ReportesButton.setBorder(null);
         ReportesButton.setBorderPainted(false);
         ReportesButton.setContentAreaFilled(false);
-        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ReportesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportesButtonActionPerformed(evt);
@@ -119,7 +119,7 @@ public class Clientes extends javax.swing.JFrame {
         SalirButton.setBorder(null);
         SalirButton.setBorderPainted(false);
         SalirButton.setContentAreaFilled(false);
-        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirButtonActionPerformed(evt);
@@ -132,7 +132,7 @@ public class Clientes extends javax.swing.JFrame {
         VentasButton.setBorder(null);
         VentasButton.setBorderPainted(false);
         VentasButton.setContentAreaFilled(false);
-        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         VentasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VentasButtonActionPerformed(evt);
@@ -144,7 +144,7 @@ public class Clientes extends javax.swing.JFrame {
         ClientesButton.setForeground(new java.awt.Color(255, 255, 255));
         ClientesButton.setText("Cientes                            ");
         ClientesButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ClientesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClientesButtonActionPerformed(evt);
@@ -188,31 +188,24 @@ public class Clientes extends javax.swing.JFrame {
         PanelClientesCRUD.setBackground(new java.awt.Color(255, 239, 232));
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Datos del Clientes");
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nombre:");
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("CodCliente:");
 
         jLabel8.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Apellido:");
 
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Teléfono:");
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Dirección:");
 
         CodCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        CodCliente.setForeground(new java.awt.Color(0, 0, 0));
         CodCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         CodCliente.setMinimumSize(new java.awt.Dimension(64, 25));
         CodCliente.setPreferredSize(new java.awt.Dimension(74, 25));
@@ -223,17 +216,14 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         NombreCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        NombreCliente.setForeground(new java.awt.Color(0, 0, 0));
         NombreCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         NombreCliente.setPreferredSize(new java.awt.Dimension(74, 25));
 
         ApellidoCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        ApellidoCliente.setForeground(new java.awt.Color(0, 0, 0));
         ApellidoCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         ApellidoCliente.setPreferredSize(new java.awt.Dimension(74, 25));
 
         DireccionCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        DireccionCliente.setForeground(new java.awt.Color(0, 0, 0));
         DireccionCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         DireccionCliente.setPreferredSize(new java.awt.Dimension(74, 25));
         DireccionCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -243,26 +233,21 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         TelefonoCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        TelefonoCliente.setForeground(new java.awt.Color(0, 0, 0));
         TelefonoCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         TelefonoCliente.setPreferredSize(new java.awt.Dimension(74, 25));
 
         dniCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        dniCliente.setForeground(new java.awt.Color(0, 0, 0));
         dniCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         dniCliente.setPreferredSize(new java.awt.Dimension(74, 25));
 
         CorreoCliente.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        CorreoCliente.setForeground(new java.awt.Color(0, 0, 0));
         CorreoCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         CorreoCliente.setPreferredSize(new java.awt.Dimension(74, 25));
 
         jLabel11.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("DNI:");
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Correo:");
 
         ActualizarCliente.setBackground(new java.awt.Color(210, 143, 0));
@@ -430,7 +415,6 @@ public class Clientes extends javax.swing.JFrame {
         PanelClientesFrecuentes.setBackground(new java.awt.Color(255, 239, 232));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 1, 22)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Clientes Frecuentes");
 
         TablaClientesFrecuentes.setModel(new javax.swing.table.DefaultTableModel(
