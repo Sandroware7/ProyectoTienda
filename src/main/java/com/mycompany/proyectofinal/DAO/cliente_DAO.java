@@ -1,6 +1,6 @@
-package bd.DAO;
+package com.mycompany.proyectofinal.DAO;
 
-import bd.DTO.cliente_DTO;
+import com.mycompany.proyectofinal.DTO.cliente_DTO;
 
 public interface cliente_DAO {
 

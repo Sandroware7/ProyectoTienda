@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Forms;
-import bd.DAO.producto_DAO;
-import bd.DAOImp.producto_DAO_Imp;
-import bd.DTO.producto_DTO;
+package com.mycompany.proyectofinal.Forms;
+import com.mycompany.proyectofinal.DAO.producto_DAO;
+import com.mycompany.proyectofinal.DAOImp.producto_DAO_Imp;
+import com.mycompany.proyectofinal.DTO.producto_DTO;
 
 import java.math.BigDecimal;
 /**
@@ -457,7 +457,7 @@ public class GestionProductos extends javax.swing.JFrame {
         producto_DAO_Imp dao = new producto_DAO_Imp();
 
         TablaProductosGestion.setModel(new javax.swing.table.DefaultTableModel( dao.ver_productos()
-                // Seccion por corregir, aparece solo 1 registro. El metodo .ver_datos debe los datos de la bd, la bd se agrega automaticamente, ver como integrarlo en el dto y traerlo directo desde la bd
+                // Seccion por corregir, aparece solo 1 registro. El metodo .ver_datos debe los datos de la com.mycompany.proyectofinal.bd, la com.mycompany.proyectofinal.bd se agrega automaticamente, ver como integrarlo en el dto y traerlo directo desde la com.mycompany.proyectofinal.bd
                 .stream()
                 .map(p -> new Object[]{
                         p.getCodProd(),

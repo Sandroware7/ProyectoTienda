@@ -1,4 +1,4 @@
-package bd.DAO;
+package com.mycompany.proyectofinal.DAO;
 
 public interface movimiento_stock_DAO {
 

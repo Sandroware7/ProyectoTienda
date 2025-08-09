@@ -1,4 +1,4 @@
-package bd.DTO;
+package com.mycompany.proyectofinal.DTO;
 
 public class detalle_factura_DTO {
 

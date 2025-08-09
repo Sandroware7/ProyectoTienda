@@ -1,6 +1,6 @@
-package bd.DAO;
+package com.mycompany.proyectofinal.DAO;
 
-import bd.DTO.producto_DTO;
+import com.mycompany.proyectofinal.DTO.producto_DTO;
 
 import java.util.List;
 

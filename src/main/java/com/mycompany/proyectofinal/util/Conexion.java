@@ -1,4 +1,4 @@
-package bd;
+package com.mycompany.proyectofinal.util;
 
 import java.sql.*;
 
@@ -12,7 +12,7 @@ public class Conexion {
         try {
             //
             Connection conn = DriverManager.getConnection(url, user, pass);
-            System.out.println("Conectado a la bd");
+            System.out.println("Conectado a la com.mycompany.proyectofinal.bd");
             return conn;
         } catch (SQLException e) {
             System.out.println("Error durante la conexion");

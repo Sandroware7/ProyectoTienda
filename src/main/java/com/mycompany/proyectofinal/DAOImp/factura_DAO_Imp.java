@@ -1,8 +1,8 @@
-package bd.DAOImp;
+package com.mycompany.proyectofinal.DAOImp;
 
-import bd.Conexion;
-import bd.DAO.factura_DAO;
-import bd.DTO.factura_DTO;
+import com.mycompany.proyectofinal.util.Conexion;
+import com.mycompany.proyectofinal.DAO.factura_DAO;
+import com.mycompany.proyectofinal.DTO.factura_DTO;
 
 import java.sql.*;
 

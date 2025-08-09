@@ -1,9 +1,9 @@
-package bd.DAOImp;
+package com.mycompany.proyectofinal.DAOImp;
 
 import java.sql.*;
-import bd.Conexion;
-import bd.DAO.cliente_DAO;
-import bd.DTO.cliente_DTO;
+import com.mycompany.proyectofinal.util.Conexion;
+import com.mycompany.proyectofinal.DAO.cliente_DAO;
+import com.mycompany.proyectofinal.DTO.cliente_DTO;
 
 public class cliente_DAO_Imp implements cliente_DAO {
 

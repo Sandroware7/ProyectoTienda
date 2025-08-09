@@ -1,4 +1,4 @@
-package bd.DTO;
+package com.mycompany.proyectofinal.DTO;
 import java.sql.*;
 
 public class cliente_DTO {

@@ -1,6 +1,6 @@
-package bd.DAO;
+package com.mycompany.proyectofinal.DAO;
 
-import bd.DTO.factura_DTO;
+import com.mycompany.proyectofinal.DTO.factura_DTO;
 
 public interface factura_DAO {
 

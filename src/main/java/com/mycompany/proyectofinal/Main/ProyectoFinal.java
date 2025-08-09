@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.proyectofinal;
-import bd.DAO.cliente_DAO;
-import bd.DAOImp.cliente_DAO_Imp;
+package com.mycompany.proyectofinal.Main;
+import com.mycompany.proyectofinal.DAO.cliente_DAO;
+import com.mycompany.proyectofinal.DAOImp.cliente_DAO_Imp;
 
 /**
  *

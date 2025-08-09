@@ -1,8 +1,8 @@
-package bd.DAOImp;
+package com.mycompany.proyectofinal.DAOImp;
 
-import bd.Conexion;
-import bd.DAO.producto_DAO;
-import bd.DTO.producto_DTO;
+import com.mycompany.proyectofinal.util.Conexion;
+import com.mycompany.proyectofinal.DAO.producto_DAO;
+import com.mycompany.proyectofinal.DTO.producto_DTO;
 
 import java.sql.*;
 import java.util.ArrayList;

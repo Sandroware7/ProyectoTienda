@@ -1,7 +1,7 @@
-package bd.DAOImp;
+package com.mycompany.proyectofinal.DAOImp;
 
-import bd.Conexion;
-import bd.DAO.movimiento_stock_DAO;
+import com.mycompany.proyectofinal.util.Conexion;
+import com.mycompany.proyectofinal.DAO.movimiento_stock_DAO;
 
 import java.sql.*;
 
