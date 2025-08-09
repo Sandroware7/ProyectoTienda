@@ -10,11 +10,6 @@ import java.util.Optional;
 
 public class ClienteDAOImpl implements ClienteDAO {
 
-    public ClienteDAOImpl() {
-
-    }
-
-    // Funciona
     @Override
     public void guardar(ClienteDTO cliente) {
         String sql = "CALL {sp_insertar_cliente (?, ?, ?, ?, ?, ?, ?, ?)}";
