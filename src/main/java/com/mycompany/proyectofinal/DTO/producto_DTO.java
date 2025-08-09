@@ -2,16 +2,17 @@ package com.mycompany.proyectofinal.DTO;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Optional;
 
 public record producto_DTO(
         String codProd,
         String descripcion,
-        String rutaImagen,
         BigDecimal precioUnit,
         int stockActual,
+        String rutaImagen,
         int codUsuario,
-        Timestamp fechaCrea,
-        Timestamp fechaModif) {
+        Optional<Timestamp>  fechaCrea,
+        Optional<Timestamp> fechaModif) {
 
     @Override
     public String toString() {
