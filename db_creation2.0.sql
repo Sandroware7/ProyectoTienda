@@ -381,7 +381,14 @@ CREATE PROCEDURE IF NOT EXISTS sp_insertar_cliente(
 )
 BEGIN
     INSERT INTO cliente (cod_cli, nombre, apellido, dni, direccion_cli, telefono, correo, cod_usuario)
-    VALUES (p_cod_cli, p_nombre, p_apellido, p_dni, p_direccion_cli, p_telefono, p_correo, p_cod_usuario);
+    VALUES (p_cod_cli,
+            p_nombre,
+            p_apellido,
+            p_dni,
+            p_direccion_cli,
+            p_telefono,
+            p_correo,
+            p_cod_usuario);
 END$$
 
 -- READ - Obtener cliente por código --
@@ -394,6 +401,7 @@ BEGIN
            direccion_cli,
            telefono,
            correo,
+           cod_usuario,
            fecha_crea,
            fecha_modif
     FROM cliente
@@ -620,7 +628,7 @@ BEGIN
 END$$
 
 -- Muestra el historial de compra de un cliente dado su código --
-CREATE PROCEDURE IF NOT EXISTS sp_historial_compras_cliente(IN p_cod_cli VARCHAR(25))
+CREATE PROCEDURE IF NOT EXISTS sp_obtener_historial_compras_cliente(IN p_cod_cli VARCHAR(25))
 BEGIN
     SELECT p.cod_prod            AS cod_producto,
            p.descripcion         AS descripcion,
