@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyectofinal.Forms;
-import com.mycompany.proyectofinal.DAO.producto_DAO;
-import com.mycompany.proyectofinal.DAOImp.producto_DAO_Imp;
-import com.mycompany.proyectofinal.DTO.producto_DTO;
+import com.mycompany.proyectofinal.DAOImp.ProductoDAOImpl;
+import com.mycompany.proyectofinal.DTO.Producto;
 import com.mycompany.proyectofinal.util.SesionActual;
 
 import java.math.BigDecimal;
 import java.util.Optional;
+import com.mycompany.proyectofinal.DAO.ProductoDAO;
 /**
  *
  * @author bob_s
@@ -499,8 +499,8 @@ public class GestionProductos extends javax.swing.JFrame {
         int codUsuario = SesionActual.getUsuarioActual();
         
         // Inserción de dato, fechaCrea, fechaModif no se llenan.
-        producto_DAO p = new producto_DAO_Imp();
-        producto_DTO pdto = new producto_DTO(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
+        ProductoDAO p = new ProductoDAOImpl();
+        Producto pdto = new Producto(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
         p.agregar_producto(pdto);
 
         // Limpiamos campos
