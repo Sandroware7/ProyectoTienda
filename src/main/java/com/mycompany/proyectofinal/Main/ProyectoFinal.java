@@ -3,8 +3,8 @@
  */
 
 package com.mycompany.proyectofinal.Main;
-import com.mycompany.proyectofinal.DAO.cliente_DAO;
-import com.mycompany.proyectofinal.DAOImp.cliente_DAO_Imp;
+import com.mycompany.proyectofinal.DAOImp.ClienteDAOImpl;
+import com.mycompany.proyectofinal.DAO.ClienteDAO;
 
 /**
  *
@@ -14,7 +14,7 @@ public class ProyectoFinal {
 
     public static void main(String[] args) {
 
-    cliente_DAO c = new cliente_DAO_Imp();
+    ClienteDAO c = new ClienteDAOImpl();
     c.sp_obtener_top_clientes_frecuentes(2);
 
     }
