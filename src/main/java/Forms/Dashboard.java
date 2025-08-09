@@ -334,6 +334,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void VentasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VentasButtonActionPerformed
         Ventas ventas= new Ventas();
         ventas.setVisible(true);
+        this.dispose(); 
     }//GEN-LAST:event_VentasButtonActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

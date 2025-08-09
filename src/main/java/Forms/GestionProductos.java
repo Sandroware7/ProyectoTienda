@@ -11,7 +11,7 @@ package Forms;
 public class GestionProductos extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionProductos.class.getName());
-
+                                        
     /**
      * Creates new form GestionProductos
      */
@@ -54,14 +54,12 @@ public class GestionProductos extends javax.swing.JFrame {
         ActualizarProductoGestion = new javax.swing.JButton();
         GuardarProductoGestion = new javax.swing.JButton();
         EliminarProductoGestion = new javax.swing.JButton();
-        AgregarProducto3 = new javax.swing.JButton();
         PanImageGestion = new javax.swing.JPanel();
         ImagenProducto = new javax.swing.JLabel();
         BtnSubirImagen = new javax.swing.JButton();
         PanelProductos = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaProductosGestion = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1440, 900));
@@ -391,18 +389,6 @@ public class GestionProductos extends javax.swing.JFrame {
         getContentPane().add(PanelProductosCRUD);
         PanelProductosCRUD.setBounds(340, 0, 700, 390);
 
-        AgregarProducto3.setBackground(new java.awt.Color(0, 118, 168));
-        AgregarProducto3.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        AgregarProducto3.setForeground(new java.awt.Color(255, 255, 255));
-        AgregarProducto3.setText("Agregar Producto");
-        AgregarProducto3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarProducto3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(AgregarProducto3);
-        AgregarProducto3.setBounds(0, 0, 158, 29);
-
         PanImageGestion.setBackground(new java.awt.Color(255, 239, 232));
 
         ImagenProducto.setBackground(new java.awt.Color(255, 255, 255));
@@ -465,10 +451,6 @@ public class GestionProductos extends javax.swing.JFrame {
         PanelProductos.add(jScrollPane3);
         jScrollPane3.setBounds(20, 20, 1050, 450);
 
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        PanelProductos.add(jTextField2);
-        jTextField2.setBounds(909, 395, 171, 0);
-
         getContentPane().add(PanelProductos);
         PanelProductos.setBounds(340, 381, 1100, 520);
 
@@ -519,10 +501,6 @@ public class GestionProductos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_GuardarProductoGestionActionPerformed
 
-    private void AgregarProducto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarProducto3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarProducto3ActionPerformed
-
     private void EliminarProductoGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoGestionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EliminarProductoGestionActionPerformed
@@ -562,7 +540,6 @@ public class GestionProductos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarProductoGestion;
-    private javax.swing.JButton AgregarProducto3;
     private javax.swing.JButton BtnSubirImagen;
     private javax.swing.JTextField BuscadorTextGestion;
     private javax.swing.JButton BuscarProductoGestion;
@@ -594,6 +571,5 @@ public class GestionProductos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

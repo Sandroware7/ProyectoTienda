@@ -12,6 +12,6 @@ public interface producto_DAO {
     void sp_obtener_top_n_productos_mas_vendidos(int p_limit);
     void sp_obtener_top_n_productos_vendidos_hoy(int p_limit);
     void sp_obtener_top_n_productos_vendidos_mes_actual(int p_limit);
-
+    
 
 }
