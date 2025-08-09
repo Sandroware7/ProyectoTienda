@@ -6,8 +6,10 @@ package com.mycompany.proyectofinal.Forms;
 import com.mycompany.proyectofinal.DAO.producto_DAO;
 import com.mycompany.proyectofinal.DAOImp.producto_DAO_Imp;
 import com.mycompany.proyectofinal.DTO.producto_DTO;
+import com.mycompany.proyectofinal.util.SesionActual;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 /**
  *
  * @author bob_s
@@ -78,7 +80,7 @@ public class GestionProductos extends javax.swing.JFrame {
         ReportesButton.setBorder(null);
         ReportesButton.setBorderPainted(false);
         ReportesButton.setContentAreaFilled(false);
-        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ReportesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ReportesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReportesButtonActionPerformed(evt);
@@ -91,7 +93,7 @@ public class GestionProductos extends javax.swing.JFrame {
         ClientesButton.setBorder(null);
         ClientesButton.setBorderPainted(false);
         ClientesButton.setContentAreaFilled(false);
-        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ClientesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         ClientesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClientesButtonActionPerformed(evt);
@@ -104,7 +106,7 @@ public class GestionProductos extends javax.swing.JFrame {
         SalirButton.setBorder(null);
         SalirButton.setBorderPainted(false);
         SalirButton.setContentAreaFilled(false);
-        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SalirButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         SalirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalirButtonActionPerformed(evt);
@@ -117,7 +119,7 @@ public class GestionProductos extends javax.swing.JFrame {
         VentasButton.setBorder(null);
         VentasButton.setBorderPainted(false);
         VentasButton.setContentAreaFilled(false);
-        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        VentasButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         VentasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VentasButtonActionPerformed(evt);
@@ -129,7 +131,7 @@ public class GestionProductos extends javax.swing.JFrame {
         GestionProductosButton.setForeground(new java.awt.Color(255, 255, 255));
         GestionProductosButton.setText("Gestion de Productos");
         GestionProductosButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GestionProductosButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         GestionProductosButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GestionProductosButtonActionPerformed(evt);
@@ -175,16 +177,13 @@ public class GestionProductos extends javax.swing.JFrame {
         PanelProductosCRUD.setBackground(new java.awt.Color(255, 239, 232));
 
         PrecioProductoGestion.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        PrecioProductoGestion.setForeground(new java.awt.Color(0, 0, 0));
         PrecioProductoGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         PrecioProductoGestion.setPreferredSize(new java.awt.Dimension(74, 25));
 
         jLabel18.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("FechaCreación:");
 
         FechaCreadoGestion.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        FechaCreadoGestion.setForeground(new java.awt.Color(0, 0, 0));
         FechaCreadoGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         FechaCreadoGestion.setPreferredSize(new java.awt.Dimension(74, 25));
         FechaCreadoGestion.addActionListener(new java.awt.event.ActionListener() {
@@ -194,7 +193,6 @@ public class GestionProductos extends javax.swing.JFrame {
         });
 
         CodProductoGestion.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        CodProductoGestion.setForeground(new java.awt.Color(0, 0, 0));
         CodProductoGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         CodProductoGestion.setMinimumSize(new java.awt.Dimension(64, 25));
         CodProductoGestion.setPreferredSize(new java.awt.Dimension(74, 25));
@@ -205,33 +203,26 @@ public class GestionProductos extends javax.swing.JFrame {
         });
 
         StockProductoGestion.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        StockProductoGestion.setForeground(new java.awt.Color(0, 0, 0));
         StockProductoGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         StockProductoGestion.setPreferredSize(new java.awt.Dimension(74, 25));
 
         DescripcionProductoGestion.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        DescripcionProductoGestion.setForeground(new java.awt.Color(0, 0, 0));
         DescripcionProductoGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         DescripcionProductoGestion.setPreferredSize(new java.awt.Dimension(74, 25));
 
         jLabel12.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Descripción:");
 
         jLabel13.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("CodProducto:");
 
         jLabel14.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Buscar:");
 
         jLabel15.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Productos");
 
         jLabel16.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Stock:");
 
         BuscarProductoGestion.setBackground(new java.awt.Color(0, 118, 168));
@@ -245,22 +236,18 @@ public class GestionProductos extends javax.swing.JFrame {
         });
 
         jLabel19.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("FechaActualizado:");
 
         FechaModificadoGestion.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        FechaModificadoGestion.setForeground(new java.awt.Color(0, 0, 0));
         FechaModificadoGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         FechaModificadoGestion.setPreferredSize(new java.awt.Dimension(74, 25));
 
         BuscadorTextGestion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        BuscadorTextGestion.setForeground(new java.awt.Color(0, 0, 0));
         BuscadorTextGestion.setText("     ");
         BuscadorTextGestion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         BuscadorTextGestion.setPreferredSize(new java.awt.Dimension(380, 27));
 
         jLabel17.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Precio:");
 
         ActualizarProductoGestion.setBackground(new java.awt.Color(210, 143, 0));
@@ -279,7 +266,6 @@ public class GestionProductos extends javax.swing.JFrame {
         GuardarProductoGestion.setText("Guardar");
         GuardarProductoGestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-
                 GuardarProductoGestionActionPerformed(evt);
             }
         });
@@ -437,26 +423,19 @@ public class GestionProductos extends javax.swing.JFrame {
         PanImageGestion.setBounds(1040, 0, 400, 390);
 
         PanelProductos.setBackground(new java.awt.Color(255, 239, 232));
-        PanelProductos.setForeground(new java.awt.Color(0, 0, 0));
         PanelProductos.setLayout(null);
 
-        producto_DAO_Imp dao = new producto_DAO_Imp();
+        TablaProductosGestion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
 
-        TablaProductosGestion.setModel(new javax.swing.table.DefaultTableModel( dao.ver_productos()
-                // Seccion por corregir, aparece solo 1 registro. El metodo .ver_datos debe los datos de la com.mycompany.proyectofinal.bd, la com.mycompany.proyectofinal.bd se agrega automaticamente, ver como integrarlo en el dto y traerlo directo desde la com.mycompany.proyectofinal.bd
-                .stream()
-                .map(p -> new Object[]{
-                        p.getCodProd(),
-                        p.getDescripcion(),
-                        p.getPrecioUnit(),
-                        p.getStockActual(),
-                })
-                .toArray(Object[][]::new),
-            new String [] {"CodProducto", "Descripción", "Precio", "Stock", "FechaCreación", "FechaActualizado"})
-
-        );
-
-
+            }
+        ));
         jScrollPane3.setViewportView(TablaProductosGestion);
 
         PanelProductos.add(jScrollPane3);
@@ -512,15 +491,16 @@ public class GestionProductos extends javax.swing.JFrame {
         // 1) Leer textos de los campos
         String cod = CodProductoGestion.getText().trim();
         String descripcion = DescripcionProductoGestion.getText().trim();
-        String precioStr = PrecioProductoGestion.getText().trim();
-        BigDecimal precio = new BigDecimal(precioStr);
-        String stockStr  = StockProductoGestion.getText().trim();
-        Integer stock = Integer.parseInt(stockStr);
-        String ruta_imagen = "- prueba -"; // Prueba
-
+        BigDecimal precio = new BigDecimal(PrecioProductoGestion.getText().trim());
+        int stock = Integer.parseInt(StockProductoGestion.getText().trim());
+        String rutaImagen = "- prueba -"; // Prueba
+        
+        // Obtiene usuario actual
+        int codUsuario = SesionActual.getUsuarioActual();
+        
+        // Inserción de dato, fechaCrea, fechaModif no se llenan.
         producto_DAO p = new producto_DAO_Imp();
-        producto_DTO pdto = new producto_DTO(cod, descripcion, ruta_imagen, precio, stock);
-
+        producto_DTO pdto = new producto_DTO(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
         p.agregar_producto(pdto);
 
         // Limpiamos campos
