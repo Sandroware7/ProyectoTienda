@@ -80,7 +80,7 @@ public class Login extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         bgLogin.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 770, 20));
 
-        jlblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Logo_TecnoRepue.png"))); // NOI18N
+        jlblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo_TecnoRepue.png"))); // NOI18N
         bgLogin.add(jlblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 180, 480, 520));
 
         jbtnEntrar.setBackground(new java.awt.Color(0, 134, 190));
@@ -119,6 +119,7 @@ public class Login extends javax.swing.JFrame {
         try{
             boolean ok = controller.autenticar(user, pass);
             if (ok) {
+                System.out.println("validad");
                 // Abrir Dashboard y cerrar login
                 new Dashboard().setVisible(true);
                 this.dispose();

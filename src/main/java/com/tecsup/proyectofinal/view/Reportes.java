@@ -425,7 +425,7 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
 
-        LogoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoSecciones.png"))); // NOI18N
+        LogoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LogoSecciones.png"))); // NOI18N
         LogoButton.setBorder(null);
         LogoButton.setBorderPainted(false);
         LogoButton.setContentAreaFilled(false);

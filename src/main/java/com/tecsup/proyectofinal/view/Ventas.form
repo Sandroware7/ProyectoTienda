@@ -211,7 +211,7 @@
         <Component class="javax.swing.JButton" name="LogoButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/img/LogoSecciones.png"/>
+              <Image iconType="3" name="/LogoSecciones.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -335,7 +335,7 @@
                       <Component id="jLabel9" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="TelefonoClienteVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

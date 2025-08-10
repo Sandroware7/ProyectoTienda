@@ -165,7 +165,7 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
 
-        LogoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/LogoSecciones.png"))); // NOI18N
+        LogoButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/LogoSecciones.png"))); // NOI18N
         LogoButton.setBorder(null);
         LogoButton.setBorderPainted(false);
         LogoButton.setContentAreaFilled(false);
@@ -377,7 +377,7 @@ public class Ventas extends javax.swing.JFrame {
                 .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TelefonoClienteVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelClientesDisponibles);
@@ -590,7 +590,7 @@ public class Ventas extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel21.setText("Seleccionar para:");
         jPanelFacturacion.add(jLabel21);
-        jLabel21.setBounds(20, 340, 93, 15);
+        jLabel21.setBounds(20, 340, 93, 16);
 
         EliminarProductoVenta.setBackground(new java.awt.Color(255, 0, 0));
         EliminarProductoVenta.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -602,17 +602,17 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
         jPanelFacturacion.add(EliminarProductoVenta);
-        EliminarProductoVenta.setBounds(20, 360, 191, 24);
+        EliminarProductoVenta.setBounds(20, 360, 191, 30);
 
         jLabel22.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel22.setText("IGV (18%):");
         jPanelFacturacion.add(jLabel22);
-        jLabel22.setBounds(810, 340, 71, 27);
+        jLabel22.setBounds(810, 340, 74, 27);
 
         jLabel23.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel23.setText("TOTAL:");
         jPanelFacturacion.add(jLabel23);
-        jLabel23.setBounds(830, 370, 50, 21);
+        jLabel23.setBounds(830, 370, 57, 21);
 
         IgvVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         IgvVenta.setPreferredSize(new java.awt.Dimension(64, 21));
@@ -638,17 +638,17 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
         jPanelFacturacion.add(HacerFacturaVenta);
-        HacerFacturaVenta.setBounds(300, 390, 442, 30);
+        HacerFacturaVenta.setBounds(300, 390, 442, 36);
 
         jLabel24.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel24.setText("Fecha de Venta");
         jPanelFacturacion.add(jLabel24);
-        jLabel24.setBounds(449, 7, 103, 20);
+        jLabel24.setBounds(449, 7, 114, 20);
 
         jLabel25.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel25.setText("Nº de Factura:");
         jPanelFacturacion.add(jLabel25);
-        jLabel25.setBounds(820, 10, 97, 20);
+        jLabel25.setBounds(820, 10, 104, 20);
 
         FechaVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanelFacturacion.add(FechaVenta);
