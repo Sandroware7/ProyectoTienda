@@ -4,6 +4,23 @@
  */
 package com.tecsup.proyectofinal.view;
 
+import com.tecsup.proyectofinal.model.dao.ReporteDAO;
+import com.tecsup.proyectofinal.model.dao.daoimpl.ReporteDAOImpl;
+import com.tecsup.proyectofinal.model.dto.ProductoVendidoDTO;
+import com.tecsup.proyectofinal.model.dto.UsuarioDTO;
+import com.tecsup.proyectofinal.model.dto.VentaRecienteDTO;
+import com.tecsup.proyectofinal.util.DAOException;
+import com.tecsup.proyectofinal.util.SesionActual;
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 51931
@@ -11,6 +28,9 @@ package com.tecsup.proyectofinal.view;
 public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
+    
+    private final ReporteDAO reporteDAO = new ReporteDAOImpl();
+    
 
     /**
      * Creates new form Dashboard
@@ -18,6 +38,19 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         setLocationRelativeTo(null); // centra la ventana en la pantalla
+        
+        mostrarBienvenida();
+        
+        cargarTotalProductosStock();
+        
+        cargarRepuestosCriticos();
+        
+        cargarVentasDia();
+        
+        cargarIngresosMes();
+        
+        cargarActividadReciente();
+        
     }
 
     /**
@@ -41,27 +74,27 @@ public class Dashboard extends javax.swing.JFrame {
         bgDashboard = new javax.swing.JPanel();
         bienvenidoUser = new javax.swing.JLabel();
         jpanelStock = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        lblTotalRepuestos = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jpanelStockCritico = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        lblRepuestosCriticos = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jpanelVentasDia = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        lblVentasDia = new javax.swing.JTextField();
         jpanelIngresoMes = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        lblIngresosMes = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblActividadReciente = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnVerRepuestosCriticos = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
@@ -207,15 +240,15 @@ public class Dashboard extends javax.swing.JFrame {
         jpanelStock.setPreferredSize(new java.awt.Dimension(234, 209));
         jpanelStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
-        jTextField1.setText("70");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        lblTotalRepuestos.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblTotalRepuestos.setText("70");
+        lblTotalRepuestos.setBorder(null);
+        lblTotalRepuestos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                lblTotalRepuestosActionPerformed(evt);
             }
         });
-        jpanelStock.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 90, 70));
+        jpanelStock.add(lblTotalRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 60, 70));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel3.setText("Total de repuestos");
@@ -242,10 +275,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel8.setText("stock critico");
         jpanelStockCritico.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
-        jTextField2.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
-        jTextField2.setText("5");
-        jTextField2.setBorder(null);
-        jpanelStockCritico.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 70, 60));
+        lblRepuestosCriticos.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblRepuestosCriticos.setText("5");
+        lblRepuestosCriticos.setBorder(null);
+        jpanelStockCritico.add(lblRepuestosCriticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 70, 60));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon6.png"))); // NOI18N
         jpanelStockCritico.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 60, 60));
@@ -260,10 +293,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel9.setText("Ventas del dia");
         jpanelVentasDia.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 170, 40));
 
-        jTextField3.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
-        jTextField3.setText("S/. 2,300");
-        jTextField3.setBorder(null);
-        jpanelVentasDia.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 190, 80));
+        lblVentasDia.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblVentasDia.setText("S/. 2,300");
+        lblVentasDia.setBorder(null);
+        jpanelVentasDia.add(lblVentasDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 190, 80));
 
         bgDashboard.add(jpanelVentasDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 130, -1, -1));
 
@@ -275,15 +308,15 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel10.setText("Ingresos del mes");
         jpanelIngresoMes.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 190, 40));
 
-        jTextField4.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
-        jTextField4.setText("S/. 43,250");
-        jTextField4.setBorder(null);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        lblIngresosMes.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblIngresosMes.setText("S/. 43,250");
+        lblIngresosMes.setBorder(null);
+        lblIngresosMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                lblIngresosMesActionPerformed(evt);
             }
         });
-        jpanelIngresoMes.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 210, 80));
+        jpanelIngresoMes.add(lblIngresosMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 210, 80));
 
         bgDashboard.add(jpanelIngresoMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 130, -1, -1));
 
@@ -295,7 +328,7 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1.setText("Actividad reciente");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 26, 250, 40));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblActividadReciente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -306,7 +339,7 @@ public class Dashboard extends javax.swing.JFrame {
                 "Fecha", "Cliente", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblActividadReciente);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 75, 565, 320));
 
@@ -317,25 +350,35 @@ public class Dashboard extends javax.swing.JFrame {
         jButton1.setText("      Exportar Reporte Diario");
         jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        bgDashboard.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 740, 370, 50));
-
-        jButton2.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon1.png"))); // NOI18N
-        jButton2.setText("      Ver Repuestos Criticos");
-        jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        bgDashboard.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 370, 60));
+        bgDashboard.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 740, 370, 50));
+
+        btnVerRepuestosCriticos.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        btnVerRepuestosCriticos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon1.png"))); // NOI18N
+        btnVerRepuestosCriticos.setText("      Ver Repuestos Criticos");
+        btnVerRepuestosCriticos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnVerRepuestosCriticos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnVerRepuestosCriticos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerRepuestosCriticosActionPerformed(evt);
+            }
+        });
+        bgDashboard.add(btnVerRepuestosCriticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 400, 370, 60));
 
         jButton5.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon3.png"))); // NOI18N
         jButton5.setText("       backup base de datos");
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         bgDashboard.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 630, 370, 50));
 
         jButton6.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
@@ -343,6 +386,11 @@ public class Dashboard extends javax.swing.JFrame {
         jButton6.setText("     Hay productos sin precio");
         jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         bgDashboard.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, 370, 50));
 
         getContentPane().add(bgDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 1100, 900));
@@ -350,17 +398,53 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVerRepuestosCriticosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRepuestosCriticosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        final int LIMITE = 5; // número de repuestos a mostrar
+        ReporteDAO reporteDAO1 = new ReporteDAOImpl();
+        
+        try {
+            var opt = reporteDAO1.obtenerProductosConMenorStock(LIMITE);
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+            if (opt.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No hay repuestos críticos.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+            // Crear tabla con los datos
+            String[] columnas = {"Código", "Descripción", "Stock Actual"};
+            DefaultTableModel model = new DefaultTableModel(columnas, 0);
+
+            for (ProductoVendidoDTO p : opt.get()) {
+                model.addRow(new Object[]{
+                    p.codigoProducto(),
+                    p.descripcionProducto(),
+                    p.stockActual()
+                });
+            }
+
+            JTable tabla = new JTable(model);
+            JScrollPane scroll = new JScrollPane(tabla);
+
+            // Crear un cuadro de diálogo modal para mostrar la tabla
+            JDialog dialog = new JDialog(this, "Repuestos Críticos", true);
+            dialog.add(scroll);
+            dialog.setSize(500, 300);
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+
+        } catch (DAOException e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener repuestos críticos:\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVerRepuestosCriticosActionPerformed
+
+    private void lblIngresosMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblIngresosMesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_lblIngresosMesActionPerformed
+
+    private void lblTotalRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblTotalRepuestosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTotalRepuestosActionPerformed
 
     private void ReportesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesButtonActionPerformed
         Reportes reportes = new Reportes();  // Crear instancia del formulario
@@ -395,6 +479,39 @@ public class Dashboard extends javax.swing.JFrame {
     private void LogoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoButtonActionPerformed
         // TODO add your handling code here:    
     }//GEN-LAST:event_LogoButtonActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(
+        this,
+        "Existen productos que no tienen precio asignado.\n" +
+        "Revise la gestión de productos para actualizarlos.",
+        "Productos sin precio",
+        JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(
+        this,
+        "Recuerde realizar un backup regularmente.\n" +
+        "Esto asegura que la información esté protegida ante fallos o pérdidas.",
+        "Backup de base de datos",
+        JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(
+        this,
+        "El reporte diario contiene las ventas registradas durante el día.\n" +
+        "Puede exportarlo en formatos como Excel o PDF para su análisis.",
+        "Exportar Reporte Diario",
+        JOptionPane.INFORMATION_MESSAGE
+        );
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,8 +548,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton VentasButton;
     private javax.swing.JPanel bgDashboard;
     private javax.swing.JLabel bienvenidoUser;
+    private javax.swing.JButton btnVerRepuestosCriticos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -448,14 +565,86 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel jpanelIngresoMes;
     private javax.swing.JPanel jpanelStock;
     private javax.swing.JPanel jpanelStockCritico;
     private javax.swing.JPanel jpanelVentasDia;
+    private javax.swing.JTextField lblIngresosMes;
+    private javax.swing.JTextField lblRepuestosCriticos;
+    private javax.swing.JTextField lblTotalRepuestos;
+    private javax.swing.JTextField lblVentasDia;
+    private javax.swing.JTable tblActividadReciente;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarBienvenida() {
+        UsuarioDTO usuario = SesionActual.getUsuarioActual();
+        if (usuario != null) {
+            bienvenidoUser.setText("Bienvenido, " + usuario.nombreUsuario());
+        }
+    }
+
+    private void cargarTotalProductosStock() {
+        try {
+            long total = reporteDAO.contarTotalProductosStock();
+            lblTotalRepuestos.setText(String.valueOf(total)); 
+        } catch (DAOException e) {
+            lblTotalRepuestos.setText("—");
+        }
+    }
+
+    private void cargarRepuestosCriticos() {
+        final int UMBRAL = 5; 
+        try {
+            long criticos = reporteDAO.contarProductosBajoStock(UMBRAL);
+            lblRepuestosCriticos.setText(String.valueOf(criticos)); 
+        } catch (DAOException e) {
+            lblRepuestosCriticos.setText("—");
+        }
+    }
+
+    private void cargarVentasDia() {
+        try {
+            double total = reporteDAO.calcularTotalVentasHoy();
+            // Formatear a S/. con separador de miles
+            lblVentasDia.setText(String.format("S/. %,.2f", total));
+        } catch (DAOException e) {
+            lblVentasDia.setText("S/. —");
+        }
+    }
+
+    private void cargarIngresosMes() {
+        try {
+            double total = reporteDAO.calcularTotalVentasMesActual();
+            lblIngresosMes.setText(String.format("S/. %,.2f", total));
+        } catch (DAOException e) {
+            lblIngresosMes.setText("S/. —");
+        }
+    }
+
+    private void cargarActividadReciente() {
+        final int LIMITE = 10; // cuántas filas quieres mostrar
+        try {
+            var opt = reporteDAO.obtenerUltimasVentas(LIMITE);
+            DefaultTableModel model = (DefaultTableModel) tblActividadReciente.getModel();
+            model.setRowCount(0); // limpia
+
+            if (opt.isEmpty()) return;
+
+            List<VentaRecienteDTO> ventas = opt.get();
+
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            NumberFormat moneda = NumberFormat.getCurrencyInstance(new Locale("es", "PE"));
+
+            for (VentaRecienteDTO v : ventas) {
+                model.addRow(new Object[]{
+                        v.fechaEmision().format(df),
+                        v.clienteNombreCompleto(),
+                        moneda.format(v.total())
+                });
+            }
+
+        } catch (DAOException e) {
+            // opcional: mensaje o log
+        }
+    }
 }
