@@ -957,6 +957,3 @@ INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha
 
 INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
 ('FACT-2025-00004', 'PROD-00007', 3, 'USR-00002'); -- 3 SSD Kingston 480GB
-
-
-
