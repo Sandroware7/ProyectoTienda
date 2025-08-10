@@ -20,36 +20,31 @@ import java.util.Optional;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ReportesControlador {
+public class ReportesController {
 
     private final Reportes vista;
     private final FacturaDAO facturaDAO;
-    private final ReporteDAO reporteDAO; // NUEVO: DAO para los reportes
+    private final ReporteDAO reporteDAO;
 
 
-    public ReportesControlador(Reportes vista) {
+    public ReportesController(Reportes vista) {
         this.vista = vista;
         this.facturaDAO = new FacturaDAOImpl();
-        this.reporteDAO = new ReporteDAOImpl(); // NUEVO
+        this.reporteDAO = new ReporteDAOImpl();
         initListeners();
     }
 
     private void initListeners() {
         vista.getBuscarFacturaButton().addActionListener(e -> buscarFactura());
-        // NUEVO: Listeners para los botones de reportes
         vista.getVentasDiaButton().addActionListener(e -> mostrarVentasDia());
         vista.getVentasMesButton().addActionListener(e -> mostrarVentasMes());
         vista.getStockMinimoButton().addActionListener(e -> mostrarStockMinimo());
         vista.getProductosMasVendidosButton().addActionListener(e -> mostrarMasVendidos());
     }
     
-    
-    
-        // --- MÉTODOS PARA REPORTES RÁPIDOS ---
 
     private void mostrarVentasDia() {
         try {
-            // Llama al DAO para obtener la lista de productos vendidos hoy (Top 100 por ejemplo)
             Optional<List<ProductoVendidoDTO>> productosOpt = reporteDAO.obtenerTopProductosVendidosHoy(100);
             llenarTablaReportes(productosOpt.orElse(Collections.emptyList()));
         } catch (DAOException e) {
@@ -59,7 +54,6 @@ public class ReportesControlador {
 
     private void mostrarVentasMes() {
         try {
-            // Llama al DAO para obtener la lista de productos vendidos en el mes (Top 100)
             Optional<List<ProductoVendidoDTO>> productosOpt = reporteDAO.obtenerTopProductosVendidosMes(100);
             llenarTablaReportes(productosOpt.orElse(Collections.emptyList()));
         } catch (DAOException e) {
@@ -69,7 +63,6 @@ public class ReportesControlador {
     
     private void mostrarStockMinimo() {
         try {
-            // Llama al DAO para obtener los productos con menor stock (Top 100)
             Optional<List<ProductoVendidoDTO>> productosOpt = reporteDAO.obtenerProductosConMenorStock(100);
             llenarTablaReportes(productosOpt.orElse(Collections.emptyList()));
         } catch (DAOException e) {
@@ -93,7 +86,7 @@ public class ReportesControlador {
      */
     private void llenarTablaReportes(List<ProductoVendidoDTO> productos) {
         DefaultTableModel model = (DefaultTableModel) vista.getTablaReportes2().getModel();
-        model.setRowCount(0); // Limpiar tabla
+        model.setRowCount(0);
 
         if (productos.isEmpty()) {
             vista.mostrarMensaje("No se encontraron resultados para este reporte.", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -119,7 +112,6 @@ public class ReportesControlador {
         }
 
         try {
-            // Usamos el método que llama al procedimiento unificado
             Optional<FacturaDetalladaDTO> facturaOpt = facturaDAO.obtenerFacturaDetallada(codigoFactura);
 
             if (facturaOpt.isPresent()) {
@@ -135,7 +127,6 @@ public class ReportesControlador {
     }
 
     private void llenarDatosFactura(FacturaDetalladaDTO facturaCompleta) {
-        // Llenar campos de texto de la cabecera
         vista.setNumFactura(facturaCompleta.factura().codFact());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         vista.setFechaVenta(facturaCompleta.factura().fechaEmision().format(formatter));
@@ -144,16 +135,14 @@ public class ReportesControlador {
         vista.setIgv(String.format("%.2f", facturaCompleta.factura().igv()));
         vista.setTotal(String.format("%.2f", facturaCompleta.factura().total()));
 
-        // Llenar la tabla con los detalles de los productos
         DefaultTableModel model = (DefaultTableModel) vista.getTablaFactura().getModel();
-        model.setRowCount(0); // Limpiar tabla
+        model.setRowCount(0);
 
         for (DetalleProductoVistaDTO detalle : facturaCompleta.detalles()) {
             Object[] row = {
                 detalle.descripcion(),
                 detalle.cantidad(),
                 String.format("%.2f", detalle.precioUnitario()),
-                // Calculamos el subtotal por producto
                 String.format("%.2f", detalle.cantidad() * detalle.precioUnitario())
             };
             model.addRow(row);

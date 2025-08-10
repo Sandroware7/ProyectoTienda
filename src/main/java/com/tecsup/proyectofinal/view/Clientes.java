@@ -969,6 +969,10 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BuscarClienteActionPerformed
 
+    private void BtHistorialComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtHistorialComprasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtHistorialComprasActionPerformed
+
     private void ClientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClientesButtonActionPerformed
