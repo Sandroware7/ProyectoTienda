@@ -1,19 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Record.java to edit this template
+ */
 package com.tecsup.proyectofinal.model.dto;
 
 /**
  *
  * @author Joao Higa
- */
-
-/**
- * DTO para mostrar información resumida de los clientes más frecuentes en reportes.
- * <p>
- * Se utiliza como resultado del Stored Procedure `sp_obtener_top_clientes_frecuentes`.
- *
- * @param posicion El lugar que ocupa el cliente en el ranking de frecuencia.
- * @param codCliente El código único del cliente.
- * @param nombre El nombre del cliente.
- * @param apellido Los apellidos del cliente.
  */
 public record ClienteFrecuenteDTO(
         int posicion,

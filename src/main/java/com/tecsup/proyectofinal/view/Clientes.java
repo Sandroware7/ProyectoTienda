@@ -4,11 +4,22 @@
  */
 package com.tecsup.proyectofinal.view;
 
+// Asegúrate de importar tu controlador y otros componentes de Swing necesarios
+import com.tecsup.proyectofinal.controller.ClienteControlador;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel; // Importar DefaultTableModel
+
+
 /**
  *
  * @author bob_s
  */
 public class Clientes extends javax.swing.JFrame {
+    
+        // 1. DECLARAR EL CONTROLADOR
+    private ClienteControlador controlador;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Clientes.class.getName());
 
@@ -18,7 +29,90 @@ public class Clientes extends javax.swing.JFrame {
     public Clientes() {
         initComponents();
         setLocationRelativeTo(null); // centra la ventana en la pantalla
+        
+        // 2. INSTANCIAR EL CONTROLADOR
+        // Le pasamos 'this' para que el controlador tenga una referencia a esta ventana (la vista)
+        this.controlador = new ClienteControlador(this);
     }
+    
+    
+        // 3. MÉTODOS PÚBLICOS (GETTERS Y ACCIONES) PARA EL CONTROLADOR
+    
+    /**
+     * Muestra un diálogo de mensaje al usuario. El controlador usa este método.
+     * @param mensaje El texto a mostrar.
+     * @param titulo El título de la ventana del mensaje.
+     * @param tipoMensaje El tipo de mensaje (ej. JOptionPane.INFORMATION_MESSAGE).
+     */
+    public void mostrarMensaje(String mensaje, String titulo, int tipoMensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, titulo, tipoMensaje);
+    }
+
+    // --- Getters para los campos de texto ---
+    public String getNombreClienteText() { return NombreCliente.getText(); }
+    public String getApellidoClienteText() { return ApellidoCliente.getText(); }
+    public String getDniClienteText() { return dniCliente.getText(); }
+    public String getDireccionClienteText() { return DireccionCliente.getText(); }
+    public String getTelefonoClienteText() { return TelefonoCliente.getText(); }
+    public String getCorreoClienteText() { return CorreoCliente.getText(); }
+    public String getCodigoClienteText() { return CodCliente.getText(); }
+    
+    // --- Getter para la tabla ---
+    public JTable getTablaHistorial() { return TablaHistorial; } // NUEVO GETTER
+    public JTable getTablaClientes() {return TablaClientes;}
+
+    
+        // --- NUEVO: Setters para que el controlador pueda rellenar los campos ---
+    public void setCodigoClienteText(String texto) { CodCliente.setText(texto); }
+    public void setNombreClienteText(String texto) { NombreCliente.setText(texto); }
+    public void setApellidoClienteText(String texto) { ApellidoCliente.setText(texto); }
+    public void setDniClienteText(String texto) { dniCliente.setText(texto); }
+    public void setDireccionClienteText(String texto) { DireccionCliente.setText(texto); }
+    public void setTelefonoClienteText(String texto) { TelefonoCliente.setText(texto); }
+    public void setCorreoClienteText(String texto) { CorreoCliente.setText(texto); }
+    
+    
+    // --- Getters para los botones ---
+    public JButton getGuardarClienteButton() {
+        return GuardarCliente;
+    }
+    
+    public JButton getActualizarClienteButton() {
+        return ActualizarCliente;
+    }
+
+    public JButton getEliminarClienteButton() {
+        return EliminarCliente;
+    }
+
+    public JButton getBuscarClienteButton() {
+        return BuscarCliente;
+    }
+    
+    
+    
+    
+    public JTable getTablaClientesFrecuentes() {
+        return TablaClientesFrecuentes;
+    }
+
+    /**
+     * Limpia todos los campos de texto del formulario.
+     */
+    public void limpiarCampos() {
+        CodCliente.setText("");
+        NombreCliente.setText("");
+        ApellidoCliente.setText("");
+        dniCliente.setText("");
+        DireccionCliente.setText("");
+        TelefonoCliente.setText("");
+        CorreoCliente.setText("");
+        // NUEVO: Limpiar también la tabla de historial
+        DefaultTableModel historialModel = (DefaultTableModel) TablaHistorial.getModel();
+        historialModel.setRowCount(0);
+ 
+    }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -309,13 +403,13 @@ public class Clientes extends javax.swing.JFrame {
 
         TablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CodCliente", "Nombre", "Apellido", "DNI", "Direccion", "Telefono", "Correo"
             }
         ));
         jScrollPane2.setViewportView(TablaClientes);
@@ -441,7 +535,7 @@ public class Clientes extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Pos", "CodCliente", "Nombre", "Apellido"
             }
         ));
         jScrollPane3.setViewportView(TablaClientesFrecuentes);
@@ -486,13 +580,13 @@ public class Clientes extends javax.swing.JFrame {
 
         TablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "CodProd", "Descripcion", "FechaCompra", "Caantidad"
             }
         ));
         jScrollPane5.setViewportView(TablaHistorial);

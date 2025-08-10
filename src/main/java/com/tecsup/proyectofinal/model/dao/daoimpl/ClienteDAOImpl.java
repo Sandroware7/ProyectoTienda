@@ -4,14 +4,23 @@ import java.sql.*;
 import com.tecsup.proyectofinal.util.Conexion;
 import com.tecsup.proyectofinal.model.dto.ClienteDTO;
 import com.tecsup.proyectofinal.model.dao.ClienteDAO;
+import com.tecsup.proyectofinal.model.dto.ClienteFrecuenteDTO;
+import com.tecsup.proyectofinal.model.dto.HistorialCompraDTO;
+import java.time.LocalDate;
 import com.tecsup.proyectofinal.util.DAOException;
 import com.tecsup.proyectofinal.util.SesionActual;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList; // IMPORT AÑADIDO
+import java.util.List;
 import java.util.Optional;
 
 public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
-    public void guardar(ClienteDTO cliente) {
+    public void guardar(ClienteDTO cliente) throws DAOException {
         String sql = "{CALL sp_insertar_cliente (?, ?, ?, ?, ?, ?, ?)}";
         try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
 
@@ -30,7 +39,7 @@ public class ClienteDAOImpl implements ClienteDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error al insertar cliente: " + cliente.nombre() + e);
+            throw new DAOException("Error al guardar el cliente en la base de datos: " + e.getMessage(), e);
         }
     }
 
@@ -68,10 +77,42 @@ public class ClienteDAOImpl implements ClienteDAO {
 
         return Optional.empty();
     }
+    
+    
+    @Override
+    public List<ClienteDTO> listar() throws DAOException {
+        List<ClienteDTO> clientes = new ArrayList<>();
+        String sql = "{CALL sp_listar_clientes()}";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             CallableStatement cstmt = conn.prepareCall(sql);
+             ResultSet rs = cstmt.executeQuery()) {
+
+            while (rs.next()) {
+                ClienteDTO cliente = new ClienteDTO(
+                        rs.getString("cod_cli"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("dni"),
+                        rs.getString("telefono"),
+                        rs.getString("correo"),
+                        rs.getString("direccion_cli"),
+                        rs.getString("cod_usuario"),
+                        rs.getTimestamp("fecha_crea"),
+                        rs.getTimestamp("fecha_modif")
+                );
+                clientes.add(cliente);
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Error al listar clientes: " + e.getMessage(), e);
+        }
+        return clientes;
+    }
 
     @Override
     public void actualizar(ClienteDTO cliente) throws DAOException {
-        String sql = "{CALL sp_actualizar_cliente (?)}";
+        String sql = "{CALL sp_actualizar_cliente(?, ?, ?, ?, ?, ?, ?, ?)}";
         try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
 
             cstmt.setString(1, cliente.codCli());
@@ -111,5 +152,68 @@ public class ClienteDAOImpl implements ClienteDAO {
             throw new DAOException("Error al eliminar cliente: " + " " + codigo, e);
         }
     }
+    
+
+    // PEGA ESTE MÉTODO COMPLETO DENTRO DE TU CLASE
+    @Override
+    public List<ClienteFrecuenteDTO> listarFrecuentes(int limit) throws DAOException {
+        List<ClienteFrecuenteDTO> clientesFrecuentes = new ArrayList<>();
+        String sql = "{CALL sp_obtener_top_clientes_frecuentes(?)}";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setInt(1, limit); // Establecemos el límite de clientes a mostrar
+
+            try (ResultSet rs = cstmt.executeQuery()) {
+                while (rs.next()) {
+                    ClienteFrecuenteDTO cliente = new ClienteFrecuenteDTO(
+                            rs.getInt("posicion"),
+                            rs.getString("codcliente"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido")
+                    );
+                    clientesFrecuentes.add(cliente);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error al obtener clientes frecuentes: " + e.getMessage(), e);
+        }
+        return clientesFrecuentes;
+    }
+    
+        @Override
+    public List<HistorialCompraDTO> listarHistorialCompras(String codCli) throws DAOException {
+        List<HistorialCompraDTO> historial = new ArrayList<>();
+        String sql = "{CALL sp_obtener_historial_compras_cliente(?)}";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, codCli);
+
+            try (ResultSet rs = cstmt.executeQuery()) {
+                while (rs.next()) {
+                    // Convertimos el java.sql.Date a java.time.LocalDate
+                    LocalDate fechaCompra = rs.getDate("fecha_compra").toLocalDate();
+                    
+                    HistorialCompraDTO compra = new HistorialCompraDTO(
+                            rs.getString("cod_producto"),
+                            rs.getString("descripcion"),
+                            fechaCompra,
+                            rs.getInt("cantidad")
+                    );
+                    historial.add(compra);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error al obtener el historial de compras para el cliente " + codCli + ": " + e.getMessage(), e);
+        }
+        return historial;
+    }
 
 }
+    
+
+
+

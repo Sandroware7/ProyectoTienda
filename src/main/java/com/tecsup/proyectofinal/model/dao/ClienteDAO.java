@@ -1,52 +1,54 @@
 package com.tecsup.proyectofinal.model.dao;
 
 import com.tecsup.proyectofinal.model.dto.ClienteDTO;
+import com.tecsup.proyectofinal.model.dto.ClienteFrecuenteDTO; // Importar el nuevo DTO
+import com.tecsup.proyectofinal.model.dto.HistorialCompraDTO; // Importar nuevo DTO
 import com.tecsup.proyectofinal.util.DAOException;
+import java.util.List; // Asegúrate de que java.util.List esté importado
 import java.util.Optional;
 
-/**
- *
- * @author Joao Higa
- */
+
 public interface ClienteDAO {
+    
+    List<HistorialCompraDTO> listarHistorialCompras(String codCli) throws DAOException;
+
+
+    
+    List<ClienteFrecuenteDTO> listarFrecuentes(int limit) throws DAOException;
+    
+    /**
+     * Devuelve una lista con todos los clientes de la base de datos.
+     * @return una lista de objetos ClienteDTO.
+     * @throws DAOException si ocurre un error de SQL.
+     */
+    List<ClienteDTO> listar() throws DAOException;
 
     /**
-     * Guarda un nuevo cliente en la base de datos. Llama al Stored Procedure
-     * 'sp_insertar_cliente'.
-     *
-     * @param cliente El objeto DTO con la información del cliente a guardar.
-     * @throws DAOException si ocurre un error durante la operación de guardado.
+     * Guarda un nuevo cliente en la base de datos.
+     * @param cliente El objeto ClienteDTO con la información a guardar.
+     * @throws DAOException si ocurre un error de SQL.
      */
     void guardar(ClienteDTO cliente) throws DAOException;
 
     /**
-     * Busca un cliente por su código único. Llama al Stored Procedure
-     * 'sp_obtener_cliente_por_codigo'.
-     *
-     * @param codigo El código del cliente a buscar (ej. "CLI-00001").
-     * @return Un Optional que contiene el ClienteDTO si se encuentra, o un
-     * Optional vacío si no existe.
-     * @throws DAOException si ocurre un error durante la búsqueda.
+     * Busca un cliente por su código único.
+     * @param codigo El código del cliente a buscar.
+     * @return un Optional que contiene al cliente si se encuentra, o vacío si no.
+     * @throws DAOException si ocurre un error de SQL.
      */
     Optional<ClienteDTO> buscarPorCodigo(String codigo) throws DAOException;
 
     /**
-     * Actualiza los datos de un cliente existente en la base de datos. Llama al
-     * Stored Procedure 'sp_actualizar_cliente'.
-     *
-     * @param cliente El ClienteDTO con los datos actualizados. El código del
-     * cliente se usa para identificar el registro.
-     * @throws DAOException si ocurre un error durante la actualización.
+     * Actualiza la información de un cliente existente.
+     * @param cliente El objeto ClienteDTO con los datos actualizados.
+     * @throws DAOException si ocurre un error de SQL.
      */
     void actualizar(ClienteDTO cliente) throws DAOException;
 
     /**
-     * Elimina un cliente de la base de datos usando su código. Llama al Stored
-     * Procedure 'sp_eliminar_cliente'.
-     *
+     * Elimina un cliente de la base de datos usando su código.
      * @param codigo El código del cliente a eliminar.
-     * @throws DAOException si el cliente no puede ser eliminado (ej. tiene
-     * facturas asociadas) o si ocurre otro error.
+     * @throws DAOException si ocurre un error de SQL.
      */
     void eliminar(String codigo) throws DAOException;
 }

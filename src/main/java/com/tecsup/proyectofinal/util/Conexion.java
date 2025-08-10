@@ -7,7 +7,7 @@ public class Conexion {
     public static Connection obtenerConexion () {
         String url = "jdbc:mysql://localhost:3306/bd_proyecto_final_g5_2.0";
         String user = "root";
-        String pass = "@P2044torrP@";
+        String pass = "sandro1";
 
         try {
             //
