@@ -2,29 +2,97 @@ package com.tecsup.proyectofinal.model.dao.daoimpl;
 
 import com.tecsup.proyectofinal.model.dto.ProductoDTO;
 import com.tecsup.proyectofinal.model.dao.ProductoDAO;
+import com.tecsup.proyectofinal.util.Conexion;
 import com.tecsup.proyectofinal.util.DAOException;
+import com.tecsup.proyectofinal.util.SesionActual;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class ProductoDAOImpl implements ProductoDAO {
 
     @Override
     public void guardar(ProductoDTO producto) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "{CALL sp_insertar_producto(?, ?, ?, ?, ?)}";
+
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, producto.descripcion());
+            cstmt.setBigDecimal(2, producto.precioUnit());
+            cstmt.setInt(3, producto.stockActual());
+            cstmt.setString(4, producto.rutaImagen());
+            cstmt.setString(5, SesionActual.getUsuarioActual().codUsuario());
+
+            cstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DAOException("Error al guardar el producto", e);
+        }
     }
 
     @Override
     public Optional<ProductoDTO> buscarPorCodigo(String codigo) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "{CALL sp_obtener_producto_por_codigo(?)}";
+
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, codigo);
+
+            try (ResultSet rs = cstmt.executeQuery()) {
+                if (rs.next()) {
+                    ProductoDTO producto = new ProductoDTO(
+                            rs.getString("cod_prod"),
+                            rs.getString("descripcion"),
+                            rs.getBigDecimal("precio_unit"),
+                            rs.getInt("stock_actual"),
+                            rs.getString("ruta_imagen"),
+                            null,
+                            null,
+                            null
+                    );
+                    return Optional.of(producto);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error al buscar producto por código: " + codigo, e);
+        }
+        return Optional.empty();
     }
 
     @Override
     public void actualizar(ProductoDTO producto) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "{CALL sp_actualizar_producto(?, ?, ?, ?, ?, ?)}";
+
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, producto.codProd());
+            cstmt.setString(2, producto.descripcion());
+            cstmt.setBigDecimal(3, producto.precioUnit());
+            cstmt.setInt(4, producto.stockActual());
+            cstmt.setString(5, producto.rutaImagen());
+            cstmt.setString(6, producto.codUsuario());
+
+            cstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DAOException("Error al actualizar el producto: " + producto.codProd(), e);
+        }
     }
 
     @Override
     public void eliminar(String codigo) throws DAOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "{CALL sp_eliminar_producto(?)}";
+
+        try (Connection conn = Conexion.obtenerConexion();  CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, codigo);
+            cstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DAOException("Error al eliminar el producto: " + codigo, e);
+        }
     }
 
 }
