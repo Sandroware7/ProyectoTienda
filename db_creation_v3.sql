@@ -1,8 +1,86 @@
 -- ================================================================= --
 -- BASE DE DATOS --
 -- ================================================================= --
+DROP SCHEMA IF EXISTS `BD_Proyecto_Final_G5_2.0`;
 CREATE SCHEMA IF NOT EXISTS `BD_Proyecto_Final_G5_2.0`;
 USE `BD_Proyecto_Final_G5_2.0`;
+
+-- ================================================================= --
+-- ZONA DE LIMPIEZA: Elimina objetos existentes para una reinstalación limpia --
+-- ================================================================= --
+-- Desactivamos la revisión de claves foráneas para poder eliminar las tablas sin problemas de orden
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS `detalle_factura`;
+DROP TABLE IF EXISTS `movimiento_stock`;
+DROP TABLE IF EXISTS `factura`;
+DROP TABLE IF EXISTS `producto`;
+DROP TABLE IF EXISTS `cliente`;
+DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `contador_codigos`;
+
+-- Reactivamos la revisión de claves foráneas
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Eliminamos rutinas (procedimientos y funciones) para asegurar que se creen las nuevas versiones
+DROP FUNCTION IF EXISTS `sf_generar_siguiente_codigo`;
+DROP PROCEDURE IF EXISTS `sp_priv_validar_cliente`;
+DROP PROCEDURE IF EXISTS `sp_priv_validar_factura`;
+DROP PROCEDURE IF EXISTS `sp_priv_validar_motivo_movimiento`;
+DROP PROCEDURE IF EXISTS `sp_insertar_producto`;
+DROP PROCEDURE IF EXISTS `sp_obtener_producto_por_codigo`;
+DROP PROCEDURE IF EXISTS `sp_actualizar_producto`;
+DROP PROCEDURE IF EXISTS `sp_eliminar_producto`;
+DROP PROCEDURE IF EXISTS `sp_insertar_cliente`;
+DROP PROCEDURE IF EXISTS `sp_obtener_cliente_por_codigo`;
+DROP PROCEDURE IF EXISTS `sp_actualizar_cliente`;
+DROP PROCEDURE IF EXISTS `sp_eliminar_cliente`;
+DROP PROCEDURE IF EXISTS `sp_insertar_usuario`;
+DROP PROCEDURE IF EXISTS `sp_insertar_factura`;
+DROP PROCEDURE IF EXISTS `sp_obtener_usuario`;
+DROP PROCEDURE IF EXISTS `sp_contar_productos_stock_menor_a`;
+DROP PROCEDURE IF EXISTS `sp_contar_total_productos`;
+DROP PROCEDURE IF EXISTS `sp_contar_total_stock_productos`;
+DROP PROCEDURE IF EXISTS `sp_total_ventas_dia`;
+DROP PROCEDURE IF EXISTS `sp_total_ventas_mes_actual`;
+DROP PROCEDURE IF EXISTS `sp_obtener_ultimas_n_ventas`;
+DROP PROCEDURE IF EXISTS `sp_listar_n_prod`;
+DROP PROCEDURE IF EXISTS `sp_buscar_clientes`;
+DROP PROCEDURE IF EXISTS `sp_buscar_productos`;
+DROP PROCEDURE IF EXISTS `sp_obtener_factura_cabecera`;
+DROP PROCEDURE IF EXISTS `sp_obtener_factura_detalles`;
+DROP PROCEDURE IF EXISTS `sp_obtener_factura_detalle`;
+DROP PROCEDURE IF EXISTS `sp_obtener_top_n_productos_vendidos_hoy`;
+DROP PROCEDURE IF EXISTS `sp_obtener_top_n_productos_vendidos_mes_actual`;
+DROP PROCEDURE IF EXISTS `sp_obtener_n_productos_menor_stock`;
+DROP PROCEDURE IF EXISTS `sp_obtener_top_n_productos_mas_vendidos`;
+DROP PROCEDURE IF EXISTS `sp_buscar_n_clientes`;
+DROP PROCEDURE IF EXISTS `sp_obtener_top_clientes_frecuentes`;
+DROP PROCEDURE IF EXISTS `sp_obtener_historial_compras_cliente`;
+
+-- Triggers de Validación
+DROP TRIGGER IF EXISTS `validar_datos_al_crear_cliente`;
+DROP TRIGGER IF EXISTS `validar_datos_al_modificar_cliente`;
+DROP TRIGGER IF EXISTS `validar_campos_al_insertar_factura`;
+DROP TRIGGER IF EXISTS `validar_campos_al_actualizar_factura`;
+DROP TRIGGER IF EXISTS `validar_motivo_al_registrar_movimiento`;
+DROP TRIGGER IF EXISTS `validar_motivo_al_actualizar_movimiento`;
+
+-- Triggers para Asignar Códigos
+DROP TRIGGER IF EXISTS `trg_before_insert_usuario`;
+DROP TRIGGER IF EXISTS `trg_before_insert_producto`;
+DROP TRIGGER IF EXISTS `trg_before_insert_cliente`;
+DROP TRIGGER IF EXISTS `trg_before_insert_movimiento_stock`;
+
+-- Triggers de Lógica de Negocio
+DROP TRIGGER IF EXISTS `registrar_movimiento_al_registrar_detalle`;
+DROP TRIGGER IF EXISTS `actualizar_movimiento_al_modificar_detalle`;
+DROP TRIGGER IF EXISTS `anular_movimiento_al_eliminar_detalle`;
+
+-- Triggers de Actualización de Stock
+DROP TRIGGER IF EXISTS `actualizar_stock_al_registrar_movimiento`;
+DROP TRIGGER IF EXISTS `actualizar_stock_al_modificar_movimiento`;
+DROP TRIGGER IF EXISTS `actualizar_stock_al_eliminar_movimiento`;
 
 -- ================================================================= --
 -- TABLAS --
@@ -342,13 +420,13 @@ DELIMITER ;
 
 DELIMITER $$
 -- Registro de movimiento al crear un detalle de factura --
-CREATE TRIGGER IF NOT EXISTS registrar_movimiento_al_registrar_detalle
+CREATE TRIGGER `registrar_movimiento_al_registrar_detalle`
     AFTER INSERT
-    ON detalle_factura
+    ON `detalle_factura`
     FOR EACH ROW
 BEGIN
-    INSERT INTO movimiento_stock (tipo, cantidad, motivo, referencia, cod_usuario)
-    VALUES ('SALIDA', NEW.cantidad, 'VENTA', NEW.cod_fact, NEW.cod_usuario);
+    INSERT INTO movimiento_stock (cod_prod, tipo, cantidad, motivo, referencia, cod_usuario)
+    VALUES (NEW.cod_prod, 'SALIDA', NEW.cantidad, 'VENTA', NEW.cod_fact, NEW.cod_usuario);
 END$$
 
 -- Actualizar movimiento por actualización de detalle de factura --
@@ -443,7 +521,7 @@ DELIMITER $$
 -- CREATE - Insertar nuevo producto --
 CREATE PROCEDURE IF NOT EXISTS sp_insertar_producto(
     IN p_descripcion VARCHAR(255), IN p_precio_unit DECIMAL(10, 2),
-    IN p_stock_actual INT, IN p_ruta_imagen VARCHAR(255), IN p_cod_usuario INT
+    IN p_stock_actual INT, IN p_ruta_imagen VARCHAR(255), IN p_cod_usuario VARCHAR(25)
 )
 BEGIN
     INSERT INTO producto (descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario)
@@ -800,3 +878,85 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+USE `BD_Proyecto_Final_G5_2.0`;
+
+-- ================================================================= --
+-- INSERTS PARA LA TABLA 'usuario'
+-- ================================================================= --
+-- La columna 'cod_usuario' se omite porque el trigger la genera ('USR-00001', 'USR-00002', etc.)
+INSERT INTO `usuario` (`nombre_usuario`, `clave`, `correo`) VALUES
+('jorge.perez', 'hash_clave_123', 'jorge.perez@tienda.com'),
+('ana.gomez', 'hash_clave_456', 'ana.gomez@tienda.com'),
+('admin', 'hash_clave_admin', 'admin@tienda.com');
+
+
+-- ================================================================= --
+-- INSERTS PARA LA TABLA 'cliente'
+-- ================================================================= --
+-- El 'cod_usuario' se asigna manualmente asumiendo los códigos generados.
+INSERT INTO `cliente` (`nombre`, `apellido`, `dni`, `direccion_cli`, `telefono`, `correo`, `cod_usuario`) VALUES
+('Carlos', 'Sánchez López', '71234567', 'Av. Larco 543, Trujillo', '987654321', 'carlos.sanchez@email.com', 'USR-00001'),
+('Mariela', 'Torres Vega', '87654321', 'Jr. Pizarro 210, Trujillo', '912345678', 'mariela.torres@email.com', 'USR-00002'),
+('Luis', 'Rojas Mendoza', '45678901', 'Calle Los Jazmines 112, Urb. California', '998877665', 'luis.rojas@email.com', 'USR-00001'),
+('Sofia', 'Quispe Flores', '23456789', 'Psj. Las Orquídeas 404, La Esperanza', '955443322', 'sofia.quispe@email.com', 'USR-00002');
+
+
+-- ================================================================= --
+-- INSERTS PARA LA TABLA 'producto'
+-- ================================================================= --
+INSERT INTO `producto` (`descripcion`, `precio_unit`, `stock_actual`, `ruta_imagen`, `cod_usuario`) VALUES
+('Laptop Gamer Nitro 5, 15.6" FHD, Core i7, 16GB RAM, 512GB SSD', 4899.00, 15, '/img/laptop_nitro5.png', 'USR-00003'),
+('Mouse Gamer Logitech G502 Hero, 16000 DPI, RGB', 250.00, 40, '/img/mouse_g502.png', 'USR-00003'),
+('Teclado Mecánico Redragon Kumara K552, Switch Red, RGB', 220.50, 35, '/img/teclado_kumara.png', 'USR-00003'),
+('Monitor Curvo Samsung Odyssey G5 27" QHD 144Hz', 1550.00, 20, '/img/monitor_odyssey.png', 'USR-00003'),
+('Audífonos HyperX Cloud II, 7.1 Surround, Rojo', 380.00, 50, '/img/audifonos_cloud2.png', 'USR-00003'),
+('Webcam Logitech C920 Pro HD 1080p', 320.00, 30, '/img/webcam_c920.png', 'USR-00003'),
+('Disco Sólido SSD Kingston A400, 480GB, SATA III', 180.00, 60, '/img/ssd_kingston.png', 'USR-00003');
+
+
+-- ================================================================= --
+-- INSERTS PARA LA TABLA 'factura' Y 'detalle_factura'
+-- La tabla 'movimiento_stock' se llenará automáticamente gracias a los triggers.
+-- ================================================================= --
+
+
+-- ------ FACTURA 1 (Generará el código 'FACT-2025-00001') ------
+-- El SP 'sp_insertar_factura' genera el código y lo devuelve.
+-- Aquí simulamos la inserción directa para el script de prueba.
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES
+('FACT-2025-00001', 'CLI-00001', 5149.00, 926.82, 6075.82, '2025-08-01 10:30:00', 'USR-00001');
+
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
+('FACT-2025-00001', 'PROD-00001', 1, 'USR-00001'), -- 1 Laptop Gamer Nitro 5
+('FACT-2025-00001', 'PROD-00002', 1, 'USR-00001'); -- 1 Mouse Gamer Logitech
+
+
+-- ------ FACTURA 2 (Generará el código 'FACT-2025-00002') ------
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES
+('FACT-2025-00002', 'CLI-00002', 820.50, 147.69, 968.19, '2025-08-05 15:00:00', 'USR-00002');
+
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
+('FACT-2025-00002', 'PROD-00003', 1, 'USR-00002'), -- 1 Teclado Mecánico
+('FACT-2025-00002', 'PROD-00005', 1, 'USR-00002'), -- 1 Audífonos HyperX
+('FACT-2025-00002', 'PROD-00006', 1, 'USR-00002'); -- 1 Webcam Logitech
+
+
+-- ------ FACTURA 3 (Generará el código 'FACT-2025-00003') ------
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES
+('FACT-2025-00003', 'CLI-00001', 1550.00, 279.00, 1829.00, '2025-08-10 09:15:00', 'USR-00001');
+
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
+('FACT-2025-00003', 'PROD-00004', 1, 'USR-00001'); -- 1 Monitor Curvo Samsung
+
+
+-- ------ FACTURA 4 (Generará el código 'FACT-2025-00004') ------
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES
+('FACT-2025-00004', 'CLI-00003', 540.00, 97.20, 637.20, '2025-08-10 11:45:00', 'USR-00002');
+
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
+('FACT-2025-00004', 'PROD-00007', 3, 'USR-00002'); -- 3 SSD Kingston 480GB
+
+
+
