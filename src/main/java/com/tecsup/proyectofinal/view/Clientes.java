@@ -159,7 +159,6 @@ public class Clientes extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaClientesFrecuentes = new javax.swing.JTable();
         PanelHistorial = new javax.swing.JPanel();
-        BtHistorialCompras = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         TablaHistorial = new javax.swing.JTable();
 
@@ -568,16 +567,6 @@ public class Clientes extends javax.swing.JFrame {
 
         PanelHistorial.setBackground(new java.awt.Color(255, 239, 232));
 
-        BtHistorialCompras.setBackground(new java.awt.Color(0, 118, 168));
-        BtHistorialCompras.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        BtHistorialCompras.setForeground(new java.awt.Color(255, 255, 255));
-        BtHistorialCompras.setText("Historial de Compras Cliente");
-        BtHistorialCompras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtHistorialComprasActionPerformed(evt);
-            }
-        });
-
         TablaHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -597,17 +586,13 @@ public class Clientes extends javax.swing.JFrame {
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelHistorialLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         PanelHistorialLayout.setVerticalGroup(
             PanelHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelHistorialLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtHistorialCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(54, 54, 54)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
         );
@@ -666,10 +651,6 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BuscarClienteActionPerformed
 
-    private void BtHistorialComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtHistorialComprasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtHistorialComprasActionPerformed
-
     private void ClientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ClientesButtonActionPerformed
@@ -709,7 +690,6 @@ public class Clientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ActualizarCliente;
     private javax.swing.JTextField ApellidoCliente;
-    private javax.swing.JButton BtHistorialCompras;
     private javax.swing.JButton BuscarCliente;
     private javax.swing.JButton ClientesButton;
     private javax.swing.JTextField CodCliente;

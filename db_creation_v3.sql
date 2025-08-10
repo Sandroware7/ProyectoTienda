@@ -59,6 +59,7 @@ DROP PROCEDURE IF EXISTS `sp_buscar_n_clientes`;
 DROP PROCEDURE IF EXISTS `sp_obtener_top_clientes_frecuentes`;
 DROP PROCEDURE IF EXISTS `sp_obtener_historial_compras_cliente`;
 DROP PROCEDURE IF EXISTS `sp_obtener_siguiente_codigo_factura`;
+DROP PROCEDURE IF EXISTS `sp_obtener_factura_detallada`;
 
 
 -- Triggers de Validación
@@ -920,6 +921,37 @@ BEGIN
     -- Devolvemos el código formateado que se generaría
     SELECT CONCAT('FACT-', YEAR(CURDATE()), '-', LPAD(v_siguiente_valor, 5, '0')) AS siguiente_codigo;
 END$$
+
+CREATE PROCEDURE sp_obtener_factura_detallada(IN p_cod_fact VARCHAR(25))
+BEGIN
+    -- Primer resultado: La cabecera de la factura y datos del cliente
+    SELECT
+        f.cod_fact,
+        f.subtotal,
+        f.igv,
+        f.total,
+        f.fecha_emision,
+        c.cod_cli,
+        c.nombre AS nombre_cliente,
+        c.apellido AS apellido_cliente,
+        u.cod_usuario,
+        u.nombre_usuario
+    FROM factura f
+    JOIN cliente c ON f.cod_cli = c.cod_cli
+    LEFT JOIN usuario u ON f.cod_usuario = u.cod_usuario
+    WHERE f.cod_fact = p_cod_fact;
+
+    -- Segundo resultado: El detalle de los productos
+    SELECT
+        p.descripcion AS nombre_producto,
+        df.cantidad,
+        p.precio_unit AS precio_venta,
+        (df.cantidad * p.precio_unit) AS subtotal
+    FROM detalle_factura df
+    JOIN producto p ON df.cod_prod = p.cod_prod
+    WHERE df.cod_fact = p_cod_fact;
+END$$
+
 DELIMITER ;
 
 -- ================================================================= --
