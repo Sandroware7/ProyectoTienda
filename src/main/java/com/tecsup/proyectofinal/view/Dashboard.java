@@ -241,6 +241,7 @@ public class Dashboard extends javax.swing.JFrame {
         jpanelStock.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTotalRepuestos.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblTotalRepuestos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblTotalRepuestos.setText("70");
         lblTotalRepuestos.setBorder(null);
         lblTotalRepuestos.addActionListener(new java.awt.event.ActionListener() {
@@ -248,7 +249,7 @@ public class Dashboard extends javax.swing.JFrame {
                 lblTotalRepuestosActionPerformed(evt);
             }
         });
-        jpanelStock.add(lblTotalRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 60, 70));
+        jpanelStock.add(lblTotalRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 130, 70));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel3.setText("Total de repuestos");
@@ -276,9 +277,10 @@ public class Dashboard extends javax.swing.JFrame {
         jpanelStockCritico.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
         lblRepuestosCriticos.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblRepuestosCriticos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblRepuestosCriticos.setText("5");
         lblRepuestosCriticos.setBorder(null);
-        jpanelStockCritico.add(lblRepuestosCriticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 70, 60));
+        jpanelStockCritico.add(lblRepuestosCriticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 130, 60));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icon6.png"))); // NOI18N
         jpanelStockCritico.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 60, 60));
@@ -293,7 +295,8 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel9.setText("Ventas del dia");
         jpanelVentasDia.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 170, 40));
 
-        lblVentasDia.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblVentasDia.setFont(new java.awt.Font("Roboto SemiBold", 0, 28)); // NOI18N
+        lblVentasDia.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblVentasDia.setText("S/. 2,300");
         lblVentasDia.setBorder(null);
         jpanelVentasDia.add(lblVentasDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 190, 80));
@@ -308,7 +311,8 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel10.setText("Ingresos del mes");
         jpanelIngresoMes.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 190, 40));
 
-        lblIngresosMes.setFont(new java.awt.Font("Roboto SemiBold", 0, 44)); // NOI18N
+        lblIngresosMes.setFont(new java.awt.Font("Roboto SemiBold", 0, 28)); // NOI18N
+        lblIngresosMes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblIngresosMes.setText("S/. 43,250");
         lblIngresosMes.setBorder(null);
         lblIngresosMes.addActionListener(new java.awt.event.ActionListener() {
@@ -333,13 +337,120 @@ public class Dashboard extends javax.swing.JFrame {
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
                 "Fecha", "Cliente", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblActividadReciente.setColumnSelectionAllowed(true);
+        tblActividadReciente.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblActividadReciente);
+        tblActividadReciente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 75, 565, 320));
 

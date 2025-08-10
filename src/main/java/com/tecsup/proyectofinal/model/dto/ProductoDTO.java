@@ -28,8 +28,8 @@ public record ProductoDTO(
         int stockActual,
         String rutaImagen,
         String codUsuario,
-        Timestamp fechaCrea,
-        Timestamp fechaModif) {
+        Optional<Timestamp> fechaCrea,
+        Optional<Timestamp> fechaModif) {
 
     @Override
     public String toString() {

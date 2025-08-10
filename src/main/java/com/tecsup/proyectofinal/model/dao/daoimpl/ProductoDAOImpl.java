@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class ProductoDAOImpl implements ProductoDAO {
 
+    // FUNCIONA
     @Override
     public void guardar(ProductoDTO producto) throws DAOException {
         String sql = "{CALL sp_insertar_producto(?, ?, ?, ?, ?)}";
@@ -28,7 +29,7 @@ public class ProductoDAOImpl implements ProductoDAO {
             cstmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new DAOException("Error al guardar el producto", e);
+            System.out.println("Error al guardar el producto"+ e);
         }
     }
 
