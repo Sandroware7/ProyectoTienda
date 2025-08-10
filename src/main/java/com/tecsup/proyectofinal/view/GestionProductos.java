@@ -496,11 +496,11 @@ public class GestionProductos extends javax.swing.JFrame {
         String rutaImagen = "- prueba -"; // Prueba
         
         // Obtiene usuario actual
-        int codUsuario = SesionActual.getUsuarioActual();
+        String codUsuario = SesionActual.getUsuarioActual().codUsuario();
         
         // Inserción de dato, fechaCrea, fechaModif no se llenan.
         ProductoDAO p = new ProductoDAOImpl();
-        ProductoDTO pdto = new ProductoDTO(cod, descripcion, precio, stock, rutaImagen, codUsuario, Optional.empty(), Optional.empty());
+        ProductoDTO pdto = new ProductoDTO(cod, descripcion, precio, stock, rutaImagen, codUsuario, null, null);
         try {
             p.guardar(pdto);
         } catch (DAOException ex) {
