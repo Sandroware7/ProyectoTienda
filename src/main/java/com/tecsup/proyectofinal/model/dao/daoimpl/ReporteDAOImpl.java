@@ -272,4 +272,18 @@ public class ReporteDAOImpl implements ReporteDAO {
         return historial.isEmpty() ? Optional.empty() : Optional.of(historial);
     }
 
+    @Override
+    public long contarTotalProductosStock() throws DAOException {
+        String sql = "{CALL sp_contar_total_stock_productos()}";
+        long cantidad = 0;
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql); ResultSet rs = cstmt.executeQuery()) {
+            if (rs.next()) {
+                cantidad = rs.getLong("total_stock_productos");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error al contar el total de productos en stock", e);
+        }
+        return cantidad;
+    }
+
 }

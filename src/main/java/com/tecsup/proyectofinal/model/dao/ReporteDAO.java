@@ -37,6 +37,8 @@ public interface ReporteDAO {
      * @throws com.tecsup.proyectofinal.util.DAOException
      */
     long contarTotalProductos() throws DAOException;
+    
+    long contarTotalProductosStock() throws DAOException;
 
     /**
      * Llama a sp_total_ventas_dia.
