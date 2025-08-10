@@ -1,20 +1,12 @@
 package com.tecsup.proyectofinal.model.dao;
 
 import com.tecsup.proyectofinal.model.dto.ClienteDTO;
-import com.tecsup.proyectofinal.model.dto.ClienteFrecuenteDTO; // Importar el nuevo DTO
-import com.tecsup.proyectofinal.model.dto.HistorialCompraDTO; // Importar nuevo DTO
 import com.tecsup.proyectofinal.util.DAOException;
-import java.util.List; // Asegúrate de que java.util.List esté importado
+import java.util.List;
 import java.util.Optional;
 
 
 public interface ClienteDAO {
-    
-    List<HistorialCompraDTO> listarHistorialCompras(String codCli) throws DAOException;
-
-
-    
-    List<ClienteFrecuenteDTO> listarFrecuentes(int limit) throws DAOException;
     
     /**
      * Devuelve una lista con todos los clientes de la base de datos.

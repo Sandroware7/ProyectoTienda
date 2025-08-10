@@ -152,66 +152,6 @@ public class ClienteDAOImpl implements ClienteDAO {
             throw new DAOException("Error al eliminar cliente: " + " " + codigo, e);
         }
     }
-    
-
-    // PEGA ESTE MÉTODO COMPLETO DENTRO DE TU CLASE
-    @Override
-    public List<ClienteFrecuenteDTO> listarFrecuentes(int limit) throws DAOException {
-        List<ClienteFrecuenteDTO> clientesFrecuentes = new ArrayList<>();
-        String sql = "{CALL sp_obtener_top_clientes_frecuentes(?)}";
-
-        try (Connection conn = Conexion.obtenerConexion();
-             CallableStatement cstmt = conn.prepareCall(sql)) {
-
-            cstmt.setInt(1, limit); // Establecemos el límite de clientes a mostrar
-
-            try (ResultSet rs = cstmt.executeQuery()) {
-                while (rs.next()) {
-                    ClienteFrecuenteDTO cliente = new ClienteFrecuenteDTO(
-                            rs.getInt("posicion"),
-                            rs.getString("codcliente"),
-                            rs.getString("nombre"),
-                            rs.getString("apellido")
-                    );
-                    clientesFrecuentes.add(cliente);
-                }
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Error al obtener clientes frecuentes: " + e.getMessage(), e);
-        }
-        return clientesFrecuentes;
-    }
-    
-        @Override
-    public List<HistorialCompraDTO> listarHistorialCompras(String codCli) throws DAOException {
-        List<HistorialCompraDTO> historial = new ArrayList<>();
-        String sql = "{CALL sp_obtener_historial_compras_cliente(?)}";
-
-        try (Connection conn = Conexion.obtenerConexion();
-             CallableStatement cstmt = conn.prepareCall(sql)) {
-
-            cstmt.setString(1, codCli);
-
-            try (ResultSet rs = cstmt.executeQuery()) {
-                while (rs.next()) {
-                    // Convertimos el java.sql.Date a java.time.LocalDate
-                    LocalDate fechaCompra = rs.getDate("fecha_compra").toLocalDate();
-                    
-                    HistorialCompraDTO compra = new HistorialCompraDTO(
-                            rs.getString("cod_producto"),
-                            rs.getString("descripcion"),
-                            fechaCompra,
-                            rs.getInt("cantidad")
-                    );
-                    historial.add(compra);
-                }
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Error al obtener el historial de compras para el cliente " + codCli + ": " + e.getMessage(), e);
-        }
-        return historial;
-    }
-
 }
     
 
