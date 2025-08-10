@@ -3,7 +3,7 @@
  */
 package com.tecsup.proyectofinal.aplication;
 
-import com.tecsup.proyectofinal.view.Dashboard;
+import com.tecsup.proyectofinal.view.Login;
 
 
 /**
@@ -13,6 +13,6 @@ import com.tecsup.proyectofinal.view.Dashboard;
 public class Main {
 
     public static void main(String[] args) {
-        Dashboard.main(args);
+        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 }
