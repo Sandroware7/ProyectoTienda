@@ -72,7 +72,27 @@ public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
     public void actualizar(ClienteDTO cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "CALL {sp_actualizar_cliente (?, ?, ?, ?, ?, ?, ?, ?)}";
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql)) {
+
+            cstmt.setString(1, cliente.codCli());
+            cstmt.setString(2, cliente.nombre());
+            cstmt.setString(3, cliente.apellido());
+            cstmt.setString(4, cliente.dni());
+            cstmt.setString(5, cliente.direccionCli());
+            cstmt.setString(6, cliente.telefono());
+            cstmt.setString(7, cliente.correo());
+            cstmt.setInt(8, SesionActual.getUsuarioActual());
+
+            int filasAfectadas = cstmt.executeUpdate();
+
+            if (filasAfectadas > 1) {
+                System.out.println("Cliente actualizado correctamente.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar cliente: " + cliente.nombre() + e);
+        }
     }
 
     @Override
