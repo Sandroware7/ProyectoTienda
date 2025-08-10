@@ -4,19 +4,21 @@
  */
 package com.tecsup.proyectofinal.util;
 
+import com.tecsup.proyectofinal.model.dto.UsuarioDTO;
+
 /**
  *
  * @author Joao Higa
  */
 public class SesionActual {
 
-    public static int usuarioActual;
+    public static UsuarioDTO usuarioActual;
 
-    public static int getUsuarioActual() {
+    public static UsuarioDTO getUsuarioActual() {
         return usuarioActual;
     }
 
-    public static void setUsuarioActual(int usuarioActual) {
+    public static void setUsuarioActual(UsuarioDTO usuarioActual) {
         SesionActual.usuarioActual = usuarioActual;
     }
 }
