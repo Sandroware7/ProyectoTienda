@@ -24,6 +24,7 @@ public class GestionProductos extends javax.swing.JFrame {
      */
     public GestionProductos() {
         initComponents();
+        setLocationRelativeTo(null); // centra la ventana en la pantalla
     }
 
     /**
