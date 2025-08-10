@@ -595,6 +595,12 @@ BEGIN
     SELECT COUNT(*) AS total_productos FROM producto;
 END$$
 
+-- Devuelve el total de productos en stock --
+CREATE PROCEDURE IF NOT EXISTS sp_contar_total_stock_productos()
+BEGIN
+    SELECT SUM(stock_actual) AS total_stock_productos FROM producto;
+END$$
+
 -- Devuelve el monto total de ventas realizadas en el día actual --
 CREATE PROCEDURE IF NOT EXISTS sp_total_ventas_dia()
 BEGIN
