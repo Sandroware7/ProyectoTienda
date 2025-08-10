@@ -9,10 +9,10 @@ USE `BD_Proyecto_Final_G5_2.0`;
 -- ================================================================= --
 CREATE TABLE IF NOT EXISTS `usuario`
 (
-    `cod_usuario`    INT AUTO_INCREMENT NOT NULL UNIQUE,
-    `nombre_usuario` VARCHAR(50)        NOT NULL UNIQUE,
-    `clave`          VARCHAR(255)       NOT NULL,
-    `correo`         VARCHAR(100)       NOT NULL UNIQUE,
+    `cod_usuario`    VARCHAR(25)  NOT NULL UNIQUE,
+    `nombre_usuario` VARCHAR(50)  NOT NULL UNIQUE,
+    `clave`          VARCHAR(255) NOT NULL,
+    `correo`         VARCHAR(100) NOT NULL UNIQUE,
     `fecha_crea`     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `fecha_modif`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cod_usuario`)
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `producto`
     `precio_unit`  DECIMAL(10, 2) NOT NULL CHECK (precio_unit > 0),
     `stock_actual` INTEGER        NOT NULL CHECK (stock_actual >= 0),
     `ruta_imagen`  VARCHAR(255)   NOT NULL,
-    `cod_usuario`  INT            NULL,
+    `cod_usuario`  VARCHAR(25)    NULL,
     `fecha_crea`   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `fecha_modif`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cod_prod`)
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `cliente`
     `direccion_cli` VARCHAR(255) NOT NULL,
     `telefono`      VARCHAR(15)  NOT NULL,
     `correo`        VARCHAR(100) NOT NULL,
-    `cod_usuario`   INT          NULL,
+    `cod_usuario`   VARCHAR(25)  NULL,
     `fecha_crea`    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `fecha_modif`   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cod_cli`)
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `factura`
     `igv`           DECIMAL(10, 2) NOT NULL CHECK (igv >= 0),
     `total`         DECIMAL(10, 2) NOT NULL CHECK (total >= 0),
     `fecha_emision` DATETIME       NOT NULL,
-    `cod_usuario`   INT            NULL,
+    `cod_usuario`   VARCHAR(25)    NULL,
     PRIMARY KEY (`cod_fact`)
 );
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `detalle_factura`
     `cod_fact`    VARCHAR(25) NOT NULL,
     `cod_prod`    VARCHAR(25) NOT NULL,
     `cantidad`    INTEGER     NOT NULL CHECK (cantidad > 0),
-    `cod_usuario` INT         NULL,
+    `cod_usuario` VARCHAR(25) NULL,
     `fecha_crea`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `fecha_modif` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cod_fact`, `cod_prod`)
@@ -71,13 +71,13 @@ CREATE TABLE IF NOT EXISTS `detalle_factura`
 
 CREATE TABLE IF NOT EXISTS `movimiento_stock`
 (
-    `cod_mov`     INT         NOT NULL AUTO_INCREMENT UNIQUE,
+    `cod_mov`     VARCHAR(25) NOT NULL UNIQUE,
     `cod_prod`    VARCHAR(25) NOT NULL,
     `tipo`        VARCHAR(20) NOT NULL CHECK (tipo IN ('INGRESO', 'SALIDA')),
     `cantidad`    INT         NOT NULL CHECK (cantidad > 0),
     `motivo`      VARCHAR(20) NOT NULL CHECK (motivo IN ('DEVOLUCION', 'VENTA', 'COMPRA')),
     `referencia`  VARCHAR(25) NOT NULL,
-    `cod_usuario` INT         NULL,
+    `cod_usuario` VARCHAR(25) NULL,
     `fecha_crea`  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `fecha_modif` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cod_mov`)
@@ -122,6 +122,68 @@ CREATE INDEX `idx_cliente_nombre_apellido` ON `cliente` (`nombre`, `apellido`);
 CREATE INDEX `idx_factura_codcli` ON `factura` (`cod_cli`);
 CREATE INDEX `idx_detalle_factura_codfact` ON `detalle_factura` (`cod_fact`);
 CREATE INDEX `idx_detalle_factura_codprod` ON `detalle_factura` (`cod_prod`);
+
+-- ================================================================= --
+-- TABLA PARA GUARDAR CONTADORES PARA GENERACIÓN DE CÓDIGOS --
+-- ================================================================= --
+CREATE TABLE IF NOT EXISTS `contador_codigos`
+(
+    `id_contador`     VARCHAR(20) NOT NULL,
+    `siguiente_valor` INT         NOT NULL DEFAULT 1,
+    PRIMARY KEY (`id_contador`)
+);
+
+-- ================================================================= --
+-- INICIALIZACIÓN DE CONTADORES PARA GENERACIÓN DE CÓDIGOS --
+-- ================================================================= --
+TRUNCATE TABLE `contador_codigos`; -- Limpiamos por si ya existía
+INSERT INTO `contador_codigos` (id_contador, siguiente_valor)
+VALUES ('USUARIO', 1),
+       ('PRODUCTO', 1),
+       ('CLIENTE', 1),
+       ('FACTURA', 1),
+       ('MOVIMIENTO', 1);
+
+-- ================================================================= --
+-- FUNCIÓN PARA GENERACIÓN DE CÓDIGOS --
+-- ================================================================= --
+DELIMITER $$
+
+CREATE FUNCTION `sf_generar_siguiente_codigo`(
+    p_id_contador VARCHAR(20),
+    p_prefijo VARCHAR(10)
+)
+    RETURNS VARCHAR(25)
+    DETERMINISTIC
+BEGIN
+    DECLARE v_siguiente_valor INT;
+    DECLARE v_codigo_generado VARCHAR(25);
+
+    -- Obtenemos el siguiente valor y bloqueamos la fila para evitar concurrencia
+    SELECT siguiente_valor
+    INTO v_siguiente_valor
+    FROM contador_codigos
+    WHERE id_contador = p_id_contador FOR
+    UPDATE;
+
+    -- Actualizamos el contador para la próxima vez
+    UPDATE contador_codigos
+    SET siguiente_valor = v_siguiente_valor + 1
+    WHERE id_contador = p_id_contador;
+
+    -- Formateamos el código
+    -- Para facturas, incluimos el año actual. Ej.: FACT-2025-00001
+    IF p_id_contador = 'FACTURA' THEN
+        SET v_codigo_generado = CONCAT(p_prefijo, '-', YEAR(CURDATE()), '-', LPAD(v_siguiente_valor, 5, '0'));
+    ELSE
+        -- Para los demás. Ej.: CLI-00001
+        SET v_codigo_generado = CONCAT(p_prefijo, '-', LPAD(v_siguiente_valor, 5, '0'));
+    END IF;
+
+    RETURN v_codigo_generado;
+END$$
+
+DELIMITER ;
 
 -- ================================================================= --
 -- STORED PROCEDURES PARA VALIDACIÓN --
@@ -225,6 +287,68 @@ END$$
 DELIMITER ;
 
 -- ================================================================= --
+-- TRIGGERS PARA ASIGNAR CÓDIGOS AUTOMÁTICAMENTE --
+-- ================================================================= --
+DELIMITER $$
+
+-- Trigger para la tabla `usuario`
+CREATE TRIGGER `trg_before_insert_usuario`
+    BEFORE INSERT
+    ON `usuario`
+    FOR EACH ROW
+BEGIN
+    IF NEW.cod_usuario IS NULL OR NEW.cod_usuario = '' THEN
+        SET NEW.cod_usuario = sf_generar_siguiente_codigo('USUARIO', 'USR');
+    END IF;
+END$$
+
+-- Trigger para la tabla `producto`
+CREATE TRIGGER `trg_before_insert_producto`
+    BEFORE INSERT
+    ON `producto`
+    FOR EACH ROW
+BEGIN
+    IF NEW.cod_prod IS NULL OR NEW.cod_prod = '' THEN
+        SET NEW.cod_prod = sf_generar_siguiente_codigo('PRODUCTO', 'PROD');
+    END IF;
+END$$
+
+-- Trigger para la tabla `cliente`
+CREATE TRIGGER `trg_before_insert_cliente`
+    BEFORE INSERT
+    ON `cliente`
+    FOR EACH ROW
+BEGIN
+    IF NEW.cod_cli IS NULL OR NEW.cod_cli = '' THEN
+        SET NEW.cod_cli = sf_generar_siguiente_codigo('CLIENTE', 'CLI');
+    END IF;
+END$$
+
+-- Trigger para la tabla `factura`
+CREATE TRIGGER `trg_before_insert_factura`
+    BEFORE INSERT
+    ON `factura`
+    FOR EACH ROW
+BEGIN
+    IF NEW.cod_fact IS NULL OR NEW.cod_fact = '' THEN
+        SET NEW.cod_fact = sf_generar_siguiente_codigo('FACTURA', 'FACT');
+    END IF;
+END$$
+
+-- Trigger para la tabla `movimiento_stock`
+CREATE TRIGGER `trg_before_insert_movimiento_stock`
+    BEFORE INSERT
+    ON `movimiento_stock`
+    FOR EACH ROW
+BEGIN
+    IF NEW.cod_mov IS NULL OR NEW.cod_mov = '' THEN
+        SET NEW.cod_mov = sf_generar_siguiente_codigo('MOVIMIENTO', 'MOV');
+    END IF;
+END$$
+
+DELIMITER ;
+
+-- ================================================================= --
 -- TRIGGERS DE LÓGICA DE NEGOCIO--
 -- ================================================================= --
 
@@ -235,8 +359,8 @@ CREATE TRIGGER IF NOT EXISTS registrar_movimiento_al_registrar_detalle
     ON detalle_factura
     FOR EACH ROW
 BEGIN
-    INSERT INTO movimiento_stock (cod_prod, tipo, cantidad, motivo, referencia, cod_usuario)
-    VALUES (NEW.cod_prod, 'SALIDA', NEW.cantidad, 'VENTA', NEW.cod_fact, NEW.cod_usuario);
+    INSERT INTO movimiento_stock (tipo, cantidad, motivo, referencia, cod_usuario)
+    VALUES ('SALIDA', NEW.cantidad, 'VENTA', NEW.cod_fact, NEW.cod_usuario);
 END$$
 
 -- Actualizar movimiento por actualización de detalle de factura --
@@ -330,12 +454,12 @@ DELIMITER $$
 
 -- CREATE - Insertar nuevo producto --
 CREATE PROCEDURE IF NOT EXISTS sp_insertar_producto(
-    IN p_cod_prod VARCHAR(25), IN p_descripcion VARCHAR(255), IN p_precio_unit DECIMAL(10, 2),
+    IN p_descripcion VARCHAR(255), IN p_precio_unit DECIMAL(10, 2),
     IN p_stock_actual INT, IN p_ruta_imagen VARCHAR(255), IN p_cod_usuario INT
 )
 BEGIN
-    INSERT INTO producto (cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario)
-    VALUES (p_cod_prod, p_descripcion, p_precio_unit, p_stock_actual, p_ruta_imagen, p_cod_usuario);
+    INSERT INTO producto (descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario)
+    VALUES (p_descripcion, p_precio_unit, p_stock_actual, p_ruta_imagen, p_cod_usuario);
 END$$
 
 -- READ - Obtener producto por código --
@@ -376,13 +500,12 @@ END$$
 
 -- CREATE - Insertar nuevo cliente --
 CREATE PROCEDURE IF NOT EXISTS sp_insertar_cliente(
-    IN p_cod_cli VARCHAR(25), IN p_nombre VARCHAR(255), IN p_apellido VARCHAR(255), IN p_dni VARCHAR(10),
+    IN p_nombre VARCHAR(255), IN p_apellido VARCHAR(255), IN p_dni VARCHAR(10),
     IN p_direccion_cli VARCHAR(255), IN p_telefono VARCHAR(15), IN p_correo VARCHAR(100), IN p_cod_usuario INT
 )
 BEGIN
-    INSERT INTO cliente (cod_cli, nombre, apellido, dni, direccion_cli, telefono, correo, cod_usuario)
-    VALUES (p_cod_cli,
-            p_nombre,
+    INSERT INTO cliente (nombre, apellido, dni, direccion_cli, telefono, correo, cod_usuario)
+    VALUES (p_nombre,
             p_apellido,
             p_dni,
             p_direccion_cli,
@@ -432,6 +555,31 @@ BEGIN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar el cliente porque tiene facturas registradas.';
     END IF;
     DELETE FROM cliente WHERE cod_cli = p_cod_cli;
+END$$
+
+-- CREATE - Insertar nuevo usuario --
+CREATE PROCEDURE IF NOT EXISTS `sp_insertar_usuario`(
+    IN p_nombre_usuario VARCHAR(50),
+    IN p_clave VARCHAR(255),
+    IN p_correo VARCHAR(100)
+)
+BEGIN
+    INSERT INTO usuario (nombre_usuario, clave, correo)
+    VALUES (p_nombre_usuario, p_clave, p_correo);
+END$$
+
+-- CREATE - Insertar nueva factura --
+CREATE PROCEDURE IF NOT EXISTS `sp_insertar_factura`(
+    IN p_cod_cli VARCHAR(25),
+    IN p_subtotal DECIMAL(10, 2),
+    IN p_igv DECIMAL(10, 2),
+    IN p_total DECIMAL(10, 2),
+    IN p_fecha_emision DATETIME,
+    IN p_cod_usuario VARCHAR(25)
+)
+BEGIN
+    INSERT INTO factura (cod_cli, subtotal, igv, total, fecha_emision, cod_usuario)
+    VALUES (p_cod_cli, p_subtotal, p_igv, p_total, p_fecha_emision, p_cod_usuario);
 END$$
 
 -- ================================================================= --
@@ -642,3 +790,10 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+INSERT INTO usuario (nombre_usuario, clave, correo)
+VALUES ('admin', '1234', 'a@com.pe');
+
+SELECT *
+FROM usuario
