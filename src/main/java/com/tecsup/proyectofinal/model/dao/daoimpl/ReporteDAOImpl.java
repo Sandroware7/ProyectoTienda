@@ -140,16 +140,14 @@ public class ReporteDAOImpl implements ReporteDAO {
             try (ResultSet rs = cstmt.executeQuery()) {
                 while (rs.next()) {
                     clientes.add(new ClienteDTO(
-                            null,
+                            rs.getString("cod_cli"),
                             rs.getString("nombre"),
                             rs.getString("apellido"),
                             rs.getString("dni"),
                             rs.getString("direccion_cli"),
                             rs.getString("telefono"),
-                            rs.getString("correo"),
                             null,
-                            null,
-                            null
+                            null, null, null
                     ));
                 }
             }
@@ -175,8 +173,8 @@ public class ReporteDAOImpl implements ReporteDAO {
                             rs.getInt("stock_actual"),
                             null,
                             null,
-                            null,
-                            null
+                            Optional.empty(),
+                            Optional.empty()
                     ));
                 }
             }

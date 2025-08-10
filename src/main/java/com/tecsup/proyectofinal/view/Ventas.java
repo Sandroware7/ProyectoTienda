@@ -98,13 +98,6 @@ public class Ventas extends javax.swing.JFrame {
         this.DescripcionProductoVenta = DescripcionProductoVenta;
     }
 
-    public JTextField getDireccionClienteVenta() {
-        return DireccionClienteVenta;
-    }
-
-    public void setDireccionClienteVenta(JTextField DireccionClienteVenta) {
-        this.DireccionClienteVenta = DireccionClienteVenta;
-    }
 
     public JButton getEliminarProductoVenta() {
         return EliminarProductoVenta;
@@ -246,11 +239,9 @@ public class Ventas extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         CodClienteVenta = new javax.swing.JTextField();
         NombreClienteVenta = new javax.swing.JTextField();
         ApellidoClienteVenta = new javax.swing.JTextField();
-        DireccionClienteVenta = new javax.swing.JTextField();
         TelefonoClienteVenta = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         TablaClienteVenta = new javax.swing.JTable();
@@ -281,16 +272,16 @@ public class Ventas extends javax.swing.JFrame {
         EliminarProductoVenta = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        IgvVenta = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        TotalVenta = new javax.swing.JTextField();
         HacerFacturaVenta = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         FechaVenta = new javax.swing.JTextField();
         NumFactura = new javax.swing.JTextField();
-        SubtotalVenta = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
+        TotalVenta = new javax.swing.JTextField();
+        SubtotalVenta = new javax.swing.JTextField();
+        IgvVenta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -452,9 +443,6 @@ public class Ventas extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel9.setText("Teléfono:");
 
-        jLabel10.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
-        jLabel10.setText("Dirección:");
-
         CodClienteVenta.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
         CodClienteVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         CodClienteVenta.setEnabled(false);
@@ -475,16 +463,6 @@ public class Ventas extends javax.swing.JFrame {
         ApellidoClienteVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         ApellidoClienteVenta.setEnabled(false);
         ApellidoClienteVenta.setPreferredSize(new java.awt.Dimension(74, 25));
-
-        DireccionClienteVenta.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
-        DireccionClienteVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        DireccionClienteVenta.setEnabled(false);
-        DireccionClienteVenta.setPreferredSize(new java.awt.Dimension(74, 25));
-        DireccionClienteVenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DireccionClienteVentaActionPerformed(evt);
-            }
-        });
 
         TelefonoClienteVenta.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
         TelefonoClienteVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -639,11 +617,9 @@ public class Ventas extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(DireccionClienteVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ApellidoClienteVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(NombreClienteVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(CodClienteVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -685,15 +661,11 @@ public class Ventas extends javax.swing.JFrame {
                 .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ApellidoClienteVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DireccionClienteVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelClientesDisponiblesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TelefonoClienteVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         getContentPane().add(PanelClientesDisponibles);
@@ -1168,23 +1140,9 @@ public class Ventas extends javax.swing.JFrame {
         jPanelFacturacion.add(jLabel23);
         jLabel23.setBounds(820, 420, 70, 21);
 
-        IgvVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        IgvVenta.setEnabled(false);
-        IgvVenta.setFocusable(false);
-        IgvVenta.setPreferredSize(new java.awt.Dimension(64, 21));
-        jPanelFacturacion.add(IgvVenta);
-        IgvVenta.setBounds(890, 390, 171, 21);
-
         jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanelFacturacion.add(jTextField2);
         jTextField2.setBounds(909, 395, 171, 0);
-
-        TotalVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        TotalVenta.setEnabled(false);
-        TotalVenta.setFocusable(false);
-        TotalVenta.setPreferredSize(new java.awt.Dimension(64, 21));
-        jPanelFacturacion.add(TotalVenta);
-        TotalVenta.setBounds(890, 420, 171, 21);
 
         HacerFacturaVenta.setBackground(new java.awt.Color(0, 118, 168));
         HacerFacturaVenta.setFont(new java.awt.Font("Roboto", 1, 19)); // NOI18N
@@ -1225,17 +1183,46 @@ public class Ventas extends javax.swing.JFrame {
         jPanelFacturacion.add(NumFactura);
         NumFactura.setBounds(933, 8, 130, 20);
 
-        SubtotalVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        SubtotalVenta.setEnabled(false);
-        SubtotalVenta.setFocusable(false);
-        SubtotalVenta.setPreferredSize(new java.awt.Dimension(64, 21));
-        jPanelFacturacion.add(SubtotalVenta);
-        SubtotalVenta.setBounds(890, 360, 171, 21);
-
         jLabel26.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         jLabel26.setText("SUBTOTAL:");
         jPanelFacturacion.add(jLabel26);
         jLabel26.setBounds(790, 360, 90, 27);
+
+        TotalVenta.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
+        TotalVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        TotalVenta.setMinimumSize(new java.awt.Dimension(64, 25));
+        TotalVenta.setPreferredSize(new java.awt.Dimension(74, 25));
+        TotalVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TotalVentaActionPerformed(evt);
+            }
+        });
+        jPanelFacturacion.add(TotalVenta);
+        TotalVenta.setBounds(900, 420, 160, 20);
+
+        SubtotalVenta.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
+        SubtotalVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        SubtotalVenta.setMinimumSize(new java.awt.Dimension(64, 25));
+        SubtotalVenta.setPreferredSize(new java.awt.Dimension(74, 25));
+        SubtotalVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubtotalVentaActionPerformed(evt);
+            }
+        });
+        jPanelFacturacion.add(SubtotalVenta);
+        SubtotalVenta.setBounds(900, 360, 160, 20);
+
+        IgvVenta.setFont(new java.awt.Font("sansserif", 0, 13)); // NOI18N
+        IgvVenta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        IgvVenta.setMinimumSize(new java.awt.Dimension(64, 25));
+        IgvVenta.setPreferredSize(new java.awt.Dimension(74, 25));
+        IgvVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IgvVentaActionPerformed(evt);
+            }
+        });
+        jPanelFacturacion.add(IgvVenta);
+        IgvVenta.setBounds(900, 390, 160, 20);
 
         getContentPane().add(jPanelFacturacion);
         jPanelFacturacion.setBounds(340, 420, 1100, 480);
@@ -1266,10 +1253,6 @@ public class Ventas extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_SalirButtonActionPerformed
-
-    private void DireccionClienteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DireccionClienteVentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DireccionClienteVentaActionPerformed
 
     private void CodClienteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodClienteVentaActionPerformed
         // TODO add your handling code here:
@@ -1314,6 +1297,18 @@ public class Ventas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_LogoButtonActionPerformed
 
+    private void TotalVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TotalVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TotalVentaActionPerformed
+
+    private void SubtotalVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubtotalVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SubtotalVentaActionPerformed
+
+    private void IgvVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IgvVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IgvVentaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1349,7 +1344,6 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JTextField CodClienteVenta;
     private javax.swing.JTextField CodProductoVenta;
     private javax.swing.JTextField DescripcionProductoVenta;
-    private javax.swing.JTextField DireccionClienteVenta;
     private javax.swing.JButton EliminarProductoVenta;
     private javax.swing.JTextField FechaVenta;
     private javax.swing.JButton GestionProductosButton;
@@ -1372,7 +1366,6 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JTextField TelefonoClienteVenta;
     private javax.swing.JTextField TotalVenta;
     private javax.swing.JButton VentasButton;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

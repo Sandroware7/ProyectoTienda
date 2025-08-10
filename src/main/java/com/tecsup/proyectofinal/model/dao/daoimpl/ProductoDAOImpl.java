@@ -5,10 +5,11 @@ import com.tecsup.proyectofinal.model.dao.ProductoDAO;
 import com.tecsup.proyectofinal.util.Conexion;
 import com.tecsup.proyectofinal.util.DAOException;
 import com.tecsup.proyectofinal.util.SesionActual;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.tecsup.proyectofinal.view.GestionProductos;
+
+import javax.swing.*;
+import javax.swing.table.*;
+import java.sql.*;
 import java.util.Optional;
 
 public class ProductoDAOImpl implements ProductoDAO {
@@ -90,10 +91,42 @@ public class ProductoDAOImpl implements ProductoDAO {
 
             cstmt.setString(1, codigo);
             cstmt.executeUpdate();
-
         } catch (SQLException e) {
             throw new DAOException("Error al eliminar el producto: " + codigo, e);
         }
     }
 
+    @Override
+    public void cargarProductos(JTable TablaProductosGestion) {
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{"Código", "Descripción", "Precio Unit.", "Stock", "Ruta Imagen", "Cod Usuario", "Fecha Creación", "Fecha Modif."},
+                0
+        );
+
+        String sql = "SELECT cod_prod, descripcion, precio_unit, stock_actual, ruta_imagen, cod_usuario, fecha_crea, fecha_modif FROM producto";
+
+        try (Connection conn = Conexion.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Object[] fila = {
+                        rs.getString("cod_prod"),
+                        rs.getString("descripcion"),
+                        rs.getBigDecimal("precio_unit"),
+                        rs.getInt("stock_actual"),
+                        rs.getString("ruta_imagen"),
+                        rs.getString("cod_usuario"),
+                        rs.getTimestamp("fecha_crea"),
+                        rs.getTimestamp("fecha_modif")
+                };
+                modelo.addRow(fila);
+            }
+
+            TablaProductosGestion.setModel(modelo);
+
+        } catch (SQLException e) {
+            System.out.println("Error al cargar productos: " + e);
+        }
+    }
 }

@@ -1,13 +1,19 @@
 package com.tecsup.proyectofinal.controller;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 import com.tecsup.proyectofinal.model.dao.ProductoDAO;
 import com.tecsup.proyectofinal.model.dao.daoimpl.ProductoDAOImpl;
 import com.tecsup.proyectofinal.model.dto.ProductoDTO;
+import com.tecsup.proyectofinal.util.Conexion;
 import com.tecsup.proyectofinal.util.DAOException;
 import com.tecsup.proyectofinal.util.SesionActual;
 
@@ -182,4 +188,14 @@ public class GestionProductosController {
             System.out.println("Error al eliminar" + e);
         }
     };
+
+
+    //         --------------------
+
+    public void cargarProductos(JTable  TablaProductosGestion) {
+        ProductoDAO p = new ProductoDAOImpl();
+        p.cargarProductos(TablaProductosGestion);
+    }
+
+
 }

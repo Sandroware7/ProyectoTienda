@@ -86,7 +86,6 @@ public class VentaController {
                         vista.getCodClienteVenta().setText(clienteSeleccionado.codCli());
                         vista.getNombreClienteVenta().setText(clienteSeleccionado.nombre());
                         vista.getApellidoClienteVenta().setText(clienteSeleccionado.apellido());
-                        vista.getDireccionClienteVenta().setText(clienteSeleccionado.direccionCli());
                         vista.getTelefonoClienteVenta().setText(clienteSeleccionado.telefono());
                     }
                 }
@@ -150,7 +149,6 @@ public class VentaController {
                 model.addRow(new Object[]{producto.codProd(), producto.descripcion(), producto.precioUnit(), producto.stockActual()});
             }
         } catch (DAOException e) {
-            System.out.println(e);
             vista.mostrarMensaje("Error al buscar productos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -175,16 +173,17 @@ public class VentaController {
             vista.mostrarMensaje("La cantidad debe ser un número entero.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        BigDecimal subtotalLinea = productoSeleccionado.precioUnit().multiply(BigDecimal.valueOf(cantidad));
+
+        BigDecimal precioUnitario = productoSeleccionado.precioUnit();
+        BigDecimal subtotalLinea = precioUnitario.multiply(BigDecimal.valueOf(cantidad));
 
         DefaultTableModel model = (DefaultTableModel) vista.getTablaFacturaVenta().getModel();
-        model.addRow(new Object[]{
+        model.insertRow(0, new Object[]{
             productoSeleccionado.codProd(),
             productoSeleccionado.descripcion(),
             productoSeleccionado.precioUnit(),
             cantidad,
-            subtotalLinea.doubleValue()
+            subtotalLinea // Se guarda el objeto BigDecimal
         });
         
         actualizarTotales();
@@ -206,8 +205,11 @@ public class VentaController {
     private void actualizarTotales() {
         DefaultTableModel model = (DefaultTableModel) vista.getTablaFacturaVenta().getModel();
         BigDecimal subtotal = BigDecimal.ZERO;
+        
         for (int i = 0; i < model.getRowCount(); i++) {
-            subtotal = subtotal.add(BigDecimal.valueOf((double) model.getValueAt(i, 4)));
+            // ✅ ESTA ES LA LÍNEA CORREGIDA: Conversión segura
+            Object valorCelda = model.getValueAt(i, 4);
+            subtotal = subtotal.add(new BigDecimal(valorCelda.toString()));
         }
         
         BigDecimal igv = subtotal.multiply(new BigDecimal("0.18")).setScale(2, RoundingMode.HALF_UP);
@@ -273,7 +275,6 @@ public class VentaController {
         vista.getCodClienteVenta().setText("");
         vista.getNombreClienteVenta().setText("");
         vista.getApellidoClienteVenta().setText("");
-        vista.getDireccionClienteVenta().setText("");
         vista.getTelefonoClienteVenta().setText("");
         
         limpiarCamposProducto();

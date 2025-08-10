@@ -2,6 +2,8 @@ package com.tecsup.proyectofinal.model.dao;
 
 import com.tecsup.proyectofinal.model.dto.ProductoDTO;
 import com.tecsup.proyectofinal.util.DAOException;
+
+import javax.swing.*;
 import java.util.Optional;
 
 /**
@@ -49,4 +51,6 @@ public interface ProductoDAO {
      * una factura) o si ocurre otro error.
      */
     void eliminar(String codigo) throws DAOException;
+
+    void cargarProductos(JTable TablaProductosGestion);
 }
