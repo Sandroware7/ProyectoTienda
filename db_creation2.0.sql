@@ -1,5 +1,3 @@
-SELECT * FROM usuario
-
 -- ================================================================= --
 -- BASE DE DATOS --
 -- ================================================================= --
@@ -325,17 +323,6 @@ BEGIN
     END IF;
 END$$
 
--- Trigger para la tabla `factura`
-CREATE TRIGGER `trg_before_insert_factura`
-    BEFORE INSERT
-    ON `factura`
-    FOR EACH ROW
-BEGIN
-    IF NEW.cod_fact IS NULL OR NEW.cod_fact = '' THEN
-        SET NEW.cod_fact = sf_generar_siguiente_codigo('FACTURA', 'FACT');
-    END IF;
-END$$
-
 -- Trigger para la tabla `movimiento_stock`
 CREATE TRIGGER `trg_before_insert_movimiento_stock`
     BEFORE INSERT
@@ -576,11 +563,14 @@ CREATE PROCEDURE IF NOT EXISTS `sp_insertar_factura`(
     IN p_igv DECIMAL(10, 2),
     IN p_total DECIMAL(10, 2),
     IN p_fecha_emision DATETIME,
-    IN p_cod_usuario VARCHAR(25)
+    IN p_cod_usuario VARCHAR(25),
+    OUT p_codigo_generado VARCHAR(25)
 )
 BEGIN
-    INSERT INTO factura (cod_cli, subtotal, igv, total, fecha_emision, cod_usuario)
-    VALUES (p_cod_cli, p_subtotal, p_igv, p_total, p_fecha_emision, p_cod_usuario);
+    SET p_codigo_generado = sf_generar_siguiente_codigo('FACTURA', 'FACT');
+
+    INSERT INTO factura (cod_fact, cod_cli, subtotal, igv, total, fecha_emision, cod_usuario)
+    VALUES (p_codigo_generado, p_cod_cli, p_subtotal, p_igv, p_total, p_fecha_emision, p_cod_usuario);
 END$$
 
 -- ================================================================= --
@@ -608,7 +598,9 @@ END$$
 -- Devuelve el monto total de ventas realizadas en el día actual --
 CREATE PROCEDURE IF NOT EXISTS sp_total_ventas_dia()
 BEGIN
-    SELECT IFNULL(SUM(total), 0) AS total_ventas_dia FROM factura WHERE DATE(fecha_emision) = CURRENT_DATE();
+    SELECT IFNULL(SUM(total), 0) AS total_ventas_dia
+    FROM factura
+    WHERE DATE(fecha_emision) = CURRENT_DATE();
 END$$
 
 -- Devuelve el monto total de ventas realizadas en el mes actual --
@@ -623,7 +615,9 @@ END$$
 -- Devuelve las últimas N ventas con la fecha, cliente y total --
 CREATE PROCEDURE IF NOT EXISTS sp_obtener_ultimas_n_ventas(IN p_limit INT)
 BEGIN
-    SELECT DATE(f.fecha_emision) AS fecha_emision, CONCAT(c.nombre, ' ', c.apellido) AS cliente, f.total AS total
+    SELECT DATE(f.fecha_emision)             AS fecha_emision,
+           CONCAT(c.nombre, ' ', c.apellido) AS cliente,
+           f.total                           AS total
     FROM factura f
              JOIN cliente c ON f.cod_cli = c.cod_cli
     ORDER BY f.fecha_emision DESC
@@ -658,25 +652,34 @@ BEGIN
        OR descripcion LIKE CONCAT('%', p_termino, '%');
 END$$
 
--- Devuelve el detalle completo de una factura específica --
-CREATE PROCEDURE IF NOT EXISTS sp_obtener_factura_detalle(IN p_cod_fact VARCHAR(25))
+-- Obtiene la cabecera de la factura
+CREATE PROCEDURE sp_obtener_factura_cabecera(IN p_cod_fact VARCHAR(25))
 BEGIN
-    SELECT f.cod_fact                    AS codigo_factura,
-           DATE(f.fecha_emision)         AS fecha_venta,
-           c.nombre                      AS nombre_cliente,
-           c.apellido                    AS apellido_cliente,
-           p.descripcion                 AS nombre_producto,
-           df.cantidad                   AS cantidad,
-           p.precio_unit                 AS precio_unitario,
-           (df.cantidad * p.precio_unit) AS subtotal_por_producto,
-           f.subtotal                    AS subtotal_factura,
-           f.igv                         AS igv_factura,
-           f.total                       AS total_factura
+    SELECT
+        f.cod_fact, f.subtotal, f.igv, f.total, f.fecha_emision,
+        c.cod_cli, c.nombre, c.apellido, c.dni, c.direccion_cli, c.telefono, c.correo AS correo_cliente,
+        u.cod_usuario, u.nombre_usuario, u.correo AS correo_usuario
     FROM factura f
-             JOIN cliente c ON f.cod_cli = c.cod_cli
-             JOIN detalle_factura df ON df.cod_fact = f.cod_fact
-             JOIN producto p ON df.cod_prod = p.cod_prod
+    JOIN cliente c ON f.cod_cli = c.cod_cli
+    -- LEFT JOIN para que no falle si el usuario fue eliminado
+    LEFT JOIN usuario u ON f.cod_usuario = u.cod_usuario
     WHERE f.cod_fact = p_cod_fact;
+END$$
+DELIMITER ;
+
+-- Obtiene los detalles de la factura
+DROP PROCEDURE IF EXISTS sp_obtener_factura_detalles;
+DELIMITER $$
+CREATE PROCEDURE sp_obtener_factura_detalles(IN p_cod_fact VARCHAR(25))
+BEGIN
+    SELECT
+        p.cod_prod,
+        p.descripcion,
+        df.cantidad,
+        p.precio_unit
+    FROM detalle_factura df
+    JOIN producto p ON df.cod_prod = p.cod_prod
+    WHERE df.cod_fact = p_cod_fact;
 END$$
 
 -- Muestra los N productos más vendidos en el día actual --
