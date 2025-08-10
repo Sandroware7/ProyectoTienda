@@ -58,6 +58,8 @@ DROP PROCEDURE IF EXISTS `sp_obtener_top_n_productos_mas_vendidos`;
 DROP PROCEDURE IF EXISTS `sp_buscar_n_clientes`;
 DROP PROCEDURE IF EXISTS `sp_obtener_top_clientes_frecuentes`;
 DROP PROCEDURE IF EXISTS `sp_obtener_historial_compras_cliente`;
+DROP PROCEDURE IF EXISTS `sp_obtener_siguiente_codigo_factura`;
+
 
 -- Triggers de Validación
 DROP TRIGGER IF EXISTS `validar_datos_al_crear_cliente`;
@@ -584,19 +586,17 @@ END$$
 -- Crea el procedimiento para listar todos los clientes (Agregado)
 CREATE PROCEDURE sp_listar_clientes()
 BEGIN
-    SELECT
-        cod_cli,
-        nombre,
-        apellido,
-        dni,
-        direccion_cli,
-        telefono,
-        correo,
-        cod_usuario,
-        fecha_crea,
-        fecha_modif
-    FROM
-        cliente;
+    SELECT cod_cli,
+           nombre,
+           apellido,
+           dni,
+           direccion_cli,
+           telefono,
+           correo,
+           cod_usuario,
+           fecha_crea,
+           fecha_modif
+    FROM cliente;
 END$$
 
 -- READ - Obtener cliente por código --
@@ -677,7 +677,7 @@ END$$
 -- Devuelve datos del usuario --
 CREATE PROCEDURE IF NOT EXISTS sp_obtener_usuario(IN p_usuario VARCHAR(50))
 BEGIN
-    SELECT cod_usuario, nombre_usuario, clave, correo  FROM usuario WHERE nombre_usuario = p_usuario;
+    SELECT cod_usuario, nombre_usuario, clave, correo FROM usuario WHERE nombre_usuario = p_usuario;
 END$$
 
 -- Devuelve la cantidad de productos con stock menor a un valor dado (p_stock) --
@@ -758,14 +758,25 @@ END$$
 -- Obtiene la cabecera de la factura
 CREATE PROCEDURE sp_obtener_factura_cabecera(IN p_cod_fact VARCHAR(25))
 BEGIN
-    SELECT
-        f.cod_fact, f.subtotal, f.igv, f.total, f.fecha_emision,
-        c.cod_cli, c.nombre, c.apellido, c.dni, c.direccion_cli, c.telefono, c.correo AS correo_cliente,
-        u.cod_usuario, u.nombre_usuario, u.correo AS correo_usuario
+    SELECT f.cod_fact,
+           f.subtotal,
+           f.igv,
+           f.total,
+           f.fecha_emision,
+           c.cod_cli,
+           c.nombre,
+           c.apellido,
+           c.dni,
+           c.direccion_cli,
+           c.telefono,
+           c.correo AS correo_cliente,
+           u.cod_usuario,
+           u.nombre_usuario,
+           u.correo AS correo_usuario
     FROM factura f
-    JOIN cliente c ON f.cod_cli = c.cod_cli
-    -- LEFT JOIN para que no falle si el usuario fue eliminado
-    LEFT JOIN usuario u ON f.cod_usuario = u.cod_usuario
+             JOIN cliente c ON f.cod_cli = c.cod_cli
+        -- LEFT JOIN para que no falle si el usuario fue eliminado
+             LEFT JOIN usuario u ON f.cod_usuario = u.cod_usuario
     WHERE f.cod_fact = p_cod_fact;
 END$$
 DELIMITER ;
@@ -775,13 +786,12 @@ DROP PROCEDURE IF EXISTS sp_obtener_factura_detalles;
 DELIMITER $$
 CREATE PROCEDURE sp_obtener_factura_detalles(IN p_cod_fact VARCHAR(25))
 BEGIN
-    SELECT
-        p.cod_prod,
-        p.descripcion,
-        df.cantidad,
-        p.precio_unit
+    SELECT p.cod_prod,
+           p.descripcion,
+           df.cantidad,
+           p.precio_unit
     FROM detalle_factura df
-    JOIN producto p ON df.cod_prod = p.cod_prod
+             JOIN producto p ON df.cod_prod = p.cod_prod
     WHERE df.cod_fact = p_cod_fact;
 END$$
 
@@ -896,169 +906,231 @@ BEGIN
     ORDER BY f.fecha_emision DESC;
 END$$
 
+-- Devuelve el siguiente código de factura sin incrementar el contador
+CREATE PROCEDURE sp_obtener_siguiente_codigo_factura()
+BEGIN
+    DECLARE v_siguiente_valor INT;
+
+    -- Solo consultamos el valor actual del contador de facturas
+    SELECT siguiente_valor
+    INTO v_siguiente_valor
+    FROM contador_codigos
+    WHERE id_contador = 'FACTURA';
+
+    -- Devolvemos el código formateado que se generaría
+    SELECT CONCAT('FACT-', YEAR(CURDATE()), '-', LPAD(v_siguiente_valor, 5, '0')) AS siguiente_codigo;
+END$$
 DELIMITER ;
 
 -- ================================================================= --
 -- INSERTS PARA LA TABLA 'usuario' (3 usuarios)
 -- ================================================================= --
-INSERT INTO `usuario` (`cod_usuario`, `nombre_usuario`, `clave`, `correo`) VALUES
-('USR-00001', 'jorge.perez', 'hash_clave_123', 'jorge.perez@tienda.com'),
-('USR-00002', 'ana.gomez', 'hash_clave_456', 'ana.gomez@tienda.com'),
-('USR-00003', 'admin', 'hash_clave_admin', 'admin@tienda.com');
+INSERT INTO `usuario` (`cod_usuario`, `nombre_usuario`, `clave`, `correo`)
+VALUES ('USR-00001', 'jorge.perez', 'hash_clave_123', 'jorge.perez@tienda.com'),
+       ('USR-00002', 'ana.gomez', 'hash_clave_456', 'ana.gomez@tienda.com'),
+       ('USR-00003', 'admin', 'hash_clave_admin', 'admin@tienda.com');
 
 -- ================================================================= --
 -- INSERTS PARA LA TABLA 'cliente' (20 clientes)
 -- ================================================================= --
-INSERT INTO `cliente` (`cod_cli`, `nombre`, `apellido`, `dni`, `direccion_cli`, `telefono`, `correo`, `cod_usuario`) VALUES
-('CLI-00001', 'Carlos', 'Sánchez López', '71234567', 'Av. Larco 543, Trujillo', '987654321', 'carlos.sanchez@email.com', 'USR-00001'),
-('CLI-00002', 'Mariela', 'Torres Vega', '87654321', 'Jr. Pizarro 210, Trujillo', '912345678', 'mariela.torres@email.com', 'USR-00002'),
-('CLI-00003', 'Luis', 'Rojas Mendoza', '45678901', 'Calle Los Jazmines 112, Urb. California', '998877665', 'luis.rojas@email.com', 'USR-00001'),
-('CLI-00004', 'Sofia', 'Quispe Flores', '23456789', 'Psj. Las Orquídeas 404, La Esperanza', '955443322', 'sofia.quispe@email.com', 'USR-00002'),
-('CLI-00005', 'Fernando', 'Gutiérrez Ramos', '41238976', 'Av. España 1050, Trujillo', '944332211', 'fernando.g@email.com', 'USR-00001'),
-('CLI-00006', 'Valeria', 'Chávez Díaz', '65432109', 'Calle San Martín 330, Moche', '933221100', 'valeria.c@email.com', 'USR-00001'),
-('CLI-00007', 'Ricardo', 'Vargas Castillo', '78901234', 'Urb. El Golf, Mz. B Lote 5', '922110099', 'ricardo.v@email.com', 'USR-00002'),
-('CLI-00008', 'Camila', 'Benites Paredes', '54321098', 'Av. América Oeste 789, Trujillo', '911009988', 'camila.b@email.com', 'USR-00001'),
-('CLI-00009', 'Mateo', 'Silva Acosta', '89012345', 'Jr. Independencia 645, Trujillo', '988776655', 'mateo.s@email.com', 'USR-00002'),
-('CLI-00010', 'Luciana', 'Castro Ortiz', '67890123', 'Calle Zela 222, Trujillo', '977665544', 'luciana.c@email.com', 'USR-00001'),
-('CLI-00011', 'Javier', 'Reyes Ríos', '43210987', 'Av. Mansiche 1234, Trujillo', '966554433', 'javier.r@email.com', 'USR-00001'),
-('CLI-00012', 'Daniela', 'Flores Núñez', '78904561', 'Urb. Santa Inés, Calle 4', '955443322', 'daniela.f@email.com', 'USR-00002'),
-('CLI-00013', 'Alejandro', 'Ponce Soto', '56789012', 'Jr. Almagro 555, Trujillo', '944332211', 'alejandro.p@email.com', 'USR-00001'),
-('CLI-00014', 'Gabriela', 'Morales León', '90123456', 'Av. Fátima 810, Urb. La Merced', '933221100', 'gabriela.m@email.com', 'USR-00002'),
-('CLI-00015', 'Sebastián', 'Guerrero Cruz', '65438721', 'Calle Las Begonias 301, Urb. Primavera', '922110099', 'sebastian.g@email.com', 'USR-00001'),
-('CLI-00016', 'Isabella', 'Salazar Peña', '45612389', 'Av. Juan Pablo II 450, Trujillo', '911009988', 'isabella.s@email.com', 'USR-00002'),
-('CLI-00017', 'Diego', 'Luna Espinoza', '89034567', 'Jr. Ayacucho 780, Trujillo', '988776655', 'diego.luna@email.com', 'USR-00001'),
-('CLI-00018', 'Valentina', 'Rojas Solano', '67891234', 'Urb. Los Cedros, Mz. F Lote 10', '977665544', 'valentina.r@email.com', 'USR-00001'),
-('CLI-00019', 'Adrián', 'Campos Medina', '43219876', 'Calle Estete 444, Trujillo', '966554433', 'adrian.c@email.com', 'USR-00002'),
-('CLI-00020', 'Mariana', 'Vásquez Torres', '78905671', 'Av. Húsares de Junín 910, Trujillo', '955443322', 'mariana.v@email.com', 'USR-00001');
+INSERT INTO `cliente` (`cod_cli`, `nombre`, `apellido`, `dni`, `direccion_cli`, `telefono`, `correo`, `cod_usuario`)
+VALUES ('CLI-00001', 'Carlos', 'Sánchez López', '71234567', 'Av. Larco 543, Trujillo', '987654321',
+        'carlos.sanchez@email.com', 'USR-00001'),
+       ('CLI-00002', 'Mariela', 'Torres Vega', '87654321', 'Jr. Pizarro 210, Trujillo', '912345678',
+        'mariela.torres@email.com', 'USR-00002'),
+       ('CLI-00003', 'Luis', 'Rojas Mendoza', '45678901', 'Calle Los Jazmines 112, Urb. California', '998877665',
+        'luis.rojas@email.com', 'USR-00001'),
+       ('CLI-00004', 'Sofia', 'Quispe Flores', '23456789', 'Psj. Las Orquídeas 404, La Esperanza', '955443322',
+        'sofia.quispe@email.com', 'USR-00002'),
+       ('CLI-00005', 'Fernando', 'Gutiérrez Ramos', '41238976', 'Av. España 1050, Trujillo', '944332211',
+        'fernando.g@email.com', 'USR-00001'),
+       ('CLI-00006', 'Valeria', 'Chávez Díaz', '65432109', 'Calle San Martín 330, Moche', '933221100',
+        'valeria.c@email.com', 'USR-00001'),
+       ('CLI-00007', 'Ricardo', 'Vargas Castillo', '78901234', 'Urb. El Golf, Mz. B Lote 5', '922110099',
+        'ricardo.v@email.com', 'USR-00002'),
+       ('CLI-00008', 'Camila', 'Benites Paredes', '54321098', 'Av. América Oeste 789, Trujillo', '911009988',
+        'camila.b@email.com', 'USR-00001'),
+       ('CLI-00009', 'Mateo', 'Silva Acosta', '89012345', 'Jr. Independencia 645, Trujillo', '988776655',
+        'mateo.s@email.com', 'USR-00002'),
+       ('CLI-00010', 'Luciana', 'Castro Ortiz', '67890123', 'Calle Zela 222, Trujillo', '977665544',
+        'luciana.c@email.com', 'USR-00001'),
+       ('CLI-00011', 'Javier', 'Reyes Ríos', '43210987', 'Av. Mansiche 1234, Trujillo', '966554433',
+        'javier.r@email.com', 'USR-00001'),
+       ('CLI-00012', 'Daniela', 'Flores Núñez', '78904561', 'Urb. Santa Inés, Calle 4', '955443322',
+        'daniela.f@email.com', 'USR-00002'),
+       ('CLI-00013', 'Alejandro', 'Ponce Soto', '56789012', 'Jr. Almagro 555, Trujillo', '944332211',
+        'alejandro.p@email.com', 'USR-00001'),
+       ('CLI-00014', 'Gabriela', 'Morales León', '90123456', 'Av. Fátima 810, Urb. La Merced', '933221100',
+        'gabriela.m@email.com', 'USR-00002'),
+       ('CLI-00015', 'Sebastián', 'Guerrero Cruz', '65438721', 'Calle Las Begonias 301, Urb. Primavera', '922110099',
+        'sebastian.g@email.com', 'USR-00001'),
+       ('CLI-00016', 'Isabella', 'Salazar Peña', '45612389', 'Av. Juan Pablo II 450, Trujillo', '911009988',
+        'isabella.s@email.com', 'USR-00002'),
+       ('CLI-00017', 'Diego', 'Luna Espinoza', '89034567', 'Jr. Ayacucho 780, Trujillo', '988776655',
+        'diego.luna@email.com', 'USR-00001'),
+       ('CLI-00018', 'Valentina', 'Rojas Solano', '67891234', 'Urb. Los Cedros, Mz. F Lote 10', '977665544',
+        'valentina.r@email.com', 'USR-00001'),
+       ('CLI-00019', 'Adrián', 'Campos Medina', '43219876', 'Calle Estete 444, Trujillo', '966554433',
+        'adrian.c@email.com', 'USR-00002'),
+       ('CLI-00020', 'Mariana', 'Vásquez Torres', '78905671', 'Av. Húsares de Junín 910, Trujillo', '955443322',
+        'mariana.v@email.com', 'USR-00001');
 
 -- ================================================================= --
 -- INSERTS PARA LA TABLA 'producto' (30 productos)
 -- ================================================================= --
-INSERT INTO `producto` (`cod_prod`, `descripcion`, `precio_unit`, `stock_actual`, `ruta_imagen`, `cod_usuario`) VALUES
-('PROD-00001', 'Laptop Gamer Nitro 5, 15.6" FHD, Core i7, 16GB RAM, 512GB SSD', 4899.00, 25, '/img/laptop_nitro5.png', 'USR-00003'),
-('PROD-00002', 'Mouse Gamer Logitech G502 Hero, 16000 DPI, RGB', 250.00, 80, '/img/mouse_g502.png', 'USR-00003'),
-('PROD-00003', 'Teclado Mecánico Redragon Kumara K552, Switch Red, RGB', 220.50, 75, '/img/teclado_kumara.png', 'USR-00003'),
-('PROD-00004', 'Monitor Curvo Samsung Odyssey G5 27" QHD 144Hz', 1550.00, 30, '/img/monitor_odyssey.png', 'USR-00003'),
-('PROD-00005', 'Audífonos HyperX Cloud II, 7.1 Surround, Rojo', 380.00, 100, '/img/audifonos_cloud2.png', 'USR-00003'),
-('PROD-00006', 'Webcam Logitech C920 Pro HD 1080p', 320.00, 60, '/img/webcam_c920.png', 'USR-00003'),
-('PROD-00007', 'Disco Sólido SSD Kingston A400, 480GB, SATA III', 180.00, 120, '/img/ssd_kingston.png', 'USR-00003'),
-('PROD-00008', 'Memoria RAM Corsair Vengeance RGB Pro 16GB (2x8GB) DDR4 3200MHz', 450.00, 50, '/img/ram_corsair.png', 'USR-00003'),
-('PROD-00009', 'Fuente de Poder Gigabyte P650B 650W 80+ Bronze', 310.00, 45, '/img/fuente_gigabyte.png', 'USR-00003'),
-('PROD-00010', 'Case Mid Tower NZXT H510, Vidrio Templado, Negro', 420.00, 35, '/img/case_nzxt.png', 'USR-00003'),
-('PROD-00011', 'Tarjeta de Video NVIDIA GeForce RTX 3060 12GB GDDR6', 2200.00, 15, '/img/gpu_rtx3060.png', 'USR-00003'),
-('PROD-00012', 'Placa Madre ASUS TUF GAMING B550-PLUS, AM4, ATX', 850.00, 25, '/img/placa_asus.png', 'USR-00003'),
-('PROD-00013', 'Procesador AMD Ryzen 5 5600X, 6-Core, 12-Hilos, 4.6GHz', 950.00, 40, '/img/cpu_ryzen5.png', 'USR-00003'),
-('PROD-00014', 'Cooler para CPU Cooler Master Hyper 212 Black Edition', 210.00, 50, '/img/cooler_hyper212.png', 'USR-00003'),
-('PROD-00015', 'Mousepad Gamer HyperX Fury S Pro, Extra Large', 130.00, 90, '/img/mousepad_hyperx.png', 'USR-00003'),
-('PROD-00016', 'Silla Gamer Cougar Armor One, Naranja', 980.00, 20, '/img/silla_cougar.png', 'USR-00003'),
-('PROD-00017', 'Micrófono HyperX QuadCast S, USB, RGB', 750.00, 25, '/img/mic_quadcast.png', 'USR-00003'),
-('PROD-00018', 'Parlantes Logitech Z200 2.0, 10W, Negro', 160.00, 60, '/img/parlantes_z200.png', 'USR-00003'),
-('PROD-00019', 'Disco Duro Externo Seagate Expansion 2TB USB 3.0', 300.00, 70, '/img/disco_seagate.png', 'USR-00003'),
-('PROD-00020', 'Impresora Multifuncional Epson EcoTank L3250', 899.00, 30, '/img/impresora_epson.png', 'USR-00003'),
-('PROD-00021', 'Laptop de Oficina HP 15, Core i5, 8GB RAM, 256GB SSD', 2800.00, 40, '/img/laptop_hp15.png', 'USR-00003'),
-('PROD-00022', 'Monitor de Oficina LG 24" IPS FullHD', 750.00, 50, '/img/monitor_lg24.png', 'USR-00003'),
-('PROD-00023', 'Teclado Inalámbrico Logitech MK270 con Mouse', 150.00, 100, '/img/combo_mk270.png', 'USR-00003'),
-('PROD-00024', 'Router TP-Link Archer C6, WiFi AC1200, Doble Banda', 200.00, 60, '/img/router_archer.png', 'USR-00003'),
-('PROD-00025', 'Adaptador USB WiFi TP-Link Archer T2U Nano', 70.00, 80, '/img/adapter_t2u.png', 'USR-00003'),
-('PROD-00026', 'Cable HDMI 2.0, 4K, 2 metros', 40.00, 150, '/img/cable_hdmi.png', 'USR-00003'),
-('PROD-00027', 'Limpiador de Pantalla en Spray con Paño Microfibra', 25.00, 200, '/img/limpiador.png', 'USR-00003'),
-('PROD-00028', 'Hub USB 3.0 de 4 Puertos', 50.00, 100, '/img/hub_usb.png', 'USR-00003'),
-('PROD-00029', 'Estabilizador de Voltaje Forza FVR-1202USB, 8 Tomas', 95.00, 70, '/img/estabilizador.png', 'USR-00003'),
-('PROD-00030', 'Memoria USB Kingston DataTraveler 64GB 3.2', 45.00, 250, '/img/usb_kingston.png', 'USR-00003');
+INSERT INTO `producto` (`cod_prod`, `descripcion`, `precio_unit`, `stock_actual`, `ruta_imagen`, `cod_usuario`)
+VALUES ('PROD-00001', 'Laptop Gamer Nitro 5, 15.6" FHD, Core i7, 16GB RAM, 512GB SSD', 4899.00, 25,
+        '/img/laptop_nitro5.png', 'USR-00003'),
+       ('PROD-00002', 'Mouse Gamer Logitech G502 Hero, 16000 DPI, RGB', 250.00, 80, '/img/mouse_g502.png', 'USR-00003'),
+       ('PROD-00003', 'Teclado Mecánico Redragon Kumara K552, Switch Red, RGB', 220.50, 75, '/img/teclado_kumara.png',
+        'USR-00003'),
+       ('PROD-00004', 'Monitor Curvo Samsung Odyssey G5 27" QHD 144Hz', 1550.00, 30, '/img/monitor_odyssey.png',
+        'USR-00003'),
+       ('PROD-00005', 'Audífonos HyperX Cloud II, 7.1 Surround, Rojo', 380.00, 100, '/img/audifonos_cloud2.png',
+        'USR-00003'),
+       ('PROD-00006', 'Webcam Logitech C920 Pro HD 1080p', 320.00, 60, '/img/webcam_c920.png', 'USR-00003'),
+       ('PROD-00007', 'Disco Sólido SSD Kingston A400, 480GB, SATA III', 180.00, 120, '/img/ssd_kingston.png',
+        'USR-00003'),
+       ('PROD-00008', 'Memoria RAM Corsair Vengeance RGB Pro 16GB (2x8GB) DDR4 3200MHz', 450.00, 50,
+        '/img/ram_corsair.png', 'USR-00003'),
+       ('PROD-00009', 'Fuente de Poder Gigabyte P650B 650W 80+ Bronze', 310.00, 45, '/img/fuente_gigabyte.png',
+        'USR-00003'),
+       ('PROD-00010', 'Case Mid Tower NZXT H510, Vidrio Templado, Negro', 420.00, 35, '/img/case_nzxt.png',
+        'USR-00003'),
+       ('PROD-00011', 'Tarjeta de Video NVIDIA GeForce RTX 3060 12GB GDDR6', 2200.00, 15, '/img/gpu_rtx3060.png',
+        'USR-00003'),
+       ('PROD-00012', 'Placa Madre ASUS TUF GAMING B550-PLUS, AM4, ATX', 850.00, 25, '/img/placa_asus.png',
+        'USR-00003'),
+       ('PROD-00013', 'Procesador AMD Ryzen 5 5600X, 6-Core, 12-Hilos, 4.6GHz', 950.00, 40, '/img/cpu_ryzen5.png',
+        'USR-00003'),
+       ('PROD-00014', 'Cooler para CPU Cooler Master Hyper 212 Black Edition', 210.00, 50, '/img/cooler_hyper212.png',
+        'USR-00003'),
+       ('PROD-00015', 'Mousepad Gamer HyperX Fury S Pro, Extra Large', 130.00, 90, '/img/mousepad_hyperx.png',
+        'USR-00003'),
+       ('PROD-00016', 'Silla Gamer Cougar Armor One, Naranja', 980.00, 20, '/img/silla_cougar.png', 'USR-00003'),
+       ('PROD-00017', 'Micrófono HyperX QuadCast S, USB, RGB', 750.00, 25, '/img/mic_quadcast.png', 'USR-00003'),
+       ('PROD-00018', 'Parlantes Logitech Z200 2.0, 10W, Negro', 160.00, 60, '/img/parlantes_z200.png', 'USR-00003'),
+       ('PROD-00019', 'Disco Duro Externo Seagate Expansion 2TB USB 3.0', 300.00, 70, '/img/disco_seagate.png',
+        'USR-00003'),
+       ('PROD-00020', 'Impresora Multifuncional Epson EcoTank L3250', 899.00, 30, '/img/impresora_epson.png',
+        'USR-00003'),
+       ('PROD-00021', 'Laptop de Oficina HP 15, Core i5, 8GB RAM, 256GB SSD', 2800.00, 40, '/img/laptop_hp15.png',
+        'USR-00003'),
+       ('PROD-00022', 'Monitor de Oficina LG 24" IPS FullHD', 750.00, 50, '/img/monitor_lg24.png', 'USR-00003'),
+       ('PROD-00023', 'Teclado Inalámbrico Logitech MK270 con Mouse', 150.00, 100, '/img/combo_mk270.png', 'USR-00003'),
+       ('PROD-00024', 'Router TP-Link Archer C6, WiFi AC1200, Doble Banda', 200.00, 60, '/img/router_archer.png',
+        'USR-00003'),
+       ('PROD-00025', 'Adaptador USB WiFi TP-Link Archer T2U Nano', 70.00, 80, '/img/adapter_t2u.png', 'USR-00003'),
+       ('PROD-00026', 'Cable HDMI 2.0, 4K, 2 metros', 40.00, 150, '/img/cable_hdmi.png', 'USR-00003'),
+       ('PROD-00027', 'Limpiador de Pantalla en Spray con Paño Microfibra', 25.00, 200, '/img/limpiador.png',
+        'USR-00003'),
+       ('PROD-00028', 'Hub USB 3.0 de 4 Puertos', 50.00, 100, '/img/hub_usb.png', 'USR-00003'),
+       ('PROD-00029', 'Estabilizador de Voltaje Forza FVR-1202USB, 8 Tomas', 95.00, 70, '/img/estabilizador.png',
+        'USR-00003'),
+       ('PROD-00030', 'Memoria USB Kingston DataTraveler 64GB 3.2', 45.00, 250, '/img/usb_kingston.png', 'USR-00003');
 
 -- ================================================================= --
 -- INSERTS PARA 'factura' Y 'detalle_factura' (25 facturas)
 -- ================================================================= --
 
 -- ------ FACTURA 1 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00001', 'CLI-00001', 5149.00, 926.82, 6075.82, '2025-07-01 10:30:00', 'USR-00001');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00001', 'PROD-00001', 1, 'USR-00001'),
-('FACT-2025-00001', 'PROD-00002', 1, 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00001', 'CLI-00001', 5149.00, 926.82, 6075.82, '2025-07-01 10:30:00', 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00001', 'PROD-00001', 1, 'USR-00001'),
+       ('FACT-2025-00001', 'PROD-00002', 1, 'USR-00001');
 
 -- ------ FACTURA 2 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00002', 'CLI-00002', 820.50, 147.69, 968.19, '2025-07-02 15:00:00', 'USR-00002');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00002', 'PROD-00003', 1, 'USR-00002'),
-('FACT-2025-00002', 'PROD-00005', 1, 'USR-00002'),
-('FACT-2025-00002', 'PROD-00006', 1, 'USR-00002');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00002', 'CLI-00002', 820.50, 147.69, 968.19, '2025-07-02 15:00:00', 'USR-00002');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00002', 'PROD-00003', 1, 'USR-00002'),
+       ('FACT-2025-00002', 'PROD-00005', 1, 'USR-00002'),
+       ('FACT-2025-00002', 'PROD-00006', 1, 'USR-00002');
 
 -- ------ FACTURA 3 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00003', 'CLI-00001', 1550.00, 279.00, 1829.00, '2025-07-03 09:15:00', 'USR-00001');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00003', 'PROD-00004', 1, 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00003', 'CLI-00001', 1550.00, 279.00, 1829.00, '2025-07-03 09:15:00', 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00003', 'PROD-00004', 1, 'USR-00001');
 
 -- ------ FACTURA 4 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00004', 'CLI-00003', 540.00, 97.20, 637.20, '2025-07-04 11:45:00', 'USR-00002');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00004', 'PROD-00007', 3, 'USR-00002');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00004', 'CLI-00003', 540.00, 97.20, 637.20, '2025-07-04 11:45:00', 'USR-00002');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00004', 'PROD-00007', 3, 'USR-00002');
 
 -- ------ FACTURA 5 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00005', 'CLI-00005', 3150.00, 567.00, 3717.00, '2025-07-05 18:00:00', 'USR-00001');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00005', 'PROD-00013', 1, 'USR-00001'),
-('FACT-2025-00005', 'PROD-00012', 1, 'USR-00001'),
-('FACT-2025-00005', 'PROD-00008', 2, 'USR-00001'),
-('PROD-00009', 1, 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00005', 'CLI-00005', 3150.00, 567.00, 3717.00, '2025-07-05 18:00:00', 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00005', 'PROD-00013', 1, 'USR-00001'),
+       ('FACT-2025-00005', 'PROD-00012', 1, 'USR-00001'),
+       ('FACT-2025-00005', 'PROD-00008', 2, 'USR-00001');
 
 -- ------ FACTURA 6 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00006', 'CLI-00010', 980.00, 176.40, 1156.40, '2025-07-06 12:20:00', 'USR-00002');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00006', 'PROD-00016', 1, 'USR-00002');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00006', 'CLI-00010', 980.00, 176.40, 1156.40, '2025-07-06 12:20:00', 'USR-00002');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00006', 'PROD-00016', 1, 'USR-00002');
 
 -- ------ FACTURA 7 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00007', 'CLI-00008', 350.00, 63.00, 413.00, '2025-07-07 14:00:00', 'USR-00001');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00007', 'PROD-00025', 5, 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00007', 'CLI-00008', 350.00, 63.00, 413.00, '2025-07-07 14:00:00', 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00007', 'PROD-00025', 5, 'USR-00001');
 
 -- ------ FACTURA 8 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00008', 'CLI-00015', 2200.00, 396.00, 2596.00, '2025-07-08 11:00:00', 'USR-00002');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00008', 'PROD-00011', 1, 'USR-00002');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00008', 'CLI-00015', 2200.00, 396.00, 2596.00, '2025-07-08 11:00:00', 'USR-00002');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00008', 'PROD-00011', 1, 'USR-00002');
 
 -- ------ FACTURA 9 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00009', 'CLI-00020', 1000.00, 180.00, 1180.00, '2025-07-09 16:30:00', 'USR-00001');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00009', 'PROD-00017', 1, 'USR-00001'),
-('FACT-2025-00009', 'PROD-00002', 1, 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00009', 'CLI-00020', 1000.00, 180.00, 1180.00, '2025-07-09 16:30:00', 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00009', 'PROD-00017', 1, 'USR-00001'),
+       ('FACT-2025-00009', 'PROD-00002', 1, 'USR-00001');
 
 -- ------ FACTURA 10 ------
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES ('FACT-2025-00010', 'CLI-00004', 3550.00, 639.00, 4189.00, '2025-07-10 10:10:00', 'USR-00001');
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00010', 'PROD-00021', 1, 'USR-00001'),
-('FACT-2025-00010', 'PROD-00022', 1, 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00010', 'CLI-00004', 3550.00, 639.00, 4189.00, '2025-07-10 10:10:00', 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00010', 'PROD-00021', 1, 'USR-00001'),
+       ('FACT-2025-00010', 'PROD-00022', 1, 'USR-00001');
 
 -- Continúa con más facturas... (11-25)
-INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`) VALUES
-('FACT-2025-00011', 'CLI-00006', 150.00, 27.00, 177.00, '2025-07-11 19:00:00', 'USR-00002'),
-('FACT-2025-00012', 'CLI-00012', 400.00, 72.00, 472.00, '2025-07-12 13:00:00', 'USR-00001'),
-('FACT-2025-00013', 'CLI-00018', 380.00, 68.40, 448.40, '2025-07-13 15:45:00', 'USR-00002'),
-('FACT-2025-00014', 'CLI-00009', 240.00, 43.20, 283.20, '2025-07-14 09:30:00', 'USR-00001'),
-('FACT-2025-00015', 'CLI-00007', 899.00, 161.82, 1060.82, '2025-07-15 17:00:00', 'USR-00002'),
-('FACT-2025-00016', 'CLI-00011', 135.00, 24.30, 159.30, '2025-07-16 11:25:00', 'USR-00001'),
-('FACT-2025-00017', 'CLI-00016', 760.00, 136.80, 896.80, '2025-07-17 14:10:00', 'USR-00002'),
-('FACT-2025-00018', 'CLI-00002', 200.00, 36.00, 236.00, '2025-07-18 16:50:00', 'USR-00001'),
-('FACT-2025-00019', 'CLI-00019', 300.00, 54.00, 354.00, '2025-07-19 10:00:00', 'USR-00002'),
-('FACT-2025-00020', 'CLI-00014', 2800.00, 504.00, 3304.00, '2025-07-20 12:00:00', 'USR-00001'),
-('FACT-2025-00021', 'CLI-00003', 441.00, 79.38, 520.38, '2025-08-01 09:00:00', 'USR-00001'),
-('FACT-2025-00022', 'CLI-00013', 150.00, 27.00, 177.00, '2025-08-02 11:30:00', 'USR-00002'),
-('FACT-2025-00023', 'CLI-00005', 95.00, 17.10, 112.10, '2025-08-03 16:00:00', 'USR-00001'),
-('FACT-2025-00024', 'CLI-00017', 630.00, 113.40, 743.40, '2025-08-04 18:20:00', 'USR-00002'),
-('FACT-2025-00025', 'CLI-00001', 500.00, 90.00, 590.00, '2025-08-05 14:00:00', 'USR-00001');
+INSERT INTO `factura` (`cod_fact`, `cod_cli`, `subtotal`, `igv`, `total`, `fecha_emision`, `cod_usuario`)
+VALUES ('FACT-2025-00011', 'CLI-00006', 150.00, 27.00, 177.00, '2025-07-11 19:00:00', 'USR-00002'),
+       ('FACT-2025-00012', 'CLI-00012', 400.00, 72.00, 472.00, '2025-07-12 13:00:00', 'USR-00001'),
+       ('FACT-2025-00013', 'CLI-00018', 380.00, 68.40, 448.40, '2025-07-13 15:45:00', 'USR-00002'),
+       ('FACT-2025-00014', 'CLI-00009', 240.00, 43.20, 283.20, '2025-07-14 09:30:00', 'USR-00001'),
+       ('FACT-2025-00015', 'CLI-00007', 899.00, 161.82, 1060.82, '2025-07-15 17:00:00', 'USR-00002'),
+       ('FACT-2025-00016', 'CLI-00011', 135.00, 24.30, 159.30, '2025-07-16 11:25:00', 'USR-00001'),
+       ('FACT-2025-00017', 'CLI-00016', 760.00, 136.80, 896.80, '2025-07-17 14:10:00', 'USR-00002'),
+       ('FACT-2025-00018', 'CLI-00002', 200.00, 36.00, 236.00, '2025-07-18 16:50:00', 'USR-00001'),
+       ('FACT-2025-00019', 'CLI-00019', 300.00, 54.00, 354.00, '2025-07-19 10:00:00', 'USR-00002'),
+       ('FACT-2025-00020', 'CLI-00014', 2800.00, 504.00, 3304.00, '2025-07-20 12:00:00', 'USR-00001'),
+       ('FACT-2025-00021', 'CLI-00003', 441.00, 79.38, 520.38, '2025-08-01 09:00:00', 'USR-00001'),
+       ('FACT-2025-00022', 'CLI-00013', 150.00, 27.00, 177.00, '2025-08-02 11:30:00', 'USR-00002'),
+       ('FACT-2025-00023', 'CLI-00005', 95.00, 17.10, 112.10, '2025-08-03 16:00:00', 'USR-00001'),
+       ('FACT-2025-00024', 'CLI-00017', 630.00, 113.40, 743.40, '2025-08-04 18:20:00', 'USR-00002'),
+       ('FACT-2025-00025', 'CLI-00001', 500.00, 90.00, 590.00, '2025-08-05 14:00:00', 'USR-00001');
 
-INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`) VALUES
-('FACT-2025-00011', 'PROD-00023', 1, 'USR-00002'),
-('FACT-2025-00012', 'PROD-00018', 2, 'USR-00001'),
-('FACT-2025-00013', 'PROD-00005', 1, 'USR-00002'),
-('FACT-2025-00014', 'PROD-00002', 1, 'USR-00001'),
-('FACT-2025-00015', 'PROD-00020', 1, 'USR-00002'),
-('FACT-2025-00016', 'PROD-00030', 3, 'USR-00001'),
-('FACT-2025-00017', 'PROD-00005', 2, 'USR-00002'),
-('FACT-2025-00018', 'PROD-00024', 1, 'USR-00001'),
-('FACT-2025-00019', 'PROD-00019', 1, 'USR-00002'),
-('FACT-2025-00020', 'PROD-00021', 1, 'USR-00001'),
-('FACT-2025-00021', 'PROD-00003', 2, 'USR-00001'),
-('FACT-2025-00022', 'PROD-00015', 1, 'USR-00002'),
-('FACT-2025-00023', 'PROD-00029', 1, 'USR-00001'),
-('FACT-2025-00024', 'PROD-00014', 3, 'USR-00002'),
-('FACT-2025-00025', 'PROD-00002', 2, 'USR-00001');
+INSERT INTO `detalle_factura` (`cod_fact`, `cod_prod`, `cantidad`, `cod_usuario`)
+VALUES ('FACT-2025-00011', 'PROD-00023', 1, 'USR-00002'),
+       ('FACT-2025-00012', 'PROD-00018', 2, 'USR-00001'),
+       ('FACT-2025-00013', 'PROD-00005', 1, 'USR-00002'),
+       ('FACT-2025-00014', 'PROD-00002', 1, 'USR-00001'),
+       ('FACT-2025-00015', 'PROD-00020', 1, 'USR-00002'),
+       ('FACT-2025-00016', 'PROD-00030', 3, 'USR-00001'),
+       ('FACT-2025-00017', 'PROD-00005', 2, 'USR-00002'),
+       ('FACT-2025-00018', 'PROD-00024', 1, 'USR-00001'),
+       ('FACT-2025-00019', 'PROD-00019', 1, 'USR-00002'),
+       ('FACT-2025-00020', 'PROD-00021', 1, 'USR-00001'),
+       ('FACT-2025-00021', 'PROD-00003', 2, 'USR-00001'),
+       ('FACT-2025-00022', 'PROD-00015', 1, 'USR-00002'),
+       ('FACT-2025-00023', 'PROD-00029', 1, 'USR-00001'),
+       ('FACT-2025-00024', 'PROD-00014', 3, 'USR-00002'),
+       ('FACT-2025-00025', 'PROD-00002', 2, 'USR-00001');

@@ -38,7 +38,7 @@ public class FacturaDAOImpl implements FacturaDAO {
                             null,
                             rs.getString("nombre_usuario"),
                             rs.getString("correo_usuario"));
-                    
+
                     ClienteDTO cliente = new ClienteDTO(
                             rs.getString("cod_cli"),
                             rs.getString("nombre"),
@@ -156,5 +156,19 @@ public class FacturaDAOImpl implements FacturaDAO {
                 }
             }
         }
+    }
+
+    // Dentro de FacturaDAOImpl.java
+    @Override
+    public String obtenerSiguienteCodigo() throws DAOException {
+        String sql = "{CALL sp_obtener_siguiente_codigo_factura()}";
+        try (Connection conn = Conexion.obtenerConexion(); CallableStatement cstmt = conn.prepareCall(sql); ResultSet rs = cstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("siguiente_codigo");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Error al obtener el siguiente código de factura", e);
+        }
+        return null; // O lanzar una excepción si no se encuentra
     }
 }

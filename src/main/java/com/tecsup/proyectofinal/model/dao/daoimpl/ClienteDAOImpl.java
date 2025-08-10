@@ -1,12 +1,8 @@
 package com.tecsup.proyectofinal.model.dao.daoimpl;
 
-import java.sql.*;
 import com.tecsup.proyectofinal.util.Conexion;
 import com.tecsup.proyectofinal.model.dto.ClienteDTO;
 import com.tecsup.proyectofinal.model.dao.ClienteDAO;
-import com.tecsup.proyectofinal.model.dto.ClienteFrecuenteDTO;
-import com.tecsup.proyectofinal.model.dto.HistorialCompraDTO;
-import java.time.LocalDate;
 import com.tecsup.proyectofinal.util.DAOException;
 import com.tecsup.proyectofinal.util.SesionActual;
 import java.sql.CallableStatement;

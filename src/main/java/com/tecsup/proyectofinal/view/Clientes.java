@@ -5,7 +5,7 @@
 package com.tecsup.proyectofinal.view;
 
 // Asegúrate de importar tu controlador y otros componentes de Swing necesarios
-import com.tecsup.proyectofinal.controller.ClienteControlador;
+import com.tecsup.proyectofinal.controller.ClienteController;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel; // Importar DefaultTableModel
 public class Clientes extends javax.swing.JFrame {
     
         // 1. DECLARAR EL CONTROLADOR
-    private ClienteControlador controlador;
+    private ClienteController controlador;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Clientes.class.getName());
 
@@ -32,7 +32,7 @@ public class Clientes extends javax.swing.JFrame {
         
         // 2. INSTANCIAR EL CONTROLADOR
         // Le pasamos 'this' para que el controlador tenga una referencia a esta ventana (la vista)
-        this.controlador = new ClienteControlador(this);
+        this.controlador = new ClienteController(this);
     }
     
     

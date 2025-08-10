@@ -35,5 +35,7 @@ public interface FacturaDAO {
      * @throws DAOException si ocurre un error durante la consulta.
      */
     Optional<FacturaDetalladaDTO> obtenerFacturaDetallada(String codigoFactura) throws DAOException;
+    
+    String obtenerSiguienteCodigo() throws DAOException;
 
 }

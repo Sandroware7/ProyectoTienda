@@ -154,6 +154,7 @@ public class ReporteDAOImpl implements ReporteDAO {
                 }
             }
         } catch (SQLException e) {
+            System.out.println(e);
             throw new DAOException("Error al buscar clientes", e);
         }
         return clientes.isEmpty() ? Optional.empty() : Optional.of(clientes);
