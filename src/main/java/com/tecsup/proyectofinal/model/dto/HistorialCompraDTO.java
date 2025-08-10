@@ -16,4 +16,13 @@ public record HistorialCompraDTO(
         LocalDate fechaCompra,
         int cantidad) {
 
+    @Override
+    public String toString() {
+        return "HistorialCompraDTO{" 
+                + "codProducto=" + codProducto 
+                + ", descripcion=" + descripcion 
+                + ", fechaCompra=" + fechaCompra 
+                + ", cantidad=" + cantidad + '}';
+    }
+
 }

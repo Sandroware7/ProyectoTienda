@@ -13,5 +13,14 @@ public record ClienteFrecuenteDTO(
         String codCliente,
         String nombre,
         String apellido) {
+
+    @Override
+    public String toString() {
+        return "ClienteFrecuenteDTO{" 
+                + "posicion=" + posicion 
+                + ", codCliente=" + codCliente 
+                + ", nombre=" + nombre + ", apellido=" 
+                + apellido + '}';
+    }
     
 }

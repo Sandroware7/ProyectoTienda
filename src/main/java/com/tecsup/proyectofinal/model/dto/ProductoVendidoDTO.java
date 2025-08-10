@@ -15,4 +15,14 @@ public record ProductoVendidoDTO(
         int totalCantidadVendida,
         double totalVendido) {
 
+    @Override
+    public String toString() {
+        return "ProductoVendidoDTO{" 
+                + "codigoProducto=" + codigoProducto 
+                + ", descripcionProducto=" + descripcionProducto 
+                + ", stockActual=" + stockActual 
+                + ", totalCantidadVendida=" + totalCantidadVendida 
+                + ", totalVendido=" + totalVendido + '}';
+    }
+
 }

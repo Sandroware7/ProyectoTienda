@@ -1,6 +1,7 @@
 package com.tecsup.proyectofinal.model.dto;
 
 public record UsuarioDTO(
+        String codUsuario,
         String nombreUsuario,
         String clave,
         String correo) {
@@ -8,6 +9,7 @@ public record UsuarioDTO(
     @Override
     public String toString() {
         return "usuario_DTO{"
+                + "codUsuario=" + codUsuario
                 + "nombreUsuario=" + nombreUsuario
                 + ", clave=" + clave
                 + ", correo=" + correo + '}';

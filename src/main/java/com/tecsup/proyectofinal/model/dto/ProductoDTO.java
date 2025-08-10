@@ -10,9 +10,9 @@ public record ProductoDTO(
         BigDecimal precioUnit,
         int stockActual,
         String rutaImagen,
-        int codUsuario,
-        Optional<Timestamp>  fechaCrea,
-        Optional<Timestamp> fechaModif) {
+        String codUsuario,
+        Timestamp  fechaCrea,
+        Timestamp fechaModif) {
 
     @Override
     public String toString() {

@@ -15,4 +15,12 @@ public record VentaRecienteDTO(
         String clienteNombreCompleto,
         double total) {
 
+    @Override
+    public String toString() {
+        return "VentaRecienteDTO{"
+                + "fechaEmision=" + fechaEmision
+                + ", clienteNombreCompleto=" + clienteNombreCompleto
+                + ", total=" + total + '}';
+    }
+
 }

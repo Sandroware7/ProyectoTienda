@@ -17,4 +17,14 @@ public record ProductoRecienteDTO(
         LocalDateTime fechaCrea,
         LocalDateTime fechaModif) {
 
+    @Override
+    public String toString() {
+        return "ProductoRecienteDTO{" 
+                + "codProd=" + codProd 
+                + ", descripcion=" + descripcion 
+                + ", stockActual=" + stockActual 
+                + ", fechaCrea=" + fechaCrea 
+                + ", fechaModif=" + fechaModif + '}';
+    }
+
 }

@@ -10,7 +10,7 @@ public record ClienteDTO(
         String telefono,
         String correo,
         String direccionCli,
-        int codUsuario,
+        String codUsuario,
         Timestamp fechaCrea,
         Timestamp fechaModif) {
     

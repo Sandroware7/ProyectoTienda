@@ -4,7 +4,7 @@ public record DetalleFacturaDTO(
         String codFact,
         String codProd,
         int cantidad,
-        int codUsuario
+        String codUsuario
         ) {
 
     @Override
